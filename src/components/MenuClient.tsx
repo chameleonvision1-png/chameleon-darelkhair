@@ -483,8 +483,8 @@ export default function MenuClient({
               )}
             </div>
 
-            {/* Filter Chips */}
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar w-full md:w-auto md:flex-1 min-w-0 -mx-4 px-4 sm:mx-0 sm:px-0 py-1.5">
+            {/* Filter Chips — Full-bleed edge-to-edge on mobile */}
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar md:w-auto md:flex-1 -mx-4 px-4 sm:mx-0 sm:px-0 py-1.5">
               {filters.map((f) => {
                 const active = filter === f.id && view !== "sheets";
                 return (
@@ -518,42 +518,42 @@ export default function MenuClient({
               })}
             </div>
 
-            {/* View Toggle */}
-            <div className="flex items-center bg-white p-1 rounded-full border border-[#027443]/25 shrink-0 self-start md:self-auto max-w-full overflow-x-auto no-scrollbar">
+            {/* View Toggle — Fits 100% cleanly on mobile without clipping */}
+            <div className="grid grid-cols-3 sm:flex items-center bg-white p-1 rounded-full border border-[#027443]/25 shrink-0 w-full sm:w-auto">
               <button
                 type="button"
                 onClick={() => setView("menu")}
-                className={`shrink-0 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black transition-colors cursor-pointer ${
+                className={`inline-flex items-center justify-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-black transition-colors cursor-pointer whitespace-nowrap ${
                   view === "menu"
                     ? "bg-[#027443] text-white shadow-xs"
                     : "text-[#111613]/75 hover:text-[#027443]"
                 }`}
               >
-                <ListIcon className="w-3.5 h-3.5" />
+                <ListIcon className="w-3.5 h-3.5 shrink-0" />
                 <span>الكتالوج التفاعلي</span>
               </button>
               <button
                 type="button"
                 onClick={() => setView("grid")}
-                className={`shrink-0 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black transition-colors cursor-pointer ${
+                className={`inline-flex items-center justify-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-black transition-colors cursor-pointer whitespace-nowrap ${
                   view === "grid"
                     ? "bg-[#027443] text-white shadow-xs"
                     : "text-[#111613]/75 hover:text-[#027443]"
                 }`}
               >
-                <GridIcon className="w-3.5 h-3.5" />
+                <GridIcon className="w-3.5 h-3.5 shrink-0" />
                 <span>بطاقات</span>
               </button>
               <button
                 type="button"
                 onClick={() => setView("sheets")}
-                className={`shrink-0 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black transition-colors cursor-pointer ${
+                className={`inline-flex items-center justify-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-black transition-colors cursor-pointer whitespace-nowrap ${
                   view === "sheets"
                     ? "bg-[#027443] text-white shadow-xs"
                     : "text-[#111613]/75 hover:text-[#027443]"
                 }`}
               >
-                <span>مجلة العروض (9 صفحات)</span>
+                <span>صور المجلة (9)</span>
               </button>
             </div>
           </div>
