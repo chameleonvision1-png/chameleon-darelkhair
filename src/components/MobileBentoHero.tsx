@@ -153,8 +153,8 @@ export default function MobileBentoHero() {
           </Link>
         </div>
 
-        {/* Top Editorial Header inside Green Stage (Clear of Top-Right Cutout Notch) */}
-        <div dir="rtl" className="relative z-20 pr-1 pl-14 text-right">
+        {/* Top Editorial Header inside Green Stage (Clear of Top-Right Cutout Notch via pr-16) */}
+        <div dir="rtl" className="relative z-20 pr-16 pl-1 text-right">
           <div className="flex items-center justify-start gap-2 mb-1.5">
             <span className="inline-flex items-center px-3 py-0.5 rounded-full bg-[#FAA006] text-[#111613] text-[11px] font-black shadow-xs">
               {slide.badge}

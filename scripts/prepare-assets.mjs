@@ -242,17 +242,15 @@ await sharp(cheeseRaw.data, { raw: cheeseRaw.info })
   .webp({ quality: 94 })
   .toFile(path.join(publicDir, "images/cheese-fino-stage.webp"));
 
-// Second Cheese & Fino Visual (Full editorial top + stage from page-8.jpg for 200 EGP bundle card)
-const page8Path = path.join(scratchDir, "page-8.jpg");
-const page8Meta = await sharp(page8Path).metadata();
-await sharp(page8Path)
+// Second Cheese & Fino Visual (Close-up Fino Bakery & School Bag scene without top poster text so badges never overlap text)
+await sharp(cheeseRaw.data, { raw: cheeseRaw.info })
   .extract({
-    left: 0,
-    top: 0,
-    width: page8Meta.width,
-    height: Math.round(page8Meta.height * 0.602),
+    left: 220,
+    top: 35,
+    width: 835,
+    height: 535,
   })
-  .webp({ quality: 92 })
+  .webp({ quality: 94 })
   .toFile(path.join(publicDir, "images/cheese-fino-200.webp"));
 
 // Hypermarket aisle backdrop
