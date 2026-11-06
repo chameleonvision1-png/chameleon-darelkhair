@@ -211,32 +211,60 @@ export default function Footer({ data }: { data: PublicData }) {
             </div>
           </div>
 
-          {/* 3. BOTTOM COPYRIGHT BAR + CHAMELEON BADGE + ONDERA OLIVE CIRCLE UP-ARROW (`↑`) */}
-          <div
-            dir="ltr"
-            className="px-6 sm:px-10 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/55"
-          >
-            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-              <span>© {new Date().getFullYear()} Dar El Khair Hyper Market. All rights reserved.</span>
-              <span className="opacity-35">•</span>
-              <a
-                href="https://chameleon.vision"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-bold text-white/80 hover:text-[#FAA006] transition-colors"
-              >
-                Powered by Chameleon
-              </a>
+          {/* 3. BOTTOM COPYRIGHT BAR + ADMIN LINK + "POWERED BY CHAMELEON" PILL BADGE */}
+          <div className="px-6 sm:px-10 py-5 flex flex-col lg:flex-row items-center justify-between gap-4 text-xs text-white/65 text-center">
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-1.5 sm:gap-3">
+              <span className="font-bold text-white/85">
+                جميع الحقوق محفوظة — دار الخير هايبر ماركت • مدينة بدر
+              </span>
+              <div className="flex items-center justify-center gap-2 text-[11px]">
+                <span>خدمة ٢٤ ساعة: 01270158888</span>
+                <span className="opacity-40">•</span>
+                <Link
+                  href="/admin"
+                  className="font-extrabold text-[#FAA006] hover:underline transition-colors"
+                >
+                  لوحة تحكم الإدارة
+                </Link>
+              </div>
             </div>
 
-            <button
-              type="button"
-              onClick={scrollToTop}
-              aria-label="العودة لأعلى الصفحة"
-              className="w-10 h-10 rounded-full bg-[#027443] hover:bg-[#FAA006] text-white hover:text-[#111613] grid place-items-center text-base font-black transition shadow-md cursor-pointer"
+            <div
+              className="flex flex-wrap items-center justify-center gap-2.5"
+              dir="ltr"
             >
-              ↑
-            </button>
+              <span className="text-[11px] font-bold text-white/55 whitespace-nowrap">
+                © {new Date().getFullYear()} DAR EL KHAIR HYPER MARKET
+              </span>
+              <a
+                href="https://chameleon.vision/"
+                target="_blank"
+                rel="noopener noreferrer"
+                dir="ltr"
+                className="group inline-flex items-center justify-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.08] hover:bg-[#027443] text-white border border-white/15 hover:border-[#FAA006]/50 transition-all duration-200 shadow-xs whitespace-nowrap"
+              >
+                <span className="text-[11px] font-semibold tracking-wide text-white/80 group-hover:text-white whitespace-nowrap">
+                  Powered by
+                </span>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/chameleon-logo.webp"
+                  alt="Chameleon"
+                  className="h-4 w-auto object-contain shrink-0 transition-transform duration-200 group-hover:scale-105"
+                />
+                <span className="text-xs font-black tracking-wider text-[#FAA006] whitespace-nowrap">
+                  Chameleon
+                </span>
+              </a>
+              <button
+                type="button"
+                onClick={scrollToTop}
+                aria-label="العودة لأعلى الصفحة"
+                className="w-9 h-9 rounded-full bg-[#027443] hover:bg-[#FAA006] text-white hover:text-[#111613] grid place-items-center text-sm font-black transition cursor-pointer shrink-0"
+              >
+                ↑
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -82,7 +82,7 @@ const MenuChapters = memo(function MenuChapters({
             key={c.id}
             id={`cat-${c.id}`}
             ref={(el) => setSectionRef(c.id, el)}
-            className="scroll-mt-32 w-full max-w-full min-w-0 overflow-hidden bg-white rounded-[32px] p-4 sm:p-6 border border-[#027443]/18 shadow-[0_10px_28px_-14px_rgba(2,116,67,0.1)]"
+            className="scroll-mt-36 w-full max-w-full min-w-0 overflow-hidden bg-white rounded-[32px] p-4 sm:p-6 border border-[#027443]/18 shadow-[0_10px_28px_-14px_rgba(2,116,67,0.1)]"
           >
             {/* Menu Chapter Header */}
             <div className="flex items-center gap-3.5 sm:gap-4 mb-5 pb-4 border-b border-[#027443]/12 min-w-0">
@@ -165,13 +165,8 @@ export default function MenuClient({
   const [activeCat, setActiveCat] = useState(initialCat ?? categories[0]?.id);
   const activeCatRef = useRef(activeCat);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
+  const stickyBarRef = useRef<HTMLDivElement>(null);
   const pillsRef = useRef<HTMLDivElement>(null);
-  const innerTrackRef = useRef<HTMLDivElement>(null);
-  const [pillIndicator, setPillIndicator] = useState<{
-    left: number;
-    width: number;
-    ready: boolean;
-  }>({ left: 0, width: 0, ready: false });
   const isJumpingRef = useRef(false);
   const jumpTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pillRafRef = useRef<number>(0);
@@ -229,17 +224,6 @@ export default function MenuClient({
     return map;
   }, [filtered]);
 
-  const syncPillIndicator = useCallback((catId: string) => {
-    const track = innerTrackRef.current;
-    const pill = track?.querySelector<HTMLElement>(`[data-cat="${catId}"]`);
-    if (!track || !pill) return;
-    setPillIndicator({
-      left: pill.offsetLeft,
-      width: pill.offsetWidth,
-      ready: true,
-    });
-  }, []);
-
   const centerActivePill = useCallback((catId: string, immediate = false) => {
     const box = pillsRef.current;
     const pill = box?.querySelector<HTMLElement>(`[data-cat="${catId}"]`);
@@ -273,7 +257,7 @@ export default function MenuClient({
 
     animatingCatRef.current = catId;
     const startTime = performance.now();
-    const duration = Math.min(500, Math.max(380, Math.abs(delta) * 1.45));
+    const duration = Math.min(360, Math.max(240, Math.abs(delta) * 1.1));
 
     const step = (now: number) => {
       if (isStripTouchingRef.current) {
@@ -282,7 +266,7 @@ export default function MenuClient({
         return;
       }
       const t = Math.min(1, (now - startTime) / duration);
-      const eased = 1 - Math.pow(1 - t, 4);
+      const eased = 1 - Math.pow(1 - t, 3);
       box.scrollLeft = startScrollLeft + delta * eased;
 
       if (t < 1) {
@@ -297,28 +281,23 @@ export default function MenuClient({
 
   useEffect(() => {
     if (!activeCat || view === "sheets") return;
-    syncPillIndicator(activeCat);
     if (!isStripTouchingRef.current) {
       centerActivePill(activeCat, false);
     }
-  }, [activeCat, visibleCats, view, syncPillIndicator, centerActivePill]);
-
-  useEffect(() => {
-    const onResize = () => {
-      if (activeCatRef.current) {
-        syncPillIndicator(activeCatRef.current);
-      }
-    };
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, [syncPillIndicator]);
+  }, [activeCat, visibleCats, view, centerActivePill]);
 
   useEffect(() => {
     if (initialCat) {
-      sectionRefs.current[initialCat]?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+      setTimeout(() => {
+        const el = sectionRefs.current[initialCat];
+        if (!el) return;
+        const stickyBottom = stickyBarRef.current?.getBoundingClientRect().bottom ?? 120;
+        const top = window.scrollY + el.getBoundingClientRect().top - stickyBottom - 14;
+        window.scrollTo({
+          top: Math.max(0, top),
+          behavior: "smooth",
+        });
+      }, 40);
     }
   }, [initialCat]);
 
@@ -326,21 +305,25 @@ export default function MenuClient({
     if (view === "sheets" || visibleCats.length === 0) return;
     let ticking = false;
 
-    const onScroll = () => {
+    const unlockJumpOnManualInput = () => {
       if (isJumpingRef.current) {
-        if (jumpTimerRef.current) clearTimeout(jumpTimerRef.current);
-        jumpTimerRef.current = setTimeout(() => {
-          isJumpingRef.current = false;
-        }, 140);
-        return;
+        isJumpingRef.current = false;
+        if (jumpTimerRef.current) {
+          clearTimeout(jumpTimerRef.current);
+          jumpTimerRef.current = null;
+        }
       }
+    };
 
-      if (ticking) return;
+    const onScroll = () => {
+      if (isJumpingRef.current || ticking) return;
       ticking = true;
 
       window.requestAnimationFrame(() => {
-        const triggerLine = 136;
-        const hysteresis = 24;
+        const stickyBottom =
+          stickyBarRef.current?.getBoundingClientRect().bottom ?? 120;
+        const triggerLine = stickyBottom + 24;
+        const hysteresis = 20;
         const prevId = activeCatRef.current;
         let candidateId = visibleCats[0].id;
 
@@ -366,9 +349,13 @@ export default function MenuClient({
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("wheel", unlockJumpOnManualInput, { passive: true });
+    window.addEventListener("touchmove", unlockJumpOnManualInput, { passive: true });
     onScroll();
     return () => {
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("wheel", unlockJumpOnManualInput);
+      window.removeEventListener("touchmove", unlockJumpOnManualInput);
     };
   }, [visibleCats, view]);
 
@@ -377,24 +364,25 @@ export default function MenuClient({
     isStripTouchingRef.current = false;
     activeCatRef.current = id;
     setActiveCat(id);
-    syncPillIndicator(id);
     centerActivePill(id, false);
 
     isJumpingRef.current = true;
     if (jumpTimerRef.current) clearTimeout(jumpTimerRef.current);
     jumpTimerRef.current = setTimeout(() => {
       isJumpingRef.current = false;
-    }, 500);
+    }, 750);
 
     setTimeout(() => {
       const el = sectionRefs.current[id];
       if (!el) return;
-      const top = window.scrollY + el.getBoundingClientRect().top - 114;
+      const stickyBottom =
+        stickyBarRef.current?.getBoundingClientRect().bottom ?? 120;
+      const top = window.scrollY + el.getBoundingClientRect().top - stickyBottom - 14;
       window.scrollTo({
         top: Math.max(0, top),
         behavior: "smooth",
       });
-    }, 15);
+    }, 10);
   };
 
   const openQrModal = () => {
@@ -496,7 +484,7 @@ export default function MenuClient({
             </div>
 
             {/* Filter Chips */}
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar w-full md:w-auto md:flex-1 min-w-0 py-0.5">
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar w-full md:w-auto md:flex-1 min-w-0 -mx-4 px-4 sm:mx-0 sm:px-0 py-1.5">
               {filters.map((f) => {
                 const active = filter === f.id && view !== "sheets";
                 return (
@@ -572,10 +560,13 @@ export default function MenuClient({
         </div>
       </div>
 
-      {/* Sticky Category Bar */}
+      {/* Sticky Category Bar — Full-bleed edge-to-edge scroll & unclipped vertical padding */}
       {view !== "sheets" && visibleCats.length > 0 && (
-        <div className="sticky top-14 lg:top-16 z-30 w-full max-w-full bg-white/95 backdrop-blur-md border-b border-[#027443]/15 shadow-[0_6px_18px_-12px_rgba(2,116,67,0.16)]">
-          <div className="mx-auto max-w-7xl px-3.5 sm:px-6 lg:px-8 py-2.5 min-w-0">
+        <div
+          ref={stickyBarRef}
+          className="sticky top-14 lg:top-16 z-30 w-full max-w-full bg-white/95 backdrop-blur-md border-b border-[#111613]/[0.08] shadow-[0_8px_20px_-12px_rgba(17,22,19,0.10)]"
+        >
+          <div className="mx-auto max-w-7xl min-w-0">
             <div
               ref={pillsRef}
               onPointerDown={() => {
@@ -590,28 +581,28 @@ export default function MenuClient({
                 if (stripTouchTimerRef.current) clearTimeout(stripTouchTimerRef.current);
                 stripTouchTimerRef.current = setTimeout(() => {
                   isStripTouchingRef.current = false;
-                }, 120);
+                }, 650);
               }}
               onPointerCancel={() => {
                 isStripTouchingRef.current = false;
               }}
-              className="w-full max-w-full overflow-x-auto no-scrollbar py-0.5"
+              onTouchStart={() => {
+                isStripTouchingRef.current = true;
+                if (stripTouchTimerRef.current) clearTimeout(stripTouchTimerRef.current);
+                if (pillRafRef.current) {
+                  cancelAnimationFrame(pillRafRef.current);
+                  pillRafRef.current = 0;
+                }
+              }}
+              onTouchEnd={() => {
+                if (stripTouchTimerRef.current) clearTimeout(stripTouchTimerRef.current);
+                stripTouchTimerRef.current = setTimeout(() => {
+                  isStripTouchingRef.current = false;
+                }, 650);
+              }}
+              className="w-full max-w-full overflow-x-auto no-scrollbar px-3.5 sm:px-6 lg:px-8 py-2.5"
             >
-              <div
-                ref={innerTrackRef}
-                className="relative flex gap-2 items-center min-w-max"
-              >
-                {pillIndicator.ready && (
-                  <div
-                    aria-hidden="true"
-                    style={{
-                      width: `${pillIndicator.width}px`,
-                      transform: `translate3d(${pillIndicator.left}px, 0, 0)`,
-                    }}
-                    className="pointer-events-none absolute top-0 bottom-0 left-0 z-[2] rounded-full bg-[#027443] shadow-[0_6px_16px_-4px_rgba(2,116,67,0.4)] transition-[transform,width] duration-380 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[transform,width]"
-                  />
-                )}
-
+              <div className="flex gap-2 items-center min-w-max">
                 {visibleCats.map((c) => {
                   const active = activeCat === c.id;
                   const countInCat = catCounts[c.id] || 0;
@@ -621,30 +612,29 @@ export default function MenuClient({
                       key={c.id}
                       data-cat={c.id}
                       onClick={() => jump(c.id)}
-                      className={`relative shrink-0 flex items-center gap-2 pe-3.5 ps-1.5 py-1.5 rounded-full text-xs font-black border transition-colors duration-300 cursor-pointer ${
+                      className={`relative shrink-0 flex items-center gap-2 pe-3.5 ps-1.5 py-1.5 rounded-full text-xs font-black border transition-all duration-200 ease-out cursor-pointer ${
                         active
-                          ? pillIndicator.ready
-                            ? "bg-transparent text-white border-transparent"
-                            : "bg-[#027443] text-white border-[#027443]"
-                          : "bg-[#FCFAEB] text-[#111613] border-[#027443]/20 hover:border-[#027443] hover:text-[#027443]"
+                          ? "bg-[#027443] text-white border-[#027443] shadow-[0_3px_9px_-2px_rgba(2,116,67,0.28)]"
+                          : "bg-[#FCFAEB] text-[#111613]/85 border-[#111613]/12 hover:border-[#027443]/45 hover:bg-[#F2FAF5] hover:text-[#027443]"
                       }`}
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={c.image}
                         alt=""
-                        className={`relative z-10 w-6 h-6 rounded-full object-contain bg-white p-0.5 border shrink-0 transition-transform duration-300 ${
+                        className={`w-6 h-6 rounded-full object-contain bg-white p-0.5 border shrink-0 transition-transform duration-200 ${
                           active
                             ? "border-[#FAA006] scale-105"
-                            : "border-[#027443]/15"
+                            : "border-[#111613]/10"
                         }`}
                       />
-                      <span className="relative z-10">{c.nameAr}</span>
+                      <span>{c.nameAr}</span>
                       <span
-                        className={`relative z-10 text-[10px] px-1.5 py-0.2 rounded-full transition-colors duration-300 ${
+                        dir="ltr"
+                        className={`font-en text-[10px] font-black px-2 py-0.5 rounded-full leading-none transition-colors duration-200 ${
                           active
                             ? "bg-[#FAA006] text-[#111613]"
-                            : "bg-white text-[#027443]"
+                            : "bg-white text-[#027443] border border-[#027443]/15"
                         }`}
                       >
                         {countInCat}

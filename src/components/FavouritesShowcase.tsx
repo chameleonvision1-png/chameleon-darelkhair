@@ -21,6 +21,7 @@ const TABS = [
 export default function FavouritesShowcase({ products }: { products: Product[] }) {
   const [tab, setTab] = useState("all");
   const trackRef = useRef<HTMLDivElement>(null);
+  const tabsRef = useRef<HTMLDivElement>(null);
 
   const filtered = useMemo(() => {
     if (tab === "all") {
@@ -84,24 +85,36 @@ export default function FavouritesShowcase({ products }: { products: Product[] }
         </div>
       </div>
 
-      {/* Department Filter Pills */}
-      <div className="mt-5 w-full flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+      {/* Department Filter Pills — Full-bleed edge-to-edge on mobile with unclipped vertical padding */}
+      <div
+        ref={tabsRef}
+        className="mt-4 -mx-4 px-4 sm:mx-0 sm:px-0 flex items-center gap-2 overflow-x-auto no-scrollbar py-2.5"
+      >
         {TABS.map((t) => {
           const active = tab === t.id;
           return (
             <button
               key={t.id}
               type="button"
-              onClick={() => {
+              onClick={(e) => {
                 setTab(t.id);
+                const btn = e.currentTarget;
+                const box = tabsRef.current;
+                if (box && btn) {
+                  const boxRect = box.getBoundingClientRect();
+                  const btnRect = btn.getBoundingClientRect();
+                  const delta =
+                    btnRect.left + btnRect.width * 0.5 - (boxRect.left + boxRect.width * 0.5);
+                  box.scrollBy({ left: delta, behavior: "smooth" });
+                }
                 if (trackRef.current) {
                   trackRef.current.scrollTo({ left: 0, behavior: "smooth" });
                 }
               }}
-              className={`shrink-0 rounded-full px-4 py-2 text-xs sm:text-sm font-black transition-all cursor-pointer ${
+              className={`shrink-0 rounded-full px-4 py-2 text-xs sm:text-sm font-black border transition-all duration-200 cursor-pointer ${
                 active
-                  ? "bg-[#027443] text-white shadow-sm"
-                  : "bg-[#FCFAEB] text-[#111613]/80 border border-[#111613]/10 hover:border-[#027443] hover:text-[#027443]"
+                  ? "bg-[#027443] text-white border-[#027443] shadow-[0_3px_9px_-2px_rgba(2,116,67,0.28)]"
+                  : "bg-[#FCFAEB] text-[#111613]/80 border-[#111613]/12 hover:border-[#027443] hover:text-[#027443]"
               }`}
             >
               {t.label}
