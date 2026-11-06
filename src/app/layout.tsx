@@ -110,6 +110,11 @@ const pwaInitScript = `
     window.__pwaInstallPrompt = null;
     window.dispatchEvent(new Event("pwa-app-installed"));
   });
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function() {
+      navigator.serviceWorker.register("/sw.js", { scope: "/", updateViaCache: "none" }).then(function(reg) { reg.update(); }).catch(function() {});
+    });
+  }
 })();
 `;
 

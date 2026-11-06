@@ -8,13 +8,28 @@ import { useStore } from "./store";
 import { formatPrice } from "@/lib/format";
 import {
   CartIcon,
+  CheckIcon,
   ChevronIcon,
   CloseIcon,
+  DownloadAppIcon,
   PhoneIcon,
   QrCodeIcon,
+  ShareIosIcon,
   WhatsAppIcon,
+  XIcon,
 } from "./icons";
 import MenuQrModal from "./MenuQrModal";
+
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed"; platform: string }>;
+}
+
+declare global {
+  interface Window {
+    __pwaInstallPrompt?: BeforeInstallPromptEvent | null;
+  }
+}
 
 const NAV_LINKS = [
   { href: "/", labelAr: "الرئيسية", labelEn: "HOME" },
@@ -42,7 +57,26 @@ export default function Header() {
   const { count, subtotal, bump, hydrated } = useStore();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [qrOpen, setQrOpen] = useState(false);
+  const [showInstallGuide, setShowInstallGuide] = useState(false);
   const [openAccordion, setOpenAccordion] = useState<"pages" | "cats" | null>("pages");
+  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(() =>
+    typeof window !== "undefined" ? window.__pwaInstallPrompt ?? null : null
+  );
+  const [isStandalone, setIsStandalone] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return (
+      window.matchMedia("(display-mode: standalone)").matches ||
+      (window.navigator as Navigator & { standalone?: boolean }).standalone === true
+    );
+  });
+  const [isIOS] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return (
+      /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
+    );
+  });
+
   const savedScrollYRef = useRef(0);
   const lastPathnameRef = useRef(pathname);
 
@@ -56,6 +90,65 @@ export default function Header() {
       window.removeEventListener("open-mobile-drawer", onOpenDrawer);
     };
   }, []);
+
+  useEffect(() => {
+    const onBeforeInstall = (e: Event) => {
+      e.preventDefault();
+      const promptEvent = e as BeforeInstallPromptEvent;
+      window.__pwaInstallPrompt = promptEvent;
+      setDeferredPrompt(promptEvent);
+    };
+    const onPromptAvailable = () => {
+      if (window.__pwaInstallPrompt) {
+        setDeferredPrompt(window.__pwaInstallPrompt);
+      }
+    };
+    const onInstalled = () => {
+      window.__pwaInstallPrompt = null;
+      setDeferredPrompt(null);
+      setIsStandalone(true);
+      setShowInstallGuide(false);
+    };
+    const mql = window.matchMedia("(display-mode: standalone)");
+    const onDisplayModeChange = (e: MediaQueryListEvent) => {
+      setIsStandalone(e.matches);
+    };
+
+    window.addEventListener("beforeinstallprompt", onBeforeInstall);
+    window.addEventListener("pwa-install-available", onPromptAvailable);
+    window.addEventListener("appinstalled", onInstalled);
+    window.addEventListener("pwa-app-installed", onInstalled);
+    mql.addEventListener("change", onDisplayModeChange);
+
+    return () => {
+      window.removeEventListener("beforeinstallprompt", onBeforeInstall);
+      window.removeEventListener("pwa-install-available", onPromptAvailable);
+      window.removeEventListener("appinstalled", onInstalled);
+      window.removeEventListener("pwa-app-installed", onInstalled);
+      mql.removeEventListener("change", onDisplayModeChange);
+    };
+  }, []);
+
+  const handleInstallClick = async () => {
+    const promptEvent = deferredPrompt || window.__pwaInstallPrompt;
+    if (promptEvent) {
+      try {
+        await promptEvent.prompt();
+        const choice = await promptEvent.userChoice;
+        if (choice.outcome === "accepted") {
+          window.__pwaInstallPrompt = null;
+          setDeferredPrompt(null);
+          setDrawerOpen(false);
+        }
+      } catch {
+        setDrawerOpen(false);
+        setShowInstallGuide(true);
+      }
+      return;
+    }
+    setDrawerOpen(false);
+    setShowInstallGuide(true);
+  };
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -293,7 +386,7 @@ export default function Header() {
                     </span>
                   </div>
 
-                  {/* Quick Shopping Departments + QR Pill Row inside Top Banner (Matches BurgerStorm) */}
+                  {/* Quick Shopping Departments + QR Pill Row inside Top Banner */}
                   <div className="flex items-center gap-2 pt-0.5">
                     <Link
                       href="/menu"
@@ -318,39 +411,7 @@ export default function Header() {
               </div>
 
               {/* 2. Independently Scrollable Middle Content (`flex-1 min-h-0 overflow-y-auto overscroll-contain`) */}
-              <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-4 space-y-3">
-                {/* Shopping Bag (`شنطة المشتريات`) Row inside Sidebar Drawer (Matches alban3sal & BurgerStorm) */}
-                <Link
-                  href="/cart"
-                  onClick={() => setDrawerOpen(false)}
-                  className={`flex items-center justify-between gap-2 px-4 py-3 rounded-2xl font-extrabold text-xs sm:text-sm border transition ${
-                    pathname === "/cart"
-                      ? "bg-[#027443] text-white border-[#027443]"
-                      : "bg-[#FCFAEB] text-[#027443] border-[#027443]/25 hover:border-[#027443]"
-                  }`}
-                >
-                  <span className="flex items-center gap-2 truncate">
-                    <CartIcon className="w-4 h-4 shrink-0" />
-                    <span className="truncate font-black">شنطة المشتريات</span>
-                  </span>
-
-                  <span className="flex items-center gap-1.5 shrink-0">
-                    {hydrated && count > 0 ? (
-                      <span
-                        key={bump}
-                        className="animate-pop px-2.5 py-0.5 rounded-full text-[11px] font-black bg-[#027443] text-white"
-                      >
-                        {count} • {formatPrice(subtotal)}
-                      </span>
-                    ) : (
-                      <span className="text-[11px] font-bold text-[#111613]/60">
-                        عرض الشنطة
-                      </span>
-                    )}
-                    <ChevronIcon className="w-4 h-4 shrink-0" />
-                  </span>
-                </Link>
-
+              <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-4 space-y-2.5">
                 {/* Accordion 1: Main Pages */}
                 <div className="rounded-2xl border border-[#111613]/10 overflow-hidden">
                   <button
@@ -358,7 +419,7 @@ export default function Header() {
                     onClick={() =>
                       setOpenAccordion(openAccordion === "pages" ? null : "pages")
                     }
-                    className="w-full px-4 py-3 bg-[#FCFAEB] flex items-center justify-between text-sm font-black text-[#111613] cursor-pointer"
+                    className="w-full px-4 py-2.5 bg-[#FCFAEB] flex items-center justify-between text-sm font-black text-[#111613] cursor-pointer"
                   >
                     <span>صفحات الموقع</span>
                     <span className="font-en text-xs text-[#027443]">
@@ -372,7 +433,7 @@ export default function Header() {
                           key={item.href}
                           href={item.href}
                           onClick={() => setDrawerOpen(false)}
-                          className="flex items-center justify-between px-4 py-2.5 text-xs font-extrabold hover:bg-[#F2FAF5] transition-colors"
+                          className="flex items-center justify-between px-4 py-2 text-xs font-extrabold hover:bg-[#F2FAF5] transition-colors"
                         >
                           <span className="text-right text-[#111613]">{item.labelAr}</span>
                           <span className="font-en text-[11px] text-[#111613]/45 text-left">
@@ -381,7 +442,7 @@ export default function Header() {
                         </Link>
                       ))}
 
-                      {/* Clean Split Row for `أقسام المشتريات` + `QR` (Matches alban3sal lines 284-311) */}
+                      {/* Clean Split Row for `أقسام المشتريات` + `QR` (Matches alban3sal) */}
                       <div className="flex items-center justify-between gap-2 px-3 py-2 bg-[#FCFAEB]/65">
                         <Link
                           href="/menu"
@@ -445,7 +506,7 @@ export default function Header() {
                           key={cat.href}
                           href={cat.href}
                           onClick={() => setDrawerOpen(false)}
-                          className="flex items-center justify-between px-4 py-2.5 text-xs font-extrabold hover:bg-[#F2FAF5] transition-colors"
+                          className="flex items-center justify-between px-4 py-2 text-xs font-extrabold hover:bg-[#F2FAF5] transition-colors"
                         >
                           <span className="text-right text-[#111613]">{cat.labelAr}</span>
                           <span className="font-en text-[10px] text-[#027443] text-left">
@@ -456,31 +517,81 @@ export default function Header() {
                     </div>
                   )}
                 </div>
+
+                {/* Shopping Bag (`شنطة المشتريات`) + Install Web App (`تنزيل التطبيق`) Section — Matches alban3sal & BurgerStorm */}
+                <div className="pt-1 space-y-2">
+                  <Link
+                    href="/cart"
+                    onClick={() => setDrawerOpen(false)}
+                    className={`flex items-center justify-between gap-2 px-4 py-2.5 rounded-2xl font-extrabold text-xs sm:text-sm border transition ${
+                      pathname === "/cart"
+                        ? "bg-[#027443] text-white border-[#027443]"
+                        : "bg-[#FCFAEB] text-[#027443] border-[#027443]/25 hover:border-[#027443]"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2 truncate">
+                      <CartIcon className="w-4 h-4 shrink-0" />
+                      <span className="truncate font-black">شنطة المشتريات</span>
+                    </span>
+
+                    <span className="flex items-center gap-1.5 shrink-0">
+                      {hydrated && count > 0 ? (
+                        <span
+                          key={bump}
+                          className="animate-pop px-2.5 py-0.5 rounded-full text-[11px] font-black bg-[#027443] text-white"
+                        >
+                          {count} • {formatPrice(subtotal)}
+                        </span>
+                      ) : (
+                        <span className="text-[11px] font-bold text-[#111613]/60">
+                          عرض الشنطة
+                        </span>
+                      )}
+                      <ChevronIcon className="w-4 h-4 shrink-0" />
+                    </span>
+                  </Link>
+
+                  {!isStandalone && (
+                    <button
+                      type="button"
+                      onClick={handleInstallClick}
+                      className="w-full flex items-center justify-between gap-2 px-4 py-2.5 rounded-2xl font-extrabold text-xs sm:text-sm text-[#027443] bg-[#F2FAF5] hover:bg-[#027443] hover:text-white border border-[#027443]/25 transition cursor-pointer"
+                    >
+                      <span className="flex items-center gap-2 truncate">
+                        <DownloadAppIcon className="w-4 h-4 shrink-0" />
+                        <span className="truncate font-black">
+                          تنزيل تطبيق دار الخير (Web App)
+                        </span>
+                      </span>
+                      <ChevronIcon className="w-4 h-4 shrink-0 opacity-75" />
+                    </button>
+                  )}
+                </div>
               </div>
 
               {/* 3. Pinned Bottom Actions in Drawer (`shrink-0`) */}
-              <div className="shrink-0 p-4 pt-3 border-t border-[#111613]/10 bg-white space-y-2">
+              <div className="shrink-0 p-3.5 pt-2.5 border-t border-[#111613]/10 bg-white space-y-2">
                 <div className="grid grid-cols-2 gap-2">
                   <a
                     href="https://wa.me/201270158888"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-full bg-[#027443] text-white py-2.5 px-3 flex items-center justify-center gap-1.5 text-xs font-black"
+                    className="rounded-full bg-[#027443] text-white py-2 px-3 flex items-center justify-center gap-1.5 text-xs font-black"
                   >
                     <WhatsAppIcon className="w-4 h-4" />
                     <span>واتساب الطلبات</span>
                   </a>
                   <a
                     href="tel:01270158888"
-                    className="rounded-full border border-[#111613]/20 bg-white text-[#111613] py-2.5 px-3 flex items-center justify-center gap-1.5 text-xs font-black"
+                    className="rounded-full border border-[#111613]/20 bg-white text-[#111613] py-2 px-3 flex items-center justify-center gap-1.5 text-xs font-black"
                   >
                     <PhoneIcon className="w-3.5 h-3.5 text-[#027443]" />
                     <span className="font-en">01270158888</span>
                   </a>
                 </div>
 
-                {/* Paired Action CTA at bottom of Drawer (Matches BurgerStorm lines 560-580) */}
-                <div className="flex items-center gap-2 pt-0.5">
+                {/* Paired Action CTA at bottom of Drawer (Matches BurgerStorm) */}
+                <div className="flex items-center gap-2">
                   <Link
                     href="/menu"
                     onClick={() => setDrawerOpen(false)}
@@ -503,6 +614,113 @@ export default function Header() {
                 </div>
               </div>
             </aside>
+          </div>,
+          document.body,
+        )}
+
+      {/* PWA Web App Install Guide Modal (Matches alban3sal & BurgerStorm) */}
+      {showInstallGuide &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <div
+            dir="rtl"
+            className="fixed inset-0 z-[95] flex items-end sm:items-center justify-center p-3 sm:p-4 animate-modal-backdrop"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="pwa-install-title"
+          >
+            <div
+              className="absolute inset-0 bg-[#111613]/65 backdrop-blur-xs"
+              onClick={() => setShowInstallGuide(false)}
+            />
+            <div className="relative w-full max-w-md rounded-3xl bg-[#FCFAEB] p-5 sm:p-6 shadow-2xl border-2 border-[#027443]/25 animate-modal-content">
+              <div className="flex items-start justify-between gap-3 mb-4">
+                <div className="flex items-center gap-3">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/icon-192.png"
+                    alt="دار الخير هايبر ماركت"
+                    className="w-12 h-12 rounded-2xl border border-[#027443]/25 bg-[#027443] p-1 object-contain shrink-0"
+                  />
+                  <div className="text-right">
+                    <h3 id="pwa-install-title" className="text-base sm:text-lg font-black text-[#027443]">
+                      تنزيل تطبيق دار الخير هايبر ماركت
+                    </h3>
+                    <p className="text-xs font-semibold text-[#111613]/70 mt-0.5">
+                      ثبّت التطبيق على شاشتك الرئيسية لطلب أسرع في أي وقت بمدينة بدر
+                    </p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowInstallGuide(false)}
+                  aria-label="إغلاق"
+                  className="p-2 rounded-full bg-white text-[#111613]/70 hover:text-[#111613] cursor-pointer"
+                >
+                  <XIcon className="w-4 h-4" />
+                </button>
+              </div>
+
+              {isIOS ? (
+                <div className="space-y-2.5 rounded-2xl bg-white p-4 text-xs sm:text-sm font-bold text-[#111613] border border-[#027443]/15 text-right">
+                  <div className="flex items-center gap-2.5">
+                    <span className="w-6 h-6 rounded-full bg-[#027443] text-white text-xs font-black grid place-items-center shrink-0">
+                      1
+                    </span>
+                    <span className="flex items-center gap-1.5 flex-wrap">
+                      اضغط على زر المشاركة
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#FCFAEB] border border-[#027443]/20 text-[#027443]">
+                        <ShareIosIcon className="w-3.5 h-3.5" />
+                        <span>Share</span>
+                      </span>
+                      في المتصفح
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2.5">
+                    <span className="w-6 h-6 rounded-full bg-[#027443] text-white text-xs font-black grid place-items-center shrink-0">
+                      2
+                    </span>
+                    <span>اختر «إضافة إلى الشاشة الرئيسية» (Add to Home Screen)</span>
+                  </div>
+                  <div className="flex items-center gap-2.5">
+                    <span className="w-6 h-6 rounded-full bg-[#027443] text-white text-xs font-black grid place-items-center shrink-0">
+                      3
+                    </span>
+                    <span>اضغط «إضافة» (Add) بأعلى الشاشة</span>
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-2.5 rounded-2xl bg-white p-4 text-xs sm:text-sm font-bold text-[#111613] border border-[#027443]/15 text-right">
+                  <div className="flex items-center gap-2.5">
+                    <span className="w-6 h-6 rounded-full bg-[#027443] text-white text-xs font-black grid place-items-center shrink-0">
+                      1
+                    </span>
+                    <span>افتح قائمة المتصفح (⋮) في أعلى الشاشة</span>
+                  </div>
+                  <div className="flex items-center gap-2.5">
+                    <span className="w-6 h-6 rounded-full bg-[#027443] text-white text-xs font-black grid place-items-center shrink-0">
+                      2
+                    </span>
+                    <span>اختر «تثبيت التطبيق» أو «الإضافة إلى الشاشة الرئيسية»</span>
+                  </div>
+                  <div className="flex items-center gap-2.5">
+                    <span className="w-6 h-6 rounded-full bg-[#027443] text-white text-xs font-black grid place-items-center shrink-0">
+                      3
+                    </span>
+                    <span>أكد التثبيت ليظهر التطبيق على موبايلك فورًا</span>
+                  </div>
+                </div>
+              )}
+
+              <button
+                type="button"
+                onClick={() => setShowInstallGuide(false)}
+                className="w-full mt-4 rounded-full bg-[#027443] hover:bg-[#111613] text-white font-black text-sm py-3 flex items-center justify-center gap-2 transition cursor-pointer"
+              >
+                <CheckIcon className="w-4 h-4" />
+                <span>تمام، فهمت</span>
+              </button>
+            </div>
           </div>,
           document.body,
         )}
