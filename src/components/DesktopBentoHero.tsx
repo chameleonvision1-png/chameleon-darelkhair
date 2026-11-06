@@ -147,7 +147,7 @@ export default function DesktopBentoHero() {
             </button>
           </div>
 
-          <div className="relative rounded-[28px] bg-[#027443] min-h-[430px] p-7 flex items-end justify-between overflow-hidden">
+          <div className="relative rounded-[28px] bg-[#027443] h-[430px] p-7 flex items-end justify-between overflow-hidden">
             {/* Centerpiece Flush with Bottom Edge (for cart) or Centered cleanly (for department cutouts) */}
             <div
               className={`pointer-events-none absolute inset-x-0 top-0 bottom-0 flex justify-center z-20 ${

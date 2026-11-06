@@ -209,17 +209,19 @@ export default function MobileBentoHero() {
           </button>
         </div>
 
-        {/* Inner Clipped Green Stage */}
-        <div className="relative rounded-[24px] bg-[#027443] min-h-[420px] sm:min-h-[445px] flex flex-col justify-between p-4 pb-0 overflow-hidden">
-          {/* Top Editorial Header inside Green Stage (Clear of Top-Right Cutout Notch via pr-16, zero small overline above title) */}
-          <div dir="rtl" className="relative z-20 pr-16 pl-1 pt-1 text-right">
-            <h2 className="text-lg sm:text-xl font-black text-white leading-snug">
-              {slide.titleAr}
-            </h2>
-            <p className="text-xs font-bold text-[#FCFAEB]/85 leading-snug mt-1">
-              {slide.subtitleAr}
-            </p>
-            <div className="mt-3 flex items-center justify-start gap-2 flex-wrap">
+        {/* Inner Clipped Green Stage — Strict Fixed Height (`h-[456px] sm:h-[476px]`) so page NEVER jumps on slide change */}
+        <div className="relative rounded-[24px] bg-[#027443] h-[456px] sm:h-[476px] flex flex-col justify-between p-4 pb-0 overflow-hidden">
+          {/* Top Editorial Header inside Green Stage (Fixed height region so 1-line vs 2-line text never shifts layout) */}
+          <div dir="rtl" className="relative z-20 pr-16 pl-1 pt-1 text-right h-[122px] shrink-0 flex flex-col justify-between">
+            <div>
+              <h2 className="text-lg sm:text-xl font-black text-white leading-snug truncate">
+                {slide.titleAr}
+              </h2>
+              <p className="text-xs font-bold text-[#FCFAEB]/85 leading-snug mt-1 line-clamp-2 min-h-[2.5em]">
+                {slide.subtitleAr}
+              </p>
+            </div>
+            <div className="flex items-center justify-start gap-2">
               <Link
                 href={slide.href}
                 className="inline-flex items-center gap-1.5 rounded-full bg-white text-[#111613] px-4 py-1.5 text-xs font-black active:scale-95 transition"
@@ -238,29 +240,21 @@ export default function MobileBentoHero() {
 
           {/* =====================================================================
               MIDDLE CALLOUT ZONE: Tilted Callout Note (`ملحوظة`) + Twisted/Looping
-              Yellow SVG Arrows (`#FAA006`) + Decorative Sparkle Shapes
+              Yellow SVG Arrows (`#FAA006`) — Zero AI stars, fixed height (`h-[84px]`)
              ===================================================================== */}
-          <div className="relative z-20 my-2 px-1 flex items-center justify-between gap-2">
+          <div className="relative z-20 px-1 h-[84px] shrink-0 flex items-center justify-between gap-2">
             {/* Left Side: Looping/Twisted Golden Yellow SVG Arrow pointing from note down-right to the product */}
-            <div className="relative shrink-0 w-[96px] sm:w-[115px] h-[72px] pointer-events-none select-none">
+            <div className="relative shrink-0 w-[96px] sm:w-[115px] h-[68px] pointer-events-none select-none">
               <svg
-                viewBox="0 0 130 92"
+                viewBox="0 0 130 88"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-full h-full overflow-visible"
                 aria-hidden="true"
               >
-                {/* Decorative 4-point yellow sparkle star on top-left */}
-                <path
-                  d="M18 8L20.2 14.8L27 17L20.2 19.2L18 26L15.8 19.2L9 17L15.8 14.8L18 8Z"
-                  fill="#FAA006"
-                />
-                {/* Small cream diamond accent */}
-                <circle cx="34" cy="10" r="2.5" fill="#FCFAEB" fillOpacity="0.8" />
-
                 {/* Hand-drawn looping/twisted yellow arrow curving down-right toward the product */}
                 <path
-                  d="M28 24 C 14 42, 22 68, 46 60 C 66 53, 62 28, 44 33 C 28 38, 42 74, 82 76 C 98 77, 108 73, 118 66"
+                  d="M18 18 C 6 38, 16 66, 42 58 C 62 51, 58 24, 40 29 C 24 34, 38 72, 80 74 C 96 75, 108 71, 118 64"
                   stroke="#FAA006"
                   strokeWidth="3.2"
                   strokeLinecap="round"
@@ -268,7 +262,7 @@ export default function MobileBentoHero() {
                 />
                 {/* Arrowhead pointing toward product */}
                 <path
-                  d="M107 60 L 120 65 L 112 77"
+                  d="M107 58 L 120 63 L 112 75"
                   stroke="#FAA006"
                   strokeWidth="3.2"
                   strokeLinecap="round"
@@ -276,9 +270,9 @@ export default function MobileBentoHero() {
                 />
                 {/* Secondary dashed accent arc */}
                 <path
-                  d="M58 18 Q 88 22 104 44"
+                  d="M52 14 Q 84 18 102 40"
                   stroke="#FCFAEB"
-                  strokeOpacity="0.55"
+                  strokeOpacity="0.5"
                   strokeWidth="1.8"
                   strokeLinecap="round"
                   strokeDasharray="4 4"
@@ -291,17 +285,16 @@ export default function MobileBentoHero() {
               dir="rtl"
               className="relative flex-1 max-w-[235px] sm:max-w-[265px] -rotate-1 rounded-2xl bg-[#111613]/28 backdrop-blur-xs border border-[#FAA006]/55 px-3 py-2 text-right shadow-[0_8px_20px_-8px_rgba(0,0,0,0.28)]"
             >
-              {/* Floating Golden Badge Pill on top-right of the note */}
+              {/* Golden Badge Pill on top-right of the note (no stars) */}
               <div className="flex items-center justify-between gap-1.5 mb-0.5">
-                <span className="inline-flex items-center gap-1 rounded-full bg-[#FAA006] text-[#111613] px-2 py-0.5 text-[10px] font-black leading-none">
-                  <span>★</span>
-                  <span>{slide.noteTag}</span>
+                <span className="inline-flex items-center rounded-full bg-[#FAA006] text-[#111613] px-2.5 py-0.5 text-[10px] font-black leading-none">
+                  {slide.noteTag}
                 </span>
                 <span className="font-en text-[10px] tracking-wider text-[#FAA006]">
                   {slide.badge}
                 </span>
               </div>
-              <p className="text-[11px] sm:text-xs font-extrabold text-[#FCFAEB] leading-snug">
+              <p className="text-[11px] sm:text-xs font-extrabold text-[#FCFAEB] leading-snug line-clamp-2 h-[2.6em]">
                 {slide.noteText}
               </p>
 
@@ -329,26 +322,11 @@ export default function MobileBentoHero() {
             </div>
           </div>
 
-          {/* Bottom Stage: Right Transparent Cutout Hero Visual */}
-          <div className="relative z-20 mt-1 pl-[128px] flex items-end justify-center min-h-[215px]">
-            {/* Decorative highlight rays & sparkle behind product */}
-            <svg
-              viewBox="0 0 60 60"
-              fill="none"
-              aria-hidden="true"
-              className="pointer-events-none absolute top-2 right-3 w-8 h-8 text-[#FAA006]"
-            >
-              <path
-                d="M30 6L33 21L48 24L33 27L30 42L27 27L12 24L27 21L30 6Z"
-                fill="currentColor"
-                fillOpacity="0.85"
-              />
-              <circle cx="48" cy="10" r="3" fill="#FCFAEB" fillOpacity="0.75" />
-            </svg>
-
+          {/* Bottom Stage: Strict Fixed Height (`h-[215px] sm:h-[235px]`) so every image fits identically */}
+          <div className="relative z-20 pl-[128px] h-[215px] sm:h-[235px] shrink-0 flex items-end justify-center">
             <div
-              className={`w-full flex justify-center ${
-                slide.id === "fresh-cart" ? "items-end pb-0" : "items-center pb-3"
+              className={`w-full h-full flex justify-center ${
+                slide.id === "fresh-cart" ? "items-end pb-0" : "items-center pb-2"
               }`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -356,10 +334,10 @@ export default function MobileBentoHero() {
                 key={slide.id}
                 src={slide.image}
                 alt={slide.titleAr}
-                className={`w-full max-w-[230px] sm:max-w-[265px] object-contain transition-all duration-300 ${
+                className={`w-full max-w-[230px] sm:max-w-[265px] object-contain transition-opacity duration-300 ${
                   slide.id === "fresh-cart"
-                    ? "h-[220px] sm:h-[245px] object-bottom"
-                    : "h-[185px] sm:h-[205px] object-center"
+                    ? "h-[210px] sm:h-[230px] object-bottom"
+                    : "h-[190px] sm:h-[210px] object-center"
                 }`}
               />
             </div>
