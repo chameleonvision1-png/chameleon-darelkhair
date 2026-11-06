@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { QrCodeIcon } from "./icons";
 
 interface DesktopHeroSlide {
   id: string;
@@ -215,19 +214,6 @@ export default function DesktopBentoHero() {
                 </div>
 
                 <div className="flex items-center gap-1.5">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (typeof window !== "undefined") {
-                        window.dispatchEvent(new CustomEvent("open-menu-qr"));
-                      }
-                    }}
-                    title="باركود المنيو (QR)"
-                    className="rounded-full bg-[#FAA006] hover:bg-white text-[#111613] px-3 py-1.5 text-xs font-black inline-flex items-center gap-1 transition cursor-pointer"
-                  >
-                    <QrCodeIcon className="w-3.5 h-3.5" />
-                    <span className="font-en">QR</span>
-                  </button>
                   <Link
                     href={slide.href}
                     className="rounded-full bg-white hover:bg-[#FAA006] text-[#111613] px-4 py-1.5 text-xs font-black transition"

@@ -5,24 +5,24 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useStore } from "./store";
+import { formatPrice } from "@/lib/format";
 import {
-  BagIcon,
+  CartIcon,
+  ChevronIcon,
   CloseIcon,
   PhoneIcon,
-  PinIcon,
   QrCodeIcon,
-  QrIcon,
   WhatsAppIcon,
 } from "./icons";
 import MenuQrModal from "./MenuQrModal";
 
 const NAV_LINKS = [
-  { href: "/", labelAr: "الرئيسية", labelEn: "Home" },
-  { href: "/offers", labelAr: "مجلة العروض", labelEn: "Magazine" },
-  { href: "/occasions", labelAr: "كرتونة الخير", labelEn: "Boxes" },
-  { href: "/branches", labelAr: "التوصيل بمدينة بدر", labelEn: "Delivery" },
-  { href: "/about", labelAr: "عن دار الخير", labelEn: "About" },
-  { href: "/contact", labelAr: "تواصل معنا", labelEn: "Contact" },
+  { href: "/", labelAr: "الرئيسية", labelEn: "HOME" },
+  { href: "/offers", labelAr: "مجلة العروض", labelEn: "MAGAZINE" },
+  { href: "/occasions", labelAr: "كرتونة الخير", labelEn: "BOXES" },
+  { href: "/branches", labelAr: "التوصيل بمدينة بدر", labelEn: "DELIVERY" },
+  { href: "/about", labelAr: "عن دار الخير", labelEn: "ABOUT" },
+  { href: "/contact", labelAr: "تواصل معنا", labelEn: "CONTACT" },
 ];
 
 const QUICK_CATEGORIES = [
@@ -163,7 +163,7 @@ export default function Header() {
               );
             })}
 
-            {/* Cohesive Split Menu + QR Pill (Matches alban3sal & BurgerStorm) */}
+            {/* Cohesive Split Shopping Departments + QR Pill (Matches alban3sal & BurgerStorm) */}
             <div
               className={`ms-1 inline-flex items-center rounded-full border p-0.5 transition-all ${
                 pathname.startsWith("/menu")
@@ -179,7 +179,7 @@ export default function Header() {
                     : "text-[#027443] hover:bg-white/80"
                 }`}
               >
-                <span>المنيو</span>
+                <span>أقسام المشتريات</span>
               </Link>
               <span
                 className={`w-px h-3.5 ${
@@ -190,8 +190,8 @@ export default function Header() {
               <button
                 type="button"
                 onClick={() => setQrOpen(true)}
-                title="باركود ومشاركة المنيو (QR)"
-                aria-label="باركود ومشاركة المنيو"
+                title="باركود ومشاركة أقسام المشتريات (QR)"
+                aria-label="باركود ومشاركة أقسام المشتريات"
                 className={`ps-2.5 pe-3 py-1 rounded-e-full flex items-center gap-1 text-[11px] font-black transition active:scale-95 cursor-pointer ${
                   pathname.startsWith("/menu")
                     ? "text-[#FAA006] hover:bg-white/15"
@@ -204,38 +204,24 @@ export default function Header() {
             </div>
           </nav>
 
-          {/* Right Side (يمين): Actions + Burger Menu on Far Right (أقصى اليمين) */}
-          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0" dir="ltr">
-            {/* Direct QR Button on Mobile & Desktop */}
-            <button
-              type="button"
-              onClick={() => setQrOpen(true)}
-              title="باركود ومشاركة المنيو (QR)"
-              aria-label="باركود ومشاركة المنيو"
-              className="inline-flex items-center gap-1 rounded-full border border-[#027443]/25 bg-[#FCFAEB] hover:bg-[#027443] text-[#111613] hover:text-white px-2.5 py-1.5 text-xs font-black transition-colors cursor-pointer"
-            >
-              <QrIcon className="w-3.5 h-3.5 text-[#027443] group-hover:text-white" />
-              <span className="font-en text-[11px] tracking-wider">QR</span>
-            </button>
-
-            {/* Cart Pill */}
+          {/* Right Side (يمين): On Mobile ONLY Burger Menu Button; On Desktop Cart Pill */}
+          <div className="flex items-center gap-2 shrink-0" dir="ltr">
+            {/* Desktop Cart Pill (Hidden on mobile so mobile top header has ONLY Logo + Burger Menu button) */}
             <Link
               href="/cart"
               key={bump}
-              className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-[#111613] hover:bg-[#027443] text-white pl-3 pr-1.5 py-1.5 text-xs font-extrabold transition-colors"
+              className="hidden lg:inline-flex items-center gap-2 rounded-full bg-[#111613] hover:bg-[#027443] text-white pl-3.5 pr-1.5 py-1.5 text-xs font-extrabold transition-colors"
             >
-              <span className="font-en tracking-wider hidden sm:inline">
-                CART
-              </span>
+              <span className="font-en tracking-wider">CART</span>
               <span dir="rtl" className="font-bold">
-                {hydrated && count > 0 ? `${count} منتج` : "السلة"}
+                {hydrated && count > 0 ? `${count} منتج` : "شنطة المشتريات"}
               </span>
               <span className="w-6 h-6 rounded-full bg-white text-[#111613] grid place-items-center text-[11px] font-black">
                 {hydrated && count > 0 ? count : "↗"}
               </span>
             </Link>
 
-            {/* Far Right (أقصى اليمين): Architectural Two-Line Burger Menu Button */}
+            {/* Mobile Far Right (أقصى اليمين): ONLY the Burger Menu Button */}
             <button
               type="button"
               onClick={() => setDrawerOpen(true)}
@@ -294,44 +280,77 @@ export default function Header() {
                 </div>
 
                 {/* Status & Delivery Pill */}
-                <div className="rounded-2xl bg-[#027443] text-white p-3 flex items-center justify-between gap-2">
-                  <div>
-                    <div className="text-xs font-black">مفتوح دائمًا ٢٤ ساعة</div>
-                    <div className="text-[11px] text-[#FCFAEB]/85 font-semibold mt-0.5">
-                      توصيل سريع لجميع أحياء مدينة بدر
+                <div className="rounded-2xl bg-[#027443] text-white p-3 space-y-2.5">
+                  <div className="flex items-center justify-between gap-2">
+                    <div>
+                      <div className="text-xs font-black">مفتوح دائمًا ٢٤ ساعة</div>
+                      <div className="text-[11px] text-[#FCFAEB]/85 font-semibold mt-0.5">
+                        توصيل سريع لجميع أحياء مدينة بدر
+                      </div>
                     </div>
+                    <span className="font-en text-[11px] bg-[#FAA006] text-[#111613] px-2.5 py-1 rounded-full font-black shrink-0">
+                      24/7 OPEN
+                    </span>
                   </div>
-                  <span className="font-en text-[11px] bg-[#FAA006] text-[#111613] px-2.5 py-1 rounded-full font-black shrink-0">
-                    24/7 OPEN
-                  </span>
-                </div>
 
-                {/* Quick Menu + QR Pill Row inside Top Drawer Header (Matches BurgerStorm) */}
-                <div className="flex items-center gap-2">
-                  <Link
-                    href="/menu"
-                    onClick={() => setDrawerOpen(false)}
-                    className="flex-1 rounded-xl bg-[#111613] hover:bg-[#027443] text-white py-2.5 px-3.5 font-extrabold text-xs flex items-center justify-between transition"
-                  >
-                    <span>تصفح المنيو الكامل</span>
-                    <span className="font-en text-[#FAA006]">MENU ↗</span>
-                  </Link>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setDrawerOpen(false);
-                      setQrOpen(true);
-                    }}
-                    className="shrink-0 rounded-xl bg-[#FAA006] hover:brightness-105 text-[#111613] py-2.5 px-3.5 font-black text-xs flex items-center gap-1.5 transition active:scale-95 cursor-pointer"
-                  >
-                    <QrCodeIcon className="w-4 h-4 shrink-0" />
-                    <span>QR المنيو</span>
-                  </button>
+                  {/* Quick Shopping Departments + QR Pill Row inside Top Banner (Matches BurgerStorm) */}
+                  <div className="flex items-center gap-2 pt-0.5">
+                    <Link
+                      href="/menu"
+                      onClick={() => setDrawerOpen(false)}
+                      className="flex-1 rounded-full bg-[#FCFAEB] hover:bg-[#FAA006] text-[#027443] hover:text-[#111613] font-black text-xs py-2 px-3.5 text-center transition"
+                    >
+                      تصفح أقسام المشتريات
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setDrawerOpen(false);
+                        setQrOpen(true);
+                      }}
+                      className="shrink-0 rounded-full bg-[#FAA006] hover:bg-white text-[#111613] font-black text-xs py-2 px-3.5 flex items-center gap-1.5 transition active:scale-95 cursor-pointer"
+                    >
+                      <QrCodeIcon className="w-3.5 h-3.5 shrink-0" />
+                      <span>QR الأقسام</span>
+                    </button>
+                  </div>
                 </div>
               </div>
 
               {/* 2. Independently Scrollable Middle Content (`flex-1 min-h-0 overflow-y-auto overscroll-contain`) */}
               <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-4 space-y-3">
+                {/* Shopping Bag (`شنطة المشتريات`) Row inside Sidebar Drawer (Matches alban3sal & BurgerStorm) */}
+                <Link
+                  href="/cart"
+                  onClick={() => setDrawerOpen(false)}
+                  className={`flex items-center justify-between gap-2 px-4 py-3 rounded-2xl font-extrabold text-xs sm:text-sm border transition ${
+                    pathname === "/cart"
+                      ? "bg-[#027443] text-white border-[#027443]"
+                      : "bg-[#FCFAEB] text-[#027443] border-[#027443]/25 hover:border-[#027443]"
+                  }`}
+                >
+                  <span className="flex items-center gap-2 truncate">
+                    <CartIcon className="w-4 h-4 shrink-0" />
+                    <span className="truncate font-black">شنطة المشتريات</span>
+                  </span>
+
+                  <span className="flex items-center gap-1.5 shrink-0">
+                    {hydrated && count > 0 ? (
+                      <span
+                        key={bump}
+                        className="animate-pop px-2.5 py-0.5 rounded-full text-[11px] font-black bg-[#027443] text-white"
+                      >
+                        {count} • {formatPrice(subtotal)}
+                      </span>
+                    ) : (
+                      <span className="text-[11px] font-bold text-[#111613]/60">
+                        عرض الشنطة
+                      </span>
+                    )}
+                    <ChevronIcon className="w-4 h-4 shrink-0" />
+                  </span>
+                </Link>
+
                 {/* Accordion 1: Main Pages */}
                 <div className="rounded-2xl border border-[#111613]/10 overflow-hidden">
                   <button
@@ -362,15 +381,15 @@ export default function Header() {
                         </Link>
                       ))}
 
-                      {/* Clean Menu Link + QR Button Row inside Pages List (Matches alban3sal) */}
-                      <div className="flex items-center justify-between gap-2 px-3 py-2 bg-[#FCFAEB]/60">
+                      {/* Clean Split Row for `أقسام المشتريات` + `QR` (Matches alban3sal lines 284-311) */}
+                      <div className="flex items-center justify-between gap-2 px-3 py-2 bg-[#FCFAEB]/65">
                         <Link
                           href="/menu"
                           onClick={() => setDrawerOpen(false)}
-                          className="flex-1 px-2 py-1.5 rounded-lg text-xs font-black text-[#027443] hover:bg-[#027443]/10 flex items-center justify-between transition"
+                          className="flex-1 px-2 py-1.5 rounded-xl text-xs font-black text-[#027443] hover:bg-[#027443]/10 flex items-center justify-between transition"
                         >
-                          <span>المنيو وأقسام الماركت</span>
-                          <span className="font-en text-[11px] text-[#027443]/70">MENU</span>
+                          <span>أقسام المشتريات</span>
+                          <span className="font-en text-[11px] text-[#027443]/75">MARKET</span>
                         </Link>
                         <button
                           type="button"
@@ -378,8 +397,9 @@ export default function Header() {
                             setDrawerOpen(false);
                             setQrOpen(true);
                           }}
-                          aria-label="باركود ومشاركة المنيو QR"
-                          className="shrink-0 h-8 px-3 rounded-lg bg-[#027443] hover:bg-[#111613] text-white flex items-center justify-center gap-1.5 font-extrabold text-xs transition active:scale-95 cursor-pointer"
+                          aria-label="باركود ومشاركة أقسام المشتريات QR"
+                          title="باركود ومشاركة أقسام المشتريات (QR)"
+                          className="shrink-0 h-8 px-3 rounded-xl bg-[#027443] hover:bg-[#111613] text-white flex items-center justify-center gap-1.5 font-extrabold text-xs transition active:scale-95 cursor-pointer"
                         >
                           <QrCodeIcon className="w-3.5 h-3.5 text-[#FAA006] shrink-0" />
                           <span className="font-en">QR</span>
@@ -389,20 +409,35 @@ export default function Header() {
                   )}
                 </div>
 
-                {/* Accordion 2: Hypermarket Departments */}
+                {/* Accordion 2: Hypermarket Departments (`أقسام المشتريات`) */}
                 <div className="rounded-2xl border border-[#111613]/10 overflow-hidden">
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setOpenAccordion(openAccordion === "cats" ? null : "cats")
-                    }
-                    className="w-full px-4 py-3 bg-[#FCFAEB] flex items-center justify-between text-sm font-black text-[#111613] cursor-pointer"
-                  >
-                    <span>أقسام الهايبر ماركت (٩ أقسام)</span>
-                    <span className="font-en text-xs text-[#027443]">
-                      {openAccordion === "cats" ? "−" : "+"}
-                    </span>
-                  </button>
+                  <div className="w-full px-3 py-2.5 bg-[#FCFAEB] flex items-center justify-between gap-2">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setOpenAccordion(openAccordion === "cats" ? null : "cats")
+                      }
+                      className="flex-1 flex items-center justify-between text-sm font-black text-[#111613] cursor-pointer"
+                    >
+                      <span>أقسام المشتريات (٩ أقسام)</span>
+                      <span className="font-en text-xs text-[#027443] px-1">
+                        {openAccordion === "cats" ? "−" : "+"}
+                      </span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setDrawerOpen(false);
+                        setQrOpen(true);
+                      }}
+                      aria-label="باركود أقسام المشتريات QR"
+                      title="باركود أقسام المشتريات (QR)"
+                      className="shrink-0 h-7 px-2.5 rounded-lg bg-[#FAA006] hover:brightness-105 text-[#111613] flex items-center gap-1 font-black text-[11px] transition active:scale-95 cursor-pointer"
+                    >
+                      <QrCodeIcon className="w-3.5 h-3.5 shrink-0" />
+                      <span className="font-en">QR</span>
+                    </button>
+                  </div>
                   {openAccordion === "cats" && (
                     <div className="divide-y divide-[#111613]/[0.06] bg-white">
                       {QUICK_CATEGORIES.map((cat) => (
@@ -425,20 +460,6 @@ export default function Header() {
 
               {/* 3. Pinned Bottom Actions in Drawer (`shrink-0`) */}
               <div className="shrink-0 p-4 pt-3 border-t border-[#111613]/10 bg-white space-y-2">
-                {hydrated && count > 0 && (
-                  <Link
-                    href="/cart"
-                    onClick={() => setDrawerOpen(false)}
-                    className="w-full rounded-full bg-[#111613] text-white py-2.5 px-4 flex items-center justify-between text-xs font-black"
-                  >
-                    <span className="inline-flex items-center gap-1.5">
-                      <BagIcon className="w-4 h-4 text-[#FAA006]" />
-                      <span>سلة المشتريات ({count})</span>
-                    </span>
-                    <span className="font-en text-[#FAA006]">{subtotal} EGP</span>
-                  </Link>
-                )}
-
                 <div className="grid grid-cols-2 gap-2">
                   <a
                     href="https://wa.me/201270158888"
@@ -458,18 +479,28 @@ export default function Header() {
                   </a>
                 </div>
 
-                {/* Prominent Full-Width QR Menu Button in Drawer Footer */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    setDrawerOpen(false);
-                    setQrOpen(true);
-                  }}
-                  className="w-full rounded-full bg-[#FAA006] hover:brightness-105 text-[#111613] py-2.5 px-4 flex items-center justify-center gap-2 text-xs font-black transition cursor-pointer"
-                >
-                  <QrCodeIcon className="w-4 h-4 shrink-0" />
-                  <span>باركود ومشاركة المنيو (QR)</span>
-                </button>
+                {/* Paired Action CTA at bottom of Drawer (Matches BurgerStorm lines 560-580) */}
+                <div className="flex items-center gap-2 pt-0.5">
+                  <Link
+                    href="/menu"
+                    onClick={() => setDrawerOpen(false)}
+                    className="flex-1 rounded-full bg-[#111613] hover:bg-[#027443] text-white font-black text-xs py-2.5 px-4 text-center transition"
+                  >
+                    اطلب الآن من أقسام المشتريات
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setDrawerOpen(false);
+                      setQrOpen(true);
+                    }}
+                    aria-label="باركود أقسام المشتريات"
+                    title="باركود أقسام المشتريات (QR)"
+                    className="w-10 h-10 rounded-full bg-[#FAA006] text-[#111613] grid place-items-center hover:brightness-105 transition active:scale-95 cursor-pointer shrink-0"
+                  >
+                    <QrCodeIcon className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             </aside>
           </div>,

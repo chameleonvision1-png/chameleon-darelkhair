@@ -12,12 +12,6 @@ export default function Footer({ data }: { data: PublicData }) {
     window.dispatchEvent(new CustomEvent("open-menu-qr"));
   };
 
-  const scrollToTop = () => {
-    if (typeof window !== "undefined") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  };
-
   return (
     <footer className="relative mt-14 px-2.5 sm:px-6 lg:px-8 pb-4 select-none overflow-x-clip">
       <div className="mx-auto max-w-7xl">
@@ -72,7 +66,7 @@ export default function Footer({ data }: { data: PublicData }) {
                   className="rounded-full border border-[#FAA006]/50 hover:border-[#FAA006] bg-[#FAA006]/10 hover:bg-[#FAA006] text-white hover:text-[#111613] py-2.5 px-3 flex items-center justify-center gap-1.5 text-xs font-black transition cursor-pointer"
                 >
                   <QrCodeIcon className="w-4 h-4 text-[#FAA006] group-hover:text-[#111613]" />
-                  <span>باركود المنيو QR</span>
+                  <span>باركود الأقسام QR</span>
                 </button>
               </div>
             </div>
@@ -256,14 +250,6 @@ export default function Footer({ data }: { data: PublicData }) {
                   Chameleon
                 </span>
               </a>
-              <button
-                type="button"
-                onClick={scrollToTop}
-                aria-label="العودة لأعلى الصفحة"
-                className="w-9 h-9 rounded-full bg-[#027443] hover:bg-[#FAA006] text-white hover:text-[#111613] grid place-items-center text-sm font-black transition cursor-pointer shrink-0"
-              >
-                ↑
-              </button>
             </div>
           </div>
         </div>
