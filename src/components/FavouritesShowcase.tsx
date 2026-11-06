@@ -43,17 +43,23 @@ export default function FavouritesShowcase({ products }: { products: Product[] }
   return (
     <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-14 overflow-x-clip">
       {/* ONDERA Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <div>
+      <div
+        dir="ltr"
+        className="flex flex-col md:flex-row md:items-end justify-between gap-4"
+      >
+        <div className="flex flex-col items-start">
           <span className="ondera-label mb-2">
             MAGAZINE CATALOG • كتالوج عروض دار الخير
           </span>
-          <div dir="ltr" className="text-left">
+          <div className="text-left">
             <h2 className="font-en text-3xl sm:text-5xl text-[#111613] leading-[0.94] tracking-tight uppercase">
               CURATED FOR YOUR HOME.
             </h2>
           </div>
-          <p className="mt-2 text-xs sm:text-sm font-black text-[#027443] text-right">
+          <p
+            dir="rtl"
+            className="mt-2 text-xs sm:text-sm font-black text-[#027443] text-right"
+          >
             جميع أصناف مجلة العروض الرسمية متاحة للطلب الفوري والتوصيل في مدينة بدر
           </p>
         </div>

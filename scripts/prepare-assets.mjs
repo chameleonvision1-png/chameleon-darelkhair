@@ -172,6 +172,27 @@ const productMappings = [
 for (const [src, dest] of productMappings) {
   await saveProductImage(src, dest);
 }
+// Special clean crop for Promo Microwave (from page-2.jpg inside the green rounded frame so the table is grounded and not floating in mid-air)
+const page2Path = path.join(scratchDir, "page-2.jpg");
+const page2Meta = await sharp(page2Path).metadata();
+const microCrop = {
+  left: Math.round(page2Meta.width * 0.382),
+  top: Math.round(page2Meta.height * 0.518),
+  width: Math.round(page2Meta.width * 0.522),
+  height: Math.round(page2Meta.height * 0.372),
+};
+await sharp(page2Path)
+  .extract(microCrop)
+  .resize(640, 640, { fit: "cover" })
+  .webp({ quality: 94 })
+  .toFile(path.join(productsDir, "promo-microwave.webp"));
+
+// Also save a full-width microwave stage visual for OfferCard & Bento features
+await sharp(page2Path)
+  .extract(microCrop)
+  .webp({ quality: 94 })
+  .toFile(path.join(publicDir, "images/microwave-stage.webp"));
+
 console.log("Processed", productMappings.length, "product images.");
 
 // 4. Department Illustrations & Hero Visuals
@@ -194,17 +215,45 @@ for (const [src, dest] of deptMappings) {
     .toFile(path.join(deptsDir, dest));
 }
 
-// Hero Cart (from img_215_1055x1491.webp - trim transparent top space so cart is centered and sharp)
+// Hero Cart (from img_215_1055x1491.webp - trim transparent top/sides so bottom of cart is flush with bottom edge of image)
 const heroCartTrimmed = await sharp(path.join(extractedDir, "img_215_1055x1491.webp")).trim().toBuffer();
 await sharp(heroCartTrimmed)
   .webp({ quality: 95 })
   .toFile(path.join(publicDir, "images/hero-cart.webp"));
 
-// Cheese & Fino Bakery Visual (from img_131_1055x1491.webp - crop the middle photo stage y=280..910)
-await sharp(path.join(extractedDir, "img_131_1055x1491.webp"))
-  .extract({ left: 0, top: 280, width: 1055, height: 635 })
-  .webp({ quality: 92 })
+// Cheese & Fino Bakery Visual (from img_131_1055x1491.webp - crop y=318..894 and copy clean sky row y=25 over y=0..22 for x=260..720)
+const cheeseRaw = await sharp(path.join(extractedDir, "img_131_1055x1491.webp"))
+  .extract({ left: 0, top: 318, width: 1055, height: 576 })
+  .ensureAlpha()
+  .raw()
+  .toBuffer({ resolveWithObject: true });
+
+for (let y = 0; y < 22; y++) {
+  for (let x = 335; x < 720; x++) {
+    const dstIdx = (y * cheeseRaw.info.width + x) * 4;
+    const srcIdx = (25 * cheeseRaw.info.width + x) * 4;
+    cheeseRaw.data[dstIdx] = cheeseRaw.data[srcIdx];
+    cheeseRaw.data[dstIdx + 1] = cheeseRaw.data[srcIdx + 1];
+    cheeseRaw.data[dstIdx + 2] = cheeseRaw.data[srcIdx + 2];
+    cheeseRaw.data[dstIdx + 3] = cheeseRaw.data[srcIdx + 3];
+  }
+}
+await sharp(cheeseRaw.data, { raw: cheeseRaw.info })
+  .webp({ quality: 94 })
   .toFile(path.join(publicDir, "images/cheese-fino-stage.webp"));
+
+// Second Cheese & Fino Visual (Full editorial top + stage from page-8.jpg for 200 EGP bundle card)
+const page8Path = path.join(scratchDir, "page-8.jpg");
+const page8Meta = await sharp(page8Path).metadata();
+await sharp(page8Path)
+  .extract({
+    left: 0,
+    top: 0,
+    width: page8Meta.width,
+    height: Math.round(page8Meta.height * 0.602),
+  })
+  .webp({ quality: 92 })
+  .toFile(path.join(publicDir, "images/cheese-fino-200.webp"));
 
 // Hypermarket aisle backdrop
 await sharp(path.join(extractedDir, "img_195_853x1844.webp"))

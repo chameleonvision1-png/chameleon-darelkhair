@@ -63,14 +63,17 @@ export default function OnderaAboutGallery() {
 
   return (
     <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-16 overflow-x-clip">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+      <div
+        dir="ltr"
+        className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center"
+      >
         {/* Left Column in LTR / Editorial About Block (`NOT JUST LIGHT. A FEELING.`) */}
-        <div className="lg:col-span-5 flex flex-col items-start text-right">
+        <div className="lg:col-span-5 flex flex-col items-start">
           <span className="ondera-label mb-2.5">
             ABOUT DAR EL KHAIR • عن دار الخير
           </span>
 
-          <div dir="ltr" className="w-full text-left">
+          <div className="w-full text-left">
             <h2 className="font-en text-3xl sm:text-4xl lg:text-[44px] leading-[0.95] tracking-tight text-[#111613] uppercase">
               NOT JUST A MARKET.
               <br />
@@ -78,21 +81,33 @@ export default function OnderaAboutGallery() {
             </h2>
           </div>
 
-          <h3 className="mt-2.5 text-base sm:text-lg font-black text-[#027443] leading-snug text-right w-full">
+          <h3
+            dir="rtl"
+            className="mt-2.5 text-base sm:text-lg font-black text-[#027443] leading-snug text-right w-full"
+          >
             دار الخير هايبر ماركت — تسوق أسهل لكل احتياجات بيتك في مدينة بدر.
           </h3>
 
-          {/* Compact Rounded Inset Banner Card (Matches ONDERA Inset Photo Card) */}
-          <div className="mt-4 w-full rounded-[22px] overflow-hidden border border-[#111613]/10 shadow-sm bg-[#019149]">
+          {/* Compact Rounded Inset Lifestyle Photo Card (Matches ONDERA Inset Photo Card) */}
+          <div className="mt-4 w-full rounded-[22px] overflow-hidden border border-[#111613]/10 shadow-sm bg-[#FCFAEB] relative">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/official-banner.webp"
-              alt="دار الخير هايبر ماركت — 01270158888"
-              className="w-full h-36 sm:h-44 object-cover"
+              src="/images/cheese-fino-stage.webp"
+              alt="ثلاجة الجبن والمخبوزات الطازجة في دار الخير هايبر ماركت"
+              className="w-full h-40 sm:h-44 object-cover object-center"
             />
+            <span
+              dir="rtl"
+              className="absolute bottom-2.5 right-2.5 rounded-full bg-[#111613]/85 backdrop-blur-xs text-[#FCFAEB] px-3 py-1 text-[11px] font-black"
+            >
+              طازج يوميًا • مفتوح ٢٤ ساعة
+            </span>
           </div>
 
-          <p className="mt-4 text-xs sm:text-sm font-semibold text-[#111613]/75 leading-relaxed text-right">
+          <p
+            dir="rtl"
+            className="mt-4 text-xs sm:text-sm font-semibold text-[#111613]/75 leading-relaxed text-right w-full"
+          >
             نخدم أهالي مدينة بدر على مدار ٢٤ ساعة بتشكيلة كاملة من السلع الغذائية، الألبان، ثلاجة الجبن، الزيوت، المكرونة، المعلبات، وبوكسات التوفير — مع توصيل منزلي سريع وخدمة عملاء جاهزة دائماً عبر الهاتف والواتساب.
           </p>
 

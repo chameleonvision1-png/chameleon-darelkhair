@@ -30,17 +30,23 @@ export default async function HomePage() {
          ========================================================================= */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-14 overflow-x-clip">
         {/* Header aligned like ONDERA Reference (`media_1793972977219_9592145c.png`) */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 sm:mb-8">
-          <div>
+        <div
+          dir="ltr"
+          className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 sm:mb-8"
+        >
+          <div className="flex flex-col items-start">
             <span className="ondera-label mb-2">
               FEATURES & OFFERS • عروض دار الخير الحصرية
             </span>
-            <p className="text-xs sm:text-sm font-semibold text-[#111613]/70 max-w-md text-right">
+            <p
+              dir="rtl"
+              className="text-xs sm:text-sm font-semibold text-[#111613]/70 max-w-md text-right"
+            >
               عروض مصممة خصيصًا لتوفير ميزانية كل بيت في مدينة بدر — من هدايا المخبوزات الطازجة مع ثلاجة الجبن إلى سحب الميكروويف الكبير.
             </p>
           </div>
 
-          <div dir="ltr" className="text-left md:text-right">
+          <div className="text-left md:text-right">
             <h2 className="font-en text-3xl sm:text-5xl text-[#111613] leading-[0.94] tracking-tight uppercase">
               SAVINGS THAT
               <br />
@@ -67,7 +73,7 @@ export default async function HomePage() {
               <img
                 src="/images/cheese-fino-stage.webp"
                 alt="عرض الجبنة جابت الفينو معاها"
-                className="w-full max-w-[360px] h-48 sm:h-56 object-contain rounded-2xl drop-shadow-[0_18px_28px_rgba(0,0,0,0.35)]"
+                className="w-full max-w-[380px] h-48 sm:h-56 object-cover rounded-2xl shadow-lg"
               />
             </div>
 
@@ -119,9 +125,9 @@ export default async function HomePage() {
             <div className="my-auto py-4 flex items-center justify-center z-10">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/products/promo-microwave.webp"
+                src="/images/microwave-stage.webp"
                 alt="عدّي الألف واستنى السحب على الميكروويف"
-                className="w-full max-w-[300px] h-48 sm:h-56 object-contain drop-shadow-[0_18px_28px_rgba(17,22,19,0.2)]"
+                className="w-full max-w-[380px] h-48 sm:h-56 object-cover rounded-2xl shadow-md"
               />
             </div>
 
@@ -162,9 +168,9 @@ export default async function HomePage() {
         {/* Mobile & Desktop Horizontal Olive/Green Cutout Strip Card (Matches `media_1793972976917_1bf0381e.png`) */}
         <div
           dir="ltr"
-          className="mt-4 sm:mt-6 rounded-[26px] bg-gradient-to-r from-[#015933] via-[#027443] to-[#019149] text-white p-5 sm:p-6 flex items-center justify-between gap-4 overflow-hidden shadow-md"
+          className="mt-4 sm:mt-6 rounded-[26px] bg-gradient-to-r from-[#015933] via-[#027443] to-[#019149] text-white px-5 pt-5 pb-0 sm:px-6 sm:pt-6 sm:pb-0 flex items-end justify-between gap-4 overflow-hidden shadow-md"
         >
-          <div dir="rtl" className="flex-1 text-right">
+          <div dir="rtl" className="flex-1 text-right pb-5 sm:pb-6">
             <span className="inline-block font-en text-[10px] tracking-widest uppercase text-[#FAA006] mb-1">
               BADR CITY 24/7 EXPRESS DELIVERY
             </span>
@@ -195,13 +201,13 @@ export default async function HomePage() {
             </div>
           </div>
 
-          {/* Right Cutout Cart Image */}
-          <div className="w-28 h-28 sm:w-36 sm:h-36 shrink-0 flex items-center justify-center">
+          {/* Right Cutout Cart Image Grounded Flush with Bottom Edge */}
+          <div className="w-32 h-32 sm:w-40 sm:h-40 shrink-0 flex items-end justify-center self-end">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/hero-cart.webp"
               alt="عربة تسوق دار الخير"
-              className="w-full h-full object-contain drop-shadow-[0_12px_20px_rgba(0,0,0,0.35)]"
+              className="w-full h-full object-contain object-bottom drop-shadow-[0_12px_20px_rgba(0,0,0,0.35)]"
             />
           </div>
         </div>
@@ -219,13 +225,16 @@ export default async function HomePage() {
       <section className="mx-auto max-w-7xl px-3.5 sm:px-6 lg:px-8 py-10 sm:py-14 overflow-x-clip">
         <div className="rounded-[32px] sm:rounded-[38px] bg-[#111613] text-white p-5 sm:p-8 lg:p-10 shadow-[0_24px_60px_-20px_rgba(17,22,19,0.65)]">
           {/* Top Header Row inside Dark Container */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+          <div
+            dir="ltr"
+            className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6"
+          >
             <div>
               <div className="inline-flex items-center gap-2 text-[11px] font-en tracking-widest text-[#FAA006] uppercase mb-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#FAA006]" />
                 <span>OFFICIAL MAGAZINE • مجلة عروض دار الخير</span>
               </div>
-              <div dir="ltr" className="text-left">
+              <div className="text-left">
                 <h2 className="font-en text-3xl sm:text-5xl text-white leading-[0.94] tracking-tight uppercase">
                   SHOPPING IN ITS
                   <br />
@@ -234,7 +243,7 @@ export default async function HomePage() {
               </div>
             </div>
 
-            <div className="max-w-md text-right">
+            <div dir="rtl" className="max-w-md text-right">
               <h3 className="text-base sm:text-lg font-black text-[#FCFAEB]">
                 تصفح الـ ٩ صفحات الرسمية لمجلة عروض دار الخير
               </h3>
@@ -260,7 +269,6 @@ export default async function HomePage() {
                   <img
                     src={`/images/magazine/page-${pageNo}.webp`}
                     alt={`صفحة ${pageNo} من مجلة عروض دار الخير`}
-                    loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-[1.03] transition duration-300"
                   />
                   <span className="absolute top-2.5 right-2.5 rounded-full bg-[#111613]/85 text-[#FAA006] font-en text-[11px] font-black px-2.5 py-0.5">

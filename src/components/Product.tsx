@@ -64,28 +64,30 @@ export function ProductCard({
             off ? "opacity-60 cursor-not-allowed" : "cursor-pointer"
           }`}
         >
-          {/* Main Menu Details — Arabic Right (RTL), English Left (LTR) */}
+          {/* Main Menu Details — Stacked Eyebrow + Full Arabic Title (Zero Truncation) */}
           <div className="flex-1 min-w-0 flex flex-col justify-between">
-            <div className="flex items-baseline justify-between gap-2 min-w-0">
-              <div className="flex items-center gap-1.5 flex-wrap min-w-0">
-                <h3 className="font-black text-sm sm:text-base text-[#111613] group-hover:text-[#027443] transition-colors leading-snug truncate text-right">
-                  {product.nameAr}
-                </h3>
+            <div className="min-w-0">
+              <div className="flex items-center justify-between gap-2 mb-0.5">
+                {product.nameEn ? (
+                  <span
+                    dir="ltr"
+                    className="font-en text-[10px] tracking-wider text-[#027443] uppercase truncate text-left"
+                  >
+                    {product.nameEn}
+                  </span>
+                ) : (
+                  <span />
+                )}
                 {product.isBestSeller && (
-                  <span className="text-[10px] font-black bg-[#FAA006]/25 text-[#111613] px-2 py-0.5 rounded-full">
+                  <span className="shrink-0 text-[10px] font-black bg-[#FAA006]/25 text-[#111613] px-2 py-0.5 rounded-full">
                     الأكثر طلبًا
                   </span>
                 )}
               </div>
 
-              {product.nameEn && (
-                <span
-                  dir="ltr"
-                  className="font-en text-[11px] tracking-wider text-[#027443] uppercase truncate text-left shrink-0 max-w-[42%]"
-                >
-                  {product.nameEn}
-                </span>
-              )}
+              <h3 className="font-black text-sm sm:text-base text-[#111613] group-hover:text-[#027443] transition-colors leading-snug text-right">
+                {product.nameAr}
+              </h3>
             </div>
 
             <p className="text-xs text-[#111613]/65 mt-1 line-clamp-2 leading-relaxed text-right">
@@ -133,7 +135,6 @@ export function ProductCard({
             <img
               src={product.image}
               alt={product.nameAr}
-              loading="lazy"
               className="w-full h-full object-contain drop-shadow-[0_8px_12px_rgba(17,22,19,0.16)] transition duration-500 group-hover:scale-108"
             />
             {off ? (
@@ -202,7 +203,6 @@ export function ProductCard({
           <img
             src={product.image}
             alt={product.nameAr}
-            loading="lazy"
             className="relative z-0 w-[84%] h-[84%] object-contain drop-shadow-[0_12px_18px_rgba(17,22,19,0.18)] transition duration-500 group-hover:scale-108"
           />
 
@@ -212,22 +212,20 @@ export function ProductCard({
           </span>
         </div>
 
-        {/* Bottom Details — Arabic Right (RTL), English Left (LTR) */}
+        {/* Bottom Details — Stacked English Eyebrow + Full Arabic Title (Never Truncated) */}
         <div className="pt-3.5 flex flex-col justify-end flex-1">
-          <div className="flex items-baseline justify-between gap-2">
-            <h3 className="text-sm sm:text-[15px] font-black text-[#111613] group-hover:text-[#027443] transition-colors leading-snug truncate text-right">
-              {product.nameAr}
-            </h3>
+          {product.nameEn && (
+            <div
+              dir="ltr"
+              className="font-en text-[10px] tracking-wider text-[#027443] uppercase truncate text-left mb-0.5"
+            >
+              {product.nameEn}
+            </div>
+          )}
 
-            {product.nameEn && (
-              <div
-                dir="ltr"
-                className="font-en text-[10px] tracking-wider text-[#027443] uppercase truncate text-left shrink-0 max-w-[42%]"
-              >
-                {product.nameEn}
-              </div>
-            )}
-          </div>
+          <h3 className="text-sm sm:text-[15px] font-black text-[#111613] group-hover:text-[#027443] transition-colors leading-snug text-right">
+            {product.nameAr}
+          </h3>
 
           <p className="text-xs text-[#111613]/65 mt-1 line-clamp-2 leading-relaxed text-right">
             {product.descriptionAr}

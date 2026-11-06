@@ -17,7 +17,7 @@ const FAQS: FaqItem[] = [
     questionEn: "What are your opening hours & delivery areas in Badr City?",
     answerAr:
       "دار الخير هايبر ماركت مفتوح لخدمتكم ٢٤ ساعة طوال أيام الأسبوع. نوفر خدمة التوصيل المنزلي السريع لجميع أحياء ومجاورات مدينة بدر (الحي الأول حتى السابع، دار مصر، سكن مصر، الحي المتميز، ومنطقة الجامعات).",
-    image: "/images/official-banner.webp",
+    image: "/images/departments/dept-rice-flour.webp",
   },
   {
     num: "/02",
@@ -33,7 +33,7 @@ const FAQS: FaqItem[] = [
     questionEn: "How do I enter the 1000 EGP Microwave raffle draw?",
     answerAr:
       "في عرض «عدّي الألف... واستنى السحب»، كل فاتورة مشتريات تتخطى ١٠٠٠ جنيه (سواء من الفرع أو عبر الطلب أونلاين والواتساب) تؤهلك مباشرة لدخول السحب الكبير على ميكروويف هدية.",
-    image: "/images/products/promo-microwave.webp",
+    image: "/images/microwave-stage.webp",
   },
   {
     num: "/04",
@@ -60,10 +60,13 @@ export default function OnderaFaqSection() {
   return (
     <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-18 overflow-x-clip">
       {/* Header Row matching `• FAQ / YOUR QUESTIONS. OUR ANSWERS.` */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+      <div
+        dir="ltr"
+        className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8"
+      >
         <div>
           <span className="ondera-label mb-2">FAQ • الأسئلة الشائعة</span>
-          <div dir="ltr" className="text-left">
+          <div className="text-left">
             <h2 className="font-en text-3xl sm:text-5xl text-[#111613] leading-[0.94] tracking-tight uppercase">
               YOUR QUESTIONS.
               <br />
@@ -71,42 +74,52 @@ export default function OnderaFaqSection() {
             </h2>
           </div>
         </div>
-        <p className="text-xs sm:text-sm font-bold text-[#111613]/65 max-w-md text-right">
+        <p
+          dir="rtl"
+          className="text-xs sm:text-sm font-bold text-[#111613]/65 max-w-md text-right"
+        >
           تعرف على كل تفاصيل التوصيل في مدينة بدر، عروض المجلة الرسمية، هدايا ثلاجة الجبن، وسحب الميكروويف في دار الخير هايبر ماركت.
         </p>
       </div>
 
-      {/* 2-Column Interactive Layout matching ONDERA Desktop & Mobile */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start">
-        {/* Left Column: Active Answer Card with Image & Large `/03` Index */}
+      {/* 2-Column Interactive Layout matching ONDERA Desktop & Mobile (`media_1793972976521_cdcb89e2.png`) */}
+      <div
+        dir="ltr"
+        className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start"
+      >
+        {/* Left Column: Active Answer Card with `/03` + Horizontal Image Side-by-Side on Desktop & Full Answer Below */}
         <div className="lg:col-span-5 rounded-[28px] bg-[#FCFAEB] border border-[#111613]/10 p-5 sm:p-6">
-          <div className="w-full h-44 sm:h-52 rounded-[20px] bg-[#111613] overflow-hidden flex items-center justify-center p-4">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              key={current.num}
-              src={current.image}
-              alt={current.questionAr}
-              className="w-full h-full object-contain transition-all duration-300"
-            />
-          </div>
-
-          <div className="mt-5 flex items-start gap-4" dir="ltr">
-            <span className="font-en text-4xl sm:text-5xl text-[#027443]/35 leading-none select-none shrink-0">
+          <div className="flex items-center gap-4">
+            <span className="font-en text-5xl sm:text-6xl text-[#027443]/30 leading-none select-none shrink-0">
               {current.num}
             </span>
-            <div dir="rtl" className="flex-1 text-right">
-              <h3 className="text-base sm:text-lg font-black text-[#111613] leading-snug">
-                {current.questionAr}
-              </h3>
-              <p className="mt-2 text-xs sm:text-sm font-semibold text-[#111613]/75 leading-relaxed">
-                {current.answerAr}
-              </p>
+            <div className="flex-1 h-36 sm:h-44 rounded-[20px] bg-[#111613] overflow-hidden flex items-center justify-center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                key={current.num}
+                src={current.image}
+                alt={current.questionAr}
+                className={`w-full h-full transition-all duration-300 ${
+                  current.image.includes("stage")
+                    ? "object-cover"
+                    : "object-contain p-3"
+                }`}
+              />
             </div>
+          </div>
+
+          <div dir="rtl" className="mt-5 text-right">
+            <h3 className="text-base sm:text-lg font-black text-[#111613] leading-snug">
+              {current.questionAr}
+            </h3>
+            <p className="mt-2 text-xs sm:text-sm font-semibold text-[#111613]/75 leading-relaxed">
+              {current.answerAr}
+            </p>
           </div>
         </div>
 
-        {/* Right Column: Numbered Pill Selector Rows (`/01`..`/05` with solid Olive/Green active fill) */}
-        <div className="lg:col-span-7 flex flex-col gap-2.5">
+        {/* Right Column: Numbered Pill Selector Rows (`/01`..`/05` with solid Olive/Green active fill & Zero Truncation) */}
+        <div className="lg:col-span-7 flex flex-col gap-2.5" dir="rtl">
           {FAQS.map((item, idx) => {
             const isSelected = idx === active;
             return (
@@ -114,7 +127,7 @@ export default function OnderaFaqSection() {
                 <button
                   type="button"
                   onClick={() => setActive(idx)}
-                  className={`w-full rounded-full px-5 py-3.5 sm:py-4 flex items-center justify-between gap-3 text-right transition-all cursor-pointer border ${
+                  className={`w-full rounded-[24px] px-4 sm:px-5 py-3.5 sm:py-4 flex items-center justify-between gap-3 text-right transition-all cursor-pointer border ${
                     isSelected
                       ? "bg-[#027443] border-[#027443] text-white shadow-[0_12px_28px_-10px_rgba(2,116,67,0.55)]"
                       : "bg-white hover:bg-[#F2FAF5] border-[#111613]/12 text-[#111613]"
@@ -129,7 +142,7 @@ export default function OnderaFaqSection() {
                     >
                       {item.num}
                     </span>
-                    <span className="text-xs sm:text-sm font-black truncate">
+                    <span className="text-xs sm:text-sm font-black leading-snug text-right">
                       {item.questionAr}
                     </span>
                   </div>

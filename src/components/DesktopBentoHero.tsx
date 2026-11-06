@@ -108,21 +108,28 @@ export default function DesktopBentoHero() {
         </div>
 
         {/* Sculpted Green Stage with Overlapping Centerpiece & Bottom-Left Cutout Pocket */}
-        <div className="relative -mt-3 rounded-[28px] bg-gradient-to-br from-[#027443] via-[#026239] to-[#014829] min-h-[430px] p-7 flex items-end justify-between overflow-visible">
+        <div
+          dir="ltr"
+          className="relative -mt-2 rounded-[28px] bg-gradient-to-br from-[#027443] via-[#026239] to-[#014829] min-h-[435px] p-7 flex items-end justify-between overflow-visible"
+        >
           {/* Ambient Soft Radial Glow */}
           <div
             aria-hidden="true"
             className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[440px] h-[440px] rounded-full bg-[#FCFAEB]/20 blur-3xl"
           />
 
-          {/* Centerpiece Overlapping the Bottom of `DAR EL KHAIR` Wordmark */}
-          <div className="pointer-events-none absolute inset-x-0 -top-12 bottom-6 flex items-center justify-center z-20">
+          {/* Centerpiece Overlapping the Bottom of `DAR EL KHAIR` Wordmark & Flush with Stage Bottom */}
+          <div className="pointer-events-none absolute inset-x-0 -top-10 bottom-0 flex items-end justify-center z-20">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               key={slide.id}
               src={slide.image}
               alt={slide.titleAr}
-              className="h-[390px] w-auto max-w-[460px] object-contain drop-shadow-[0_28px_36px_rgba(0,0,0,0.42)] transition-all duration-500"
+              className={`h-[415px] w-auto max-w-[460px] object-contain object-bottom drop-shadow-[0_28px_36px_rgba(0,0,0,0.42)] transition-all duration-500 ${
+                slide.id === "cheese-fino" || slide.id === "microwave-draw"
+                  ? "rounded-t-[24px] h-[365px]"
+                  : ""
+              }`}
             />
           </div>
 
@@ -131,13 +138,13 @@ export default function DesktopBentoHero() {
             href={slide.href}
             dir="ltr"
             aria-label="تصفح الأقسام"
-            className="group absolute top-6 right-7 z-30 w-24 h-24 rounded-full bg-[#111613] hover:bg-[#FAA006] text-white hover:text-[#111613] flex flex-col items-center justify-center text-center p-2 shadow-xl transition-all duration-300 hover:scale-105"
+            className="group absolute top-5 right-7 z-30 w-22 h-22 rounded-full bg-[#111613] hover:bg-[#FAA006] text-white hover:text-[#111613] flex flex-col items-center justify-center text-center p-2 shadow-xl transition-all duration-300 hover:scale-105"
           >
-            <span className="font-en text-[9px] tracking-[0.16em] opacity-80 leading-tight">
+            <span className="font-en text-[8.5px] tracking-[0.15em] opacity-80 leading-tight">
               BADR CITY • 24/7
             </span>
-            <span className="text-xl font-black my-0.5">↗</span>
-            <span className="font-en text-[9px] tracking-[0.14em] text-[#FAA006] group-hover:text-[#111613]">
+            <span className="text-lg font-black my-0.5">↗</span>
+            <span className="font-en text-[8.5px] tracking-[0.14em] text-[#FAA006] group-hover:text-[#111613]">
               SHOP NOW
             </span>
           </Link>
@@ -150,10 +157,10 @@ export default function DesktopBentoHero() {
             <button
               type="button"
               onClick={() => setActive((prev) => (prev + 1) % total)}
-              className="group w-[195px] h-[175px] rounded-[22px] bg-[#111613] text-white p-3.5 flex flex-col justify-between text-left shadow-lg hover:bg-[#18221C] transition cursor-pointer"
+              className="group w-[190px] h-[172px] rounded-[22px] bg-[#111613] text-white p-3.5 flex flex-col justify-between text-left shadow-lg hover:bg-[#18221C] transition cursor-pointer"
             >
               <div className="w-full flex items-center justify-between">
-                <span className="font-en text-[11px] tracking-wider text-[#FAA006]">
+                <span className="font-en text-[10px] tracking-wider text-[#FAA006]">
                   NEXT HIGHLIGHT
                 </span>
                 <span className="w-7 h-7 rounded-full bg-white/15 group-hover:bg-[#027443] text-white grid place-items-center text-xs transition-colors">
@@ -164,9 +171,9 @@ export default function DesktopBentoHero() {
               <img
                 src={nextSlide.image}
                 alt={nextSlide.titleAr}
-                className="w-24 h-20 mx-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                className="w-24 h-20 mx-auto object-contain rounded-lg transition-transform duration-300 group-hover:scale-105"
               />
-              <div className="w-full flex items-center justify-between pt-1 border-t border-white/10 text-[11px] font-en tracking-wider">
+              <div className="w-full flex items-center justify-between pt-1 border-t border-white/10 text-[10px] font-en tracking-wider">
                 <span>{slide.code}</span>
                 <span className="text-[#FAA006]">
                   0{active + 1} / 0{total}
@@ -175,28 +182,28 @@ export default function DesktopBentoHero() {
             </button>
           </div>
 
-          {/* BOTTOM-RIGHT ACTIVE SLIDE EDITORIAL CARD +PAIRED PILL CTA */}
+          {/* BOTTOM-RIGHT ACTIVE SLIDE EDITORIAL CARD + PAIRED PILL CTA */}
           <div
             dir="rtl"
-            className="relative z-30 max-w-sm bg-[#111613]/80 backdrop-blur-md border border-white/15 rounded-[24px] p-5 text-right text-white shadow-xl"
+            className="relative z-30 max-w-[330px] bg-[#111613]/85 backdrop-blur-md border border-white/15 rounded-[24px] p-4 text-right text-white shadow-xl"
           >
-            <div className="flex items-center justify-between gap-2 mb-1.5">
-              <span className="px-2.5 py-0.5 rounded-full bg-[#FAA006] text-[#111613] text-[11px] font-black">
+            <div className="flex items-center justify-between gap-2 mb-1">
+              <span className="px-2.5 py-0.5 rounded-full bg-[#FAA006] text-[#111613] text-[10px] font-black">
                 عرض المجلة
               </span>
-              <span className="font-en text-[11px] text-[#FCFAEB]/75 tracking-wider">
+              <span dir="ltr" className="font-en text-[10px] text-[#FCFAEB]/75 tracking-wider truncate">
                 {slide.enTitle}
               </span>
             </div>
-            <h2 className="text-xl font-black text-white leading-snug">
+            <h2 className="text-lg font-black text-white leading-snug">
               {slide.titleAr}
             </h2>
-            <p className="text-xs font-semibold text-[#FCFAEB]/80 leading-relaxed mt-1.5">
+            <p className="text-xs font-semibold text-[#FCFAEB]/80 leading-relaxed mt-1 line-clamp-2">
               {slide.subtitleAr}
             </p>
 
             {/* ONDERA Paired Pill + Circle Arrow CTA */}
-            <div className="mt-4 flex items-center justify-between gap-2" dir="ltr">
+            <div className="mt-3.5 flex items-center justify-between gap-2" dir="ltr">
               <div className="flex items-center gap-1.5">
                 {SLIDES.map((s, idx) => (
                   <button
@@ -206,7 +213,7 @@ export default function DesktopBentoHero() {
                     aria-label={`شريحة ${idx + 1}`}
                     className={`h-1.5 rounded-full transition-all cursor-pointer ${
                       idx === active
-                        ? "w-6 bg-[#FAA006]"
+                        ? "w-5 bg-[#FAA006]"
                         : "w-1.5 bg-white/35 hover:bg-white/60"
                     }`}
                   />
@@ -216,7 +223,7 @@ export default function DesktopBentoHero() {
               <div className="flex items-center gap-1.5">
                 <Link
                   href={slide.href}
-                  className="rounded-full bg-white hover:bg-[#FAA006] text-[#111613] px-4 py-2 text-xs font-black transition"
+                  className="rounded-full bg-white hover:bg-[#FAA006] text-[#111613] px-3.5 py-1.5 text-[11px] font-black transition"
                 >
                   <span className="font-en tracking-wider">EXPLORE</span>
                   <span className="mx-1">•</span>
@@ -225,7 +232,7 @@ export default function DesktopBentoHero() {
                 <Link
                   href="/offers"
                   aria-label="مجلة العروض"
-                  className="w-9 h-9 rounded-full bg-[#027443] hover:bg-[#FAA006] text-white hover:text-[#111613] grid place-items-center text-sm font-black transition"
+                  className="w-8 h-8 rounded-full bg-[#027443] hover:bg-[#FAA006] text-white hover:text-[#111613] grid place-items-center text-xs font-black transition"
                 >
                   ↗
                 </Link>

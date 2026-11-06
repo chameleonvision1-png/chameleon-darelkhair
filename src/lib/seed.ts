@@ -803,7 +803,7 @@ export function buildSeed(): DB {
         badge: "GIFT OFFER",
         description:
           "الجبنة جابت الفينو معاها! اشتري بـ ٢٠٠ جنيه من ثلاجة الجبن المتنوعة في دار الخير واحصل على ٢ كيس عيش فينو طازة (٢ × ٥ = ١٠ أرغفة) هدية مجاناً.",
-        image: "/images/cheese-fino-stage.webp",
+        image: "/images/cheese-fino-200.webp",
         oldPrice: 230,
         price: 200,
         startsAt: new Date().toISOString(),
@@ -835,7 +835,7 @@ export function buildSeed(): DB {
         badge: "MEGA GIVEAWAY",
         description:
           "جمّع مشتريات بيتك وخزين الشهر من عروض دار الخير بأكتر من ١٠٠٠ جنيه وادخل السحب الكبير على ميكروويف هدية!",
-        image: prodImg("promo-microwave"),
+        image: "/images/microwave-stage.webp",
         oldPrice: 1150,
         price: 1000,
         startsAt: new Date().toISOString(),
