@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
 import type { Product } from "@/lib/types";
 import { ProductCard } from "./Product";
+import { QrCodeIcon } from "./icons";
 
 const TABS = [
   { id: "all", label: "أقوى عروض المجلة" },
@@ -62,8 +63,20 @@ export default function FavouritesShowcase({ products }: { products: Product[] }
           </p>
         </div>
 
-        {/* Paired Pill + Circle Arrow Button to Full Market */}
+        {/* Paired Pill + QR + Circle Arrow Button to Full Market */}
         <div className="flex items-center gap-2 self-start md:self-end" dir="ltr">
+          <button
+            type="button"
+            onClick={() => {
+              if (typeof window !== "undefined") {
+                window.dispatchEvent(new CustomEvent("open-menu-qr"));
+              }
+            }}
+            className="rounded-full bg-[#FAA006] hover:bg-[#027443] text-[#111613] hover:text-white px-4 py-2.5 text-xs font-black inline-flex items-center gap-1.5 whitespace-nowrap transition cursor-pointer"
+          >
+            <QrCodeIcon className="w-3.5 h-3.5" />
+            <span>QR المنيو</span>
+          </button>
           <Link
             href="/menu"
             className="rounded-full border border-[#111613]/20 hover:border-[#027443] bg-white px-5 py-2.5 text-xs font-black text-[#111613] hover:text-[#027443] whitespace-nowrap transition"

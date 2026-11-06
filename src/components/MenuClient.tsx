@@ -428,7 +428,7 @@ export default function MenuClient({
                 className="rounded-2xl bg-[#FAA006] hover:bg-white text-[#111613] font-black text-xs sm:text-sm px-4 py-3.5 shadow-md transition flex items-center justify-center gap-2 cursor-pointer"
               >
                 <QrCodeIcon className="w-5 h-5 text-[#111613]" />
-                <span>باركود الكتالوج QR</span>
+                <span>باركود المنيو QR</span>
               </button>
             </div>
           </div>

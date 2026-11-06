@@ -10,6 +10,7 @@ import {
   CloseIcon,
   PhoneIcon,
   PinIcon,
+  QrCodeIcon,
   QrIcon,
   WhatsAppIcon,
 } from "./icons";
@@ -17,7 +18,6 @@ import MenuQrModal from "./MenuQrModal";
 
 const NAV_LINKS = [
   { href: "/", labelAr: "الرئيسية", labelEn: "Home" },
-  { href: "/menu", labelAr: "أقسام الماركت", labelEn: "Market" },
   { href: "/offers", labelAr: "مجلة العروض", labelEn: "Magazine" },
   { href: "/occasions", labelAr: "كرتونة الخير", labelEn: "Boxes" },
   { href: "/branches", labelAr: "التوصيل بمدينة بدر", labelEn: "Delivery" },
@@ -162,26 +162,67 @@ export default function Header() {
                 </Link>
               );
             })}
+
+            {/* Cohesive Split Menu + QR Pill (Matches alban3sal & BurgerStorm) */}
+            <div
+              className={`ms-1 inline-flex items-center rounded-full border p-0.5 transition-all ${
+                pathname.startsWith("/menu")
+                  ? "bg-[#027443] text-white border-[#027443]"
+                  : "bg-[#FCFAEB] text-[#027443] border-[#027443]/25 hover:border-[#027443]/50"
+              }`}
+            >
+              <Link
+                href="/menu"
+                className={`ps-3.5 pe-2.5 py-1 rounded-s-full font-extrabold text-xs flex items-center gap-1.5 transition whitespace-nowrap ${
+                  pathname.startsWith("/menu")
+                    ? "text-white hover:bg-white/10"
+                    : "text-[#027443] hover:bg-white/80"
+                }`}
+              >
+                <span>المنيو</span>
+              </Link>
+              <span
+                className={`w-px h-3.5 ${
+                  pathname.startsWith("/menu") ? "bg-white/25" : "bg-[#027443]/20"
+                }`}
+                aria-hidden="true"
+              />
+              <button
+                type="button"
+                onClick={() => setQrOpen(true)}
+                title="باركود ومشاركة المنيو (QR)"
+                aria-label="باركود ومشاركة المنيو"
+                className={`ps-2.5 pe-3 py-1 rounded-e-full flex items-center gap-1 text-[11px] font-black transition active:scale-95 cursor-pointer ${
+                  pathname.startsWith("/menu")
+                    ? "text-[#FAA006] hover:bg-white/15"
+                    : "text-[#111613] hover:text-[#027443] hover:bg-white/90"
+                }`}
+              >
+                <QrCodeIcon className="w-3.5 h-3.5 text-[#FAA006]" />
+                <span className="font-en tracking-wider">QR</span>
+              </button>
+            </div>
           </nav>
 
           {/* Right Side (يمين): Actions + Burger Menu on Far Right (أقصى اليمين) */}
-          <div className="flex items-center gap-2 shrink-0" dir="ltr">
-            {/* Direct QR Button on Desktop */}
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0" dir="ltr">
+            {/* Direct QR Button on Mobile & Desktop */}
             <button
               type="button"
               onClick={() => setQrOpen(true)}
-              title="باركود المنيو والمجلة"
-              aria-label="باركود المنيو والمجلة"
-              className="hidden sm:grid w-9 h-9 rounded-full border border-[#111613]/15 hover:border-[#027443] text-[#111613] hover:text-[#027443] place-items-center transition-colors cursor-pointer"
+              title="باركود ومشاركة المنيو (QR)"
+              aria-label="باركود ومشاركة المنيو"
+              className="inline-flex items-center gap-1 rounded-full border border-[#027443]/25 bg-[#FCFAEB] hover:bg-[#027443] text-[#111613] hover:text-white px-2.5 py-1.5 text-xs font-black transition-colors cursor-pointer"
             >
-              <QrIcon className="w-4 h-4" />
+              <QrIcon className="w-3.5 h-3.5 text-[#027443] group-hover:text-white" />
+              <span className="font-en text-[11px] tracking-wider">QR</span>
             </button>
 
             {/* Cart Pill */}
             <Link
               href="/cart"
               key={bump}
-              className="inline-flex items-center gap-2 rounded-full bg-[#111613] hover:bg-[#027443] text-white pl-3.5 pr-1.5 py-1.5 text-xs font-extrabold transition-colors"
+              className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-[#111613] hover:bg-[#027443] text-white pl-3 pr-1.5 py-1.5 text-xs font-extrabold transition-colors"
             >
               <span className="font-en tracking-wider hidden sm:inline">
                 CART
@@ -234,7 +275,7 @@ export default function Header() {
               className="fixed top-0 bottom-0 right-0 z-10 w-[88vw] max-w-[370px] h-[100dvh] max-h-[100dvh] bg-white text-[#111613] shadow-2xl border-l border-[#111613]/10 flex flex-col overflow-hidden overscroll-contain"
             >
               {/* 1. Pinned Top Drawer Header (`shrink-0`) */}
-              <div className="shrink-0 p-4 pb-3 border-b border-[#111613]/10 bg-white space-y-3">
+              <div className="shrink-0 p-4 pb-3 border-b border-[#111613]/10 bg-white space-y-2.5">
                 <div className="flex items-center justify-between" dir="ltr">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -263,6 +304,29 @@ export default function Header() {
                   <span className="font-en text-[11px] bg-[#FAA006] text-[#111613] px-2.5 py-1 rounded-full font-black shrink-0">
                     24/7 OPEN
                   </span>
+                </div>
+
+                {/* Quick Menu + QR Pill Row inside Top Drawer Header (Matches BurgerStorm) */}
+                <div className="flex items-center gap-2">
+                  <Link
+                    href="/menu"
+                    onClick={() => setDrawerOpen(false)}
+                    className="flex-1 rounded-xl bg-[#111613] hover:bg-[#027443] text-white py-2.5 px-3.5 font-extrabold text-xs flex items-center justify-between transition"
+                  >
+                    <span>تصفح المنيو الكامل</span>
+                    <span className="font-en text-[#FAA006]">MENU ↗</span>
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setDrawerOpen(false);
+                      setQrOpen(true);
+                    }}
+                    className="shrink-0 rounded-xl bg-[#FAA006] hover:brightness-105 text-[#111613] py-2.5 px-3.5 font-black text-xs flex items-center gap-1.5 transition active:scale-95 cursor-pointer"
+                  >
+                    <QrCodeIcon className="w-4 h-4 shrink-0" />
+                    <span>QR المنيو</span>
+                  </button>
                 </div>
               </div>
 
@@ -297,6 +361,30 @@ export default function Header() {
                           </span>
                         </Link>
                       ))}
+
+                      {/* Clean Menu Link + QR Button Row inside Pages List (Matches alban3sal) */}
+                      <div className="flex items-center justify-between gap-2 px-3 py-2 bg-[#FCFAEB]/60">
+                        <Link
+                          href="/menu"
+                          onClick={() => setDrawerOpen(false)}
+                          className="flex-1 px-2 py-1.5 rounded-lg text-xs font-black text-[#027443] hover:bg-[#027443]/10 flex items-center justify-between transition"
+                        >
+                          <span>المنيو وأقسام الماركت</span>
+                          <span className="font-en text-[11px] text-[#027443]/70">MENU</span>
+                        </Link>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setDrawerOpen(false);
+                            setQrOpen(true);
+                          }}
+                          aria-label="باركود ومشاركة المنيو QR"
+                          className="shrink-0 h-8 px-3 rounded-lg bg-[#027443] hover:bg-[#111613] text-white flex items-center justify-center gap-1.5 font-extrabold text-xs transition active:scale-95 cursor-pointer"
+                        >
+                          <QrCodeIcon className="w-3.5 h-3.5 text-[#FAA006] shrink-0" />
+                          <span className="font-en">QR</span>
+                        </button>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -336,7 +424,7 @@ export default function Header() {
               </div>
 
               {/* 3. Pinned Bottom Actions in Drawer (`shrink-0`) */}
-              <div className="shrink-0 p-4 pt-3 border-t border-[#111613]/10 bg-white space-y-2.5">
+              <div className="shrink-0 p-4 pt-3 border-t border-[#111613]/10 bg-white space-y-2">
                 {hydrated && count > 0 && (
                   <Link
                     href="/cart"
@@ -370,22 +458,18 @@ export default function Header() {
                   </a>
                 </div>
 
-                <div className="flex items-center justify-between text-[11px] text-[#111613]/60 pt-0.5">
-                  <span className="inline-flex items-center gap-1 font-bold">
-                    <PinIcon className="w-3.5 h-3.5 text-[#027443]" />
-                    <span>مدينة بدر — توصيل ٢٤ ساعة</span>
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setDrawerOpen(false);
-                      setQrOpen(true);
-                    }}
-                    className="font-extrabold text-[#027443] underline cursor-pointer"
-                  >
-                    باركود المجلة
-                  </button>
-                </div>
+                {/* Prominent Full-Width QR Menu Button in Drawer Footer */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setDrawerOpen(false);
+                    setQrOpen(true);
+                  }}
+                  className="w-full rounded-full bg-[#FAA006] hover:brightness-105 text-[#111613] py-2.5 px-4 flex items-center justify-center gap-2 text-xs font-black transition cursor-pointer"
+                >
+                  <QrCodeIcon className="w-4 h-4 shrink-0" />
+                  <span>باركود ومشاركة المنيو (QR)</span>
+                </button>
               </div>
             </aside>
           </div>,

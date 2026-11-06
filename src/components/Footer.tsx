@@ -69,10 +69,10 @@ export default function Footer({ data }: { data: PublicData }) {
                 <button
                   type="button"
                   onClick={openQrModal}
-                  className="rounded-full border border-white/20 hover:border-[#FAA006] bg-white/5 text-white py-2.5 px-3 flex items-center justify-center gap-1.5 text-xs font-black transition cursor-pointer"
+                  className="rounded-full border border-[#FAA006]/50 hover:border-[#FAA006] bg-[#FAA006]/10 hover:bg-[#FAA006] text-white hover:text-[#111613] py-2.5 px-3 flex items-center justify-center gap-1.5 text-xs font-black transition cursor-pointer"
                 >
-                  <QrCodeIcon className="w-4 h-4 text-[#FAA006]" />
-                  <span>باركود المجلة</span>
+                  <QrCodeIcon className="w-4 h-4 text-[#FAA006] group-hover:text-[#111613]" />
+                  <span>باركود المنيو QR</span>
                 </button>
               </div>
             </div>

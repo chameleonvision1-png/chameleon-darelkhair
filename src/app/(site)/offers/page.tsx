@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { publicDB } from "@/lib/db";
 import OfferCard from "@/components/OfferCard";
+import OpenQrButton from "@/components/OpenQrButton";
 
 const offersTitle = "مجلة العروض والتوفير | دار الخير هايبر ماركت — مدينة بدر";
 const offersDescription =
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
     description: offersDescription,
     images: [
       {
-        url: "/og-offers.jpg?v=2",
+        url: "/og-offers.jpg?v=3",
         width: 1200,
         height: 630,
         alt: "مجلة عروض دار الخير هايبر ماركت — Dar El Khair Offers",
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: offersTitle,
     description: offersDescription,
-    images: ["/og-offers.jpg?v=2"],
+    images: ["/og-offers.jpg?v=3"],
   },
 };
 
@@ -70,10 +71,11 @@ export default async function OffersPage() {
         </div>
 
         <div className="relative z-10 flex items-center gap-2.5 shrink-0 flex-wrap">
+          <OpenQrButton label="باركود المنيو QR" />
           <a
             href="/images/magazine/darelkhair-magazine.pdf"
             download
-            className="rounded-full bg-[#FAA006] hover:bg-white text-[#111613] font-black text-xs sm:text-sm px-5 py-3 transition shadow-sm"
+            className="rounded-full bg-white hover:bg-[#FAA006] text-[#111613] font-black text-xs sm:text-sm px-5 py-3 transition shadow-sm"
           >
             تحميل المجلة PDF
           </a>

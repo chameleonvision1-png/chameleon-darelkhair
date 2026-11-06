@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import OnderaAboutGallery from "@/components/OnderaAboutGallery";
+import OpenQrButton from "@/components/OpenQrButton";
 
 const aboutTitle = "عن دار الخير هايبر ماركت | تسوق أسهل لكل احتياجات بيتك في مدينة بدر";
 const aboutDescription =
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
     description: aboutDescription,
     images: [
       {
-        url: "/og-about.jpg?v=2",
+        url: "/og-about.jpg?v=3",
         width: 1200,
         height: 630,
         alt: "عن دار الخير هايبر ماركت — مدينة بدر",
@@ -33,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: aboutTitle,
     description: aboutDescription,
-    images: ["/og-about.jpg?v=2"],
+    images: ["/og-about.jpg?v=3"],
   },
 };
 
@@ -82,6 +83,15 @@ export default function AboutPage() {
             <p className="text-white/88 mt-2 text-sm sm:text-lg max-w-2xl leading-relaxed font-semibold text-right">
               وجهتك العائلية الأولى في مدينة بدر للسلع الغذائية، الألبان، الجبن، وخزين البيت بأقوى العروض وخدمة توصيل لا تتوقف 24 ساعة.
             </p>
+            <div className="mt-5 flex items-center gap-2.5 flex-wrap">
+              <Link
+                href="/menu"
+                className="rounded-full bg-white hover:bg-[#FAA006] text-[#111613] font-black text-xs sm:text-sm px-5 py-3 transition"
+              >
+                تصفح المنيو الكامل
+              </Link>
+              <OpenQrButton label="باركود المنيو QR" />
+            </div>
           </div>
         </div>
       </div>

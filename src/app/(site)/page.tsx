@@ -6,6 +6,7 @@ import OnderaAboutGallery from "@/components/OnderaAboutGallery";
 import FavouritesShowcase from "@/components/FavouritesShowcase";
 import OnderaFaqSection from "@/components/OnderaFaqSection";
 import OfferCard from "@/components/OfferCard";
+import OpenQrButton from "@/components/OpenQrButton";
 
 export default async function HomePage() {
   const data = await publicDB();
@@ -241,6 +242,11 @@ export default async function HomePage() {
               >
                 كل العروض
               </Link>
+              <OpenQrButton
+                label="QR المنيو"
+                className="rounded-full bg-[#FAA006] hover:bg-white text-[#111613] px-3.5 py-2.5 text-xs font-black inline-flex items-center gap-1.5 whitespace-nowrap transition cursor-pointer"
+                iconClassName="w-3.5 h-3.5 shrink-0"
+              />
               <a
                 href="/images/magazine/darelkhair-magazine.pdf"
                 target="_blank"

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { publicDB } from "@/lib/db";
 import OccasionForm from "@/components/OccasionForm";
 import OnderaFaqSection from "@/components/OnderaFaqSection";
+import OpenQrButton from "@/components/OpenQrButton";
 import { PhoneIcon, PinIcon, WhatsAppIcon } from "@/components/icons";
 
 const contactTitle = "تواصل معنا والروابط الرسمية | دار الخير هايبر ماركت — مدينة بدر";
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
     description: contactDescription,
     images: [
       {
-        url: "/og-contact.jpg?v=2",
+        url: "/og-contact.jpg?v=3",
         width: 1200,
         height: 630,
         alt: "تواصل مع دار الخير هايبر ماركت — مدينة بدر 01270158888",
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: contactTitle,
     description: contactDescription,
-    images: ["/og-contact.jpg?v=2"],
+    images: ["/og-contact.jpg?v=3"],
   },
 };
 
@@ -61,16 +62,19 @@ export default async function ContactPage() {
             </p>
           </div>
 
-          <a
-            href="https://wa.me/201270158888"
-            target="_blank"
-            rel="noopener noreferrer"
-            dir="ltr"
-            className="relative z-10 inline-flex items-center gap-2 rounded-full bg-[#25D366] hover:brightness-105 text-white font-black text-xs sm:text-sm px-6 py-3.5 shadow-sm transition shrink-0 self-start md:self-auto"
-          >
-            <WhatsAppIcon className="w-4 h-4" />
-            <span>WhatsApp: 01270158888</span>
-          </a>
+          <div className="relative z-10 flex items-center gap-2.5 shrink-0 flex-wrap" dir="ltr">
+            <OpenQrButton label="باركود المنيو QR" />
+            <a
+              href="https://wa.me/201270158888"
+              target="_blank"
+              rel="noopener noreferrer"
+              dir="ltr"
+              className="inline-flex items-center gap-2 rounded-full bg-[#25D366] hover:brightness-105 text-white font-black text-xs sm:text-sm px-6 py-3 shadow-sm transition shrink-0"
+            >
+              <WhatsAppIcon className="w-4 h-4" />
+              <span>WhatsApp: 01270158888</span>
+            </a>
+          </div>
         </div>
 
         {/* Official Links & Channels Hub */}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { publicDB } from "@/lib/db";
 import BranchesShowcase from "@/components/BranchesShowcase";
+import OpenQrButton from "@/components/OpenQrButton";
 import { PhoneIcon, PinIcon, WhatsAppIcon } from "@/components/icons";
 
 const branchesTitle = "موقعنا ونطاق التوصيل في مدينة بدر (24 ساعة) | دار الخير هايبر ماركت";
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
     description: branchesDescription,
     images: [
       {
-        url: "/og-branches.jpg?v=2",
+        url: "/og-branches.jpg?v=3",
         width: 1200,
         height: 630,
         alt: "دار الخير هايبر ماركت — مدينة بدر توصيل 24 ساعة",
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: branchesTitle,
     description: branchesDescription,
-    images: ["/og-branches.jpg?v=2"],
+    images: ["/og-branches.jpg?v=3"],
   },
 };
 
@@ -58,9 +59,10 @@ export default async function BranchesPage() {
         </div>
 
         <div className="relative z-10 flex items-center gap-2.5 shrink-0 flex-wrap" dir="ltr">
+          <OpenQrButton label="باركود المنيو QR" />
           <a
             href="tel:01270158888"
-            className="inline-flex items-center gap-2 rounded-full bg-[#FAA006] hover:bg-white text-[#111613] font-black text-xs sm:text-sm px-5 py-3 transition"
+            className="inline-flex items-center gap-2 rounded-full bg-white hover:bg-[#FAA006] text-[#111613] font-black text-xs sm:text-sm px-5 py-3 transition"
           >
             <PhoneIcon className="w-4 h-4" />
             <span>01270158888</span>

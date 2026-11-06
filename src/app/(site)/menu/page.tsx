@@ -21,10 +21,10 @@ export const metadata: Metadata = {
     description: menuDescription,
     images: [
       {
-        url: "/og-menu.jpg?v=2",
+        url: "/og-menu.jpg?v=3",
         width: 1200,
         height: 630,
-        alt: "أقسام ومجلة عروض دار الخير هايبر ماركت — Dar El Khair Catalog",
+        alt: "منيو وكتالوج دار الخير هايبر ماركت — Dar El Khair Menu",
         type: "image/jpeg",
       },
     ],
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: menuTitle,
     description: menuDescription,
-    images: ["/og-menu.jpg?v=2"],
+    images: ["/og-menu.jpg?v=3"],
   },
 };
 

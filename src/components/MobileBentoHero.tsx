@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { QrCodeIcon } from "./icons";
 
 interface HeroSlide {
   id: string;
@@ -207,7 +208,7 @@ export default function MobileBentoHero() {
             <p className="text-xs font-bold text-[#FCFAEB]/85 leading-snug mt-1">
               {slide.subtitleAr}
             </p>
-            <div className="mt-3 flex items-center justify-start gap-2">
+            <div className="mt-3 flex items-center justify-start gap-1.5 flex-wrap">
               <Link
                 href={slide.href}
                 className="inline-flex items-center gap-1.5 rounded-full bg-white text-[#111613] px-3.5 py-1.5 text-[11px] font-black active:scale-95 transition"
@@ -221,6 +222,18 @@ export default function MobileBentoHero() {
               >
                 مجلة العروض
               </Link>
+              <button
+                type="button"
+                onClick={() => {
+                  if (typeof window !== "undefined") {
+                    window.dispatchEvent(new CustomEvent("open-menu-qr"));
+                  }
+                }}
+                className="inline-flex items-center gap-1 rounded-full bg-[#FAA006] text-[#111613] px-3 py-1.5 text-[11px] font-black active:scale-95 transition cursor-pointer"
+              >
+                <QrCodeIcon className="w-3.5 h-3.5" />
+                <span>QR المنيو</span>
+              </button>
             </div>
           </div>
 

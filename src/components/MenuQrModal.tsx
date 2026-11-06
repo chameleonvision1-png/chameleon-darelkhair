@@ -485,10 +485,10 @@ export default function MenuQrModal({
                   id="menu-qr-modal-title"
                   className="text-lg sm:text-xl font-black text-white leading-tight"
                 >
-                  باركود ومشاركة كتالوج دار الخير
+                  باركود ومشاركة منيو دار الخير
                 </h2>
                 <p className="text-xs sm:text-sm text-white/80 mt-0.5">
-                  امسح الكود بالكاميرا لفتح الأقسام ومجلة العروض أو شارك الرابط
+                  امسح الكود بالكاميرا لفتح المنيو ومجلة العروض أو شارك الرابط
                 </p>
               </div>
             </div>

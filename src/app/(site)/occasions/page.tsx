@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { publicDB } from "@/lib/db";
 import OccasionForm from "@/components/OccasionForm";
+import OpenQrButton from "@/components/OpenQrButton";
 
 const occasionsTitle = "بوكسات خزين الشهر وكرتونة الخير وطلبات الجملة | دار الخير هايبر ماركت";
 const occasionsDescription =
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
     description: occasionsDescription,
     images: [
       {
-        url: "/og-occasions.jpg?v=2",
+        url: "/og-occasions.jpg?v=3",
         width: 1200,
         height: 630,
         alt: "بوكسات خزين الشهر وكرتونة الخير — دار الخير هايبر ماركت",
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: occasionsTitle,
     description: occasionsDescription,
-    images: ["/og-occasions.jpg?v=2"],
+    images: ["/og-occasions.jpg?v=3"],
   },
 };
 
@@ -92,12 +93,15 @@ export default async function OccasionsPage() {
           </p>
         </div>
 
-        <Link
-          href="/menu"
-          className="relative z-10 rounded-full bg-[#FAA006] hover:bg-white text-[#111613] font-black text-xs sm:text-sm px-6 py-3.5 transition shrink-0 self-start md:self-auto"
-        >
-          تصفح كل المنتجات والأسعار
-        </Link>
+        <div className="relative z-10 flex items-center gap-2.5 shrink-0 flex-wrap">
+          <OpenQrButton label="باركود المنيو QR" />
+          <Link
+            href="/menu"
+            className="rounded-full bg-white hover:bg-[#FAA006] text-[#111613] font-black text-xs sm:text-sm px-6 py-3 transition shrink-0"
+          >
+            تصفح كل المنتجات والأسعار
+          </Link>
+        </div>
       </div>
 
       <div className="mt-8 grid lg:grid-cols-[1fr_450px] gap-8 items-start">
