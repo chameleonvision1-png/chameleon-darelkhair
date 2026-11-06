@@ -62,8 +62,11 @@ export default function Header() {
   return (
     <>
       <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-[#111613]/[0.07]">
-        <div className="mx-auto max-w-7xl px-3.5 sm:px-6 lg:px-8 h-14 lg:h-16 flex items-center justify-between gap-3">
-          {/* Left in LTR / Brand Identity Lockup */}
+        <div
+          dir="ltr"
+          className="mx-auto max-w-7xl px-3.5 sm:px-6 lg:px-8 h-14 lg:h-16 flex items-center justify-between gap-3"
+        >
+          {/* Far Left (شمال): Brand Identity Lockup */}
           <Link
             href="/"
             dir="ltr"
@@ -85,8 +88,8 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* Center Desktop Minimalist Navigation (ONDERA Web style) */}
-          <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5">
+          {/* Center Desktop Minimalist Navigation */}
+          <nav dir="rtl" className="hidden lg:flex items-center gap-1 xl:gap-1.5">
             {NAV_LINKS.map((item) => {
               const active =
                 item.href === "/"
@@ -108,13 +111,24 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Right Actions: ONDERA Black Pill + Circle Icon on Desktop & Architectural "=" Menu on Mobile */}
+          {/* Right Side (يمين): Actions + Burger Menu on Far Right (أقصى اليمين) */}
           <div className="flex items-center gap-2 shrink-0" dir="ltr">
-            {/* Cart Pill matching ONDERA Top-Right Black Pill */}
+            {/* Direct QR Button on Desktop */}
+            <button
+              type="button"
+              onClick={() => setQrOpen(true)}
+              title="باركود المنيو والمجلة"
+              aria-label="باركود المنيو والمجلة"
+              className="hidden sm:grid w-9 h-9 rounded-full border border-[#111613]/15 hover:border-[#027443] text-[#111613] hover:text-[#027443] place-items-center transition-colors cursor-pointer"
+            >
+              <QrIcon className="w-4 h-4" />
+            </button>
+
+            {/* Cart Pill */}
             <Link
               href="/cart"
               key={bump}
-              className="inline-flex items-center gap-2 rounded-full bg-[#111613] hover:bg-[#027443] text-white pl-3.5 pr-1.5 py-1.5 text-xs font-extrabold transition-colors shadow-sm"
+              className="inline-flex items-center gap-2 rounded-full bg-[#111613] hover:bg-[#027443] text-white pl-3.5 pr-1.5 py-1.5 text-xs font-extrabold transition-colors"
             >
               <span className="font-en tracking-wider hidden sm:inline">
                 CART
@@ -127,36 +141,25 @@ export default function Header() {
               </span>
             </Link>
 
-            {/* Direct Call / QR Button on Desktop */}
-            <button
-              type="button"
-              onClick={() => setQrOpen(true)}
-              title="باركود المنيو والمجلة"
-              aria-label="باركود المنيو والمجلة"
-              className="hidden sm:grid w-9 h-9 rounded-full border border-[#111613]/15 hover:border-[#027443] text-[#111613] hover:text-[#027443] place-items-center transition-colors"
-            >
-              <QrIcon className="w-4 h-4" />
-            </button>
-
-            {/* Architectural Two-Line Menu Button (ONDERA Mobile Reference) */}
+            {/* Far Right (أقصى اليمين): Architectural Two-Line Burger Menu Button */}
             <button
               type="button"
               onClick={() => setDrawerOpen(true)}
               aria-label="فتح القائمة"
-              className="lg:hidden w-10 h-10 rounded-full border border-[#111613]/12 bg-white hover:bg-[#F2FAF5] text-[#111613] grid place-items-center transition active:scale-95"
+              className="lg:hidden w-10 h-10 rounded-full border border-[#111613]/15 bg-white hover:bg-[#F2FAF5] text-[#111613] grid place-items-center transition active:scale-95 cursor-pointer"
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
                 <line x1="4" y1="9" x2="20" y2="9" strokeLinecap="round" />
-                <line x1="8" y1="15" x2="20" y2="15" strokeLinecap="round" />
+                <line x1="4" y1="15" x2="16" y2="15" strokeLinecap="round" />
               </svg>
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Drawer — Zero Horizontal Overflow & Clean Accordions */}
+      {/* Mobile Drawer — Opens on Right (Matching Far-Right Burger Menu) */}
       {drawerOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden flex justify-end bg-black/55 backdrop-blur-xs">
+        <div dir="ltr" className="fixed inset-0 z-50 lg:hidden flex justify-end bg-black/50 backdrop-blur-xs">
           <div
             className="relative w-full max-w-sm bg-white text-[#111613] h-full flex flex-col justify-between overflow-y-auto overflow-x-clip p-5 shadow-2xl"
             dir="rtl"

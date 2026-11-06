@@ -133,12 +133,28 @@ export default function OnderaAboutGallery() {
 
         {/* Right Column in LTR / 4-Thumbnail Interactive Showcase Stage */}
         <div className="lg:col-span-7 flex flex-col sm:flex-row items-stretch gap-3 sm:gap-4" dir="ltr">
-          {/* Main Rounded Stage with Top-Right Inverted Cutout Button */}
+          {/* Main Rounded Stage with Top-Right Inverted Cutout Button (Zero box-shadow) */}
           <div
-            className={`relative flex-1 min-h-[300px] sm:min-h-[380px] rounded-[28px] bg-gradient-to-br ${current.bg} p-5 sm:p-7 flex flex-col justify-between overflow-hidden shadow-lg`}
+            className={`relative flex-1 min-h-[300px] sm:min-h-[380px] rounded-[28px] bg-gradient-to-br ${current.bg} p-5 sm:p-7 flex flex-col justify-between overflow-hidden`}
           >
-            {/* Top-Right Inverted Cutout Notch with Dark Circle Button */}
+            {/* Top-Right Inverted Cutout Notch with Smooth Radial Concave Fillets */}
             <div className="absolute top-0 right-0 z-20 bg-white pl-2.5 pb-2.5 rounded-bl-[24px]">
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute -left-5 top-0 w-5 h-5"
+                style={{
+                  background:
+                    "radial-gradient(circle at 0% 100%, transparent 20px, #ffffff 20.5px)",
+                }}
+              />
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute right-0 -bottom-5 w-5 h-5"
+                style={{
+                  background:
+                    "radial-gradient(circle at 0% 100%, transparent 20px, #ffffff 20.5px)",
+                }}
+              />
               <button
                 type="button"
                 onClick={() =>
@@ -166,7 +182,7 @@ export default function OnderaAboutGallery() {
                 key={current.id}
                 src={current.image}
                 alt={current.titleAr}
-                className="w-full max-w-[340px] h-44 sm:h-52 object-contain drop-shadow-[0_20px_28px_rgba(0,0,0,0.45)] transition-all duration-300"
+                className="w-full max-w-[340px] h-44 sm:h-52 object-contain transition-all duration-300"
               />
             </div>
 
@@ -199,7 +215,7 @@ export default function OnderaAboutGallery() {
                   onClick={() => setActiveIdx(idx)}
                   className={`group relative aspect-square sm:flex-1 rounded-[18px] p-2 flex flex-col items-center justify-center overflow-hidden border transition cursor-pointer ${
                     active
-                      ? "bg-[#027443] border-[#027443] ring-2 ring-[#027443]/30 shadow-md"
+                      ? "bg-[#027443] border-[#027443] ring-2 ring-[#027443]/30"
                       : "bg-[#FCFAEB] border-[#111613]/10 hover:border-[#027443]/50"
                   }`}
                 >

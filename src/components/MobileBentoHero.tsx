@@ -26,28 +26,18 @@ const SLIDES: HeroSlide[] = [
     image: "/images/hero-cart.webp",
   },
   {
-    id: "cheese-fino",
+    id: "dairy-cheese",
     code: "DAR EL KHAIR 02",
-    enTag: "CHEESE FRIDGE OFFER",
-    titleAr: "الجبنة جابت الفينو معاها",
-    subtitleAr: "فاتورة ١٠٠ أو ٢٠٠ ج.م معاها عيش فينو طازة هدية",
+    enTag: "FRESH DAIRY & CHEESE FRIDGE",
+    titleAr: "الألبان الطازجة وثلاجة الجبن",
+    subtitleAr: "فاتورة ١٠٠ أو ٢٠٠ ج.م من الجبن معاها فينو طازة هدية",
     badge: "هدية فورية",
-    href: "/menu?cat=cheese_bakery",
-    image: "/images/cheese-fino-stage.webp",
-  },
-  {
-    id: "microwave-draw",
-    code: "DAR EL KHAIR 03",
-    enTag: "1000 EGP MEGA GIVEAWAY",
-    titleAr: "عدّي الألف واستنى السحب",
-    subtitleAr: "تسوق بأكثر من ١٠٠٠ ج.م وادخل السحب على ميكروويف",
-    badge: "سحب الميكروويف",
-    href: "/occasions",
-    image: "/images/products/promo-microwave.webp",
+    href: "/menu?cat=dairy",
+    image: "/images/departments/dept-dairy.webp",
   },
   {
     id: "oils-pantry",
-    code: "DAR EL KHAIR 04",
+    code: "DAR EL KHAIR 03",
     enTag: "COOKING OILS & PANTRY",
     titleAr: "أقوى خصومات الزيوت والخزين",
     subtitleAr: "الممتاز • صني • قلية • أرز الساعة وحبوبة",
@@ -56,14 +46,24 @@ const SLIDES: HeroSlide[] = [
     image: "/images/departments/dept-oils.webp",
   },
   {
-    id: "dairy-jams",
+    id: "jams-spreads",
+    code: "DAR EL KHAIR 04",
+    enTag: "JAMS, HALAWA & SPREADS",
+    titleAr: "المربى والحلاوة والسبريدات",
+    subtitleAr: "ماكس تيلا ١ كجم • مربى وحلاوة البوادي وفيتراك",
+    badge: "أسعار المجلة",
+    href: "/menu?cat=jams",
+    image: "/images/departments/dept-jams.webp",
+  },
+  {
+    id: "pasta-rice",
     code: "DAR EL KHAIR 05",
-    enTag: "DAIRY & BREAKFAST SPREADS",
-    titleAr: "الألبان والمربى والسبريدات",
-    subtitleAr: "جهينة • بخيره • لمار • ماكس تيلا وحلاوة البوادي",
-    badge: "طازج يوميًا",
-    href: "/menu?cat=dairy",
-    image: "/images/departments/dept-dairy.webp",
+    enTag: "PASTA, RICE & FLOUR",
+    titleAr: "المكرونة والأرز والدقيق",
+    subtitleAr: "مكرونة كايرو وبساطة بـ ٩ ج.م • المطبخ ولمتنا بـ ١٢.٥ ج.م",
+    badge: "خزين الشهر",
+    href: "/menu?cat=pasta",
+    image: "/images/departments/dept-pasta.webp",
   },
 ];
 
@@ -104,42 +104,42 @@ export default function MobileBentoHero() {
 
   return (
     <section className="lg:hidden w-full bg-white px-3.5 pt-2 pb-6 overflow-x-clip">
-      {/* Top Bilingual Micro Bar */}
-      <div className="flex items-center justify-between text-[11px] font-extrabold text-[#111613]/65 mb-1 px-0.5">
-        <span className="text-right text-[#027443] font-black">
-          دار الخير هايبر ماركت • مدينة بدر
-        </span>
-        <span className="font-en tracking-wider text-left text-[#111613]/55">
-          OPEN 24/7 • 01270158888
-        </span>
-      </div>
-
-      {/* Giant Edge-to-Edge ONDERA Wordmark (100% visible above green stage) */}
+      {/* Giant Edge-to-Edge ONDERA Wordmark directly below Header (Zero extra text above it) */}
       <div dir="ltr" className="w-full text-center relative z-10 select-none mb-1.5">
         <h1 className="font-en text-[15vw] leading-[0.88] tracking-tight text-[#027443] uppercase whitespace-nowrap">
           DAR EL KHAIR
         </h1>
       </div>
 
-      {/* Main Sculptural Green Stage Card with Top-Right & Bottom-Left Inverted Cutout Notches */}
+      {/* Main Flat Sculptural Green Stage Card (Zero outer box-shadow so cutouts never cast ghost shadows) */}
       <div
         dir="ltr"
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
-        className="relative rounded-[28px] bg-gradient-to-b from-[#027443] via-[#02663B] to-[#014D2C] min-h-[430px] sm:min-h-[460px] flex flex-col justify-between p-4 pb-0 overflow-hidden shadow-[0_20px_50px_-20px_rgba(2,116,67,0.45)]"
+        className="relative rounded-[28px] bg-[#027443] min-h-[420px] sm:min-h-[450px] flex flex-col justify-between p-4 pb-0 overflow-hidden"
       >
-        {/* Subtle Radial Ambient Glow behind Centerpiece (ONDERA Lamp Glow style) */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-[#FCFAEB]/20 blur-3xl"
-        />
-
-        {/* TOP-RIGHT INVERTED CUTOUT NOTCH (Matches ONDERA Mobile Top-Right Dark Circle Button) */}
+        {/* TOP-RIGHT INVERTED CUTOUT NOTCH with Smooth Radial Concave Fillets */}
         <div className="absolute top-0 right-0 z-30 bg-white pl-2.5 pb-2.5 rounded-bl-[26px]">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute -left-5 top-0 w-5 h-5"
+            style={{
+              background:
+                "radial-gradient(circle at 0% 100%, transparent 20px, #ffffff 20.5px)",
+            }}
+          />
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute right-0 -bottom-5 w-5 h-5"
+            style={{
+              background:
+                "radial-gradient(circle at 0% 100%, transparent 20px, #ffffff 20.5px)",
+            }}
+          />
           <Link
             href={slide.href}
             aria-label="تصفح القسم"
-            className="w-12 h-12 rounded-full bg-[#111613] hover:bg-[#FAA006] text-white hover:text-[#111613] grid place-items-center shadow-md transition active:scale-95"
+            className="w-12 h-12 rounded-full bg-[#111613] hover:bg-[#FAA006] text-white hover:text-[#111613] grid place-items-center transition active:scale-95"
           >
             <svg
               viewBox="0 0 24 24"
@@ -156,10 +156,10 @@ export default function MobileBentoHero() {
         {/* Top Editorial Header inside Green Stage (Clear of Top-Right Cutout Notch via pr-16) */}
         <div dir="rtl" className="relative z-20 pr-16 pl-1 text-right">
           <div className="flex items-center justify-start gap-2 mb-1.5">
-            <span className="inline-flex items-center px-3 py-0.5 rounded-full bg-[#FAA006] text-[#111613] text-[11px] font-black shadow-xs">
+            <span className="inline-flex items-center px-3 py-0.5 rounded-full bg-[#FAA006] text-[#111613] text-[11px] font-black">
               {slide.badge}
             </span>
-            <span dir="ltr" className="font-en text-[10px] tracking-wider text-[#FCFAEB]/80 truncate">
+            <span dir="ltr" className="font-en text-[10px] tracking-wider text-[#FCFAEB]/85 truncate">
               {slide.enTag}
             </span>
           </div>
@@ -172,61 +172,80 @@ export default function MobileBentoHero() {
           <div className="mt-2.5 flex items-center justify-start gap-2">
             <Link
               href={slide.href}
-              className="inline-flex items-center gap-1.5 rounded-full bg-white text-[#111613] px-3.5 py-1.5 text-[11px] font-black shadow-sm active:scale-95 transition"
+              className="inline-flex items-center gap-1.5 rounded-full bg-white text-[#111613] px-3.5 py-1.5 text-[11px] font-black active:scale-95 transition"
             >
               <span>تسوق الآن</span>
               <span className="font-en text-[#027443]">↗</span>
             </Link>
             <Link
               href="/offers"
-              className="inline-flex items-center rounded-full border border-white/30 bg-white/10 text-white px-3 py-1.5 text-[11px] font-bold"
+              className="inline-flex items-center rounded-full border border-white/35 bg-white/10 text-white px-3 py-1.5 text-[11px] font-bold"
             >
               مجلة العروض
             </Link>
           </div>
         </div>
 
-        {/* Bottom Stage: Left Cutout Switcher Window + Right Grounded Hero Visual (Flush at Bottom-0) */}
-        <div className="relative z-20 mt-3 flex items-end justify-between gap-2 min-h-[245px]">
-          {/* BOTTOM-LEFT INVERTED CUTOUT POCKET (Matches `ONDERA 01` Mini Thumbnail Switcher) */}
-          <div className="-ml-4 bg-white pt-2.5 pr-2.5 rounded-tr-[24px] shrink-0 self-end">
-            <button
-              type="button"
-              onClick={() => setActive((prev) => (prev + 1) % total)}
-              className="group relative w-[122px] h-[126px] rounded-[20px] bg-[#111613] text-white p-2.5 flex flex-col justify-between text-left overflow-hidden shadow-md active:scale-95 transition"
-            >
-              <div className="w-full flex items-center justify-between">
-                <span className="font-en text-[9px] tracking-wider text-[#FAA006]">
-                  NEXT
-                </span>
-                <span className="w-6 h-6 rounded-full bg-white/15 group-hover:bg-[#027443] text-white grid place-items-center text-xs transition-colors">
-                  ↗
-                </span>
-              </div>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={nextSlide.image}
-                alt={nextSlide.titleAr}
-                className="w-16 h-14 mx-auto object-contain rounded-lg"
-              />
-              <div className="w-full flex items-center justify-between text-[9px] font-en tracking-wider text-white/90 truncate">
-                <span className="truncate">{slide.code}</span>
-                <span className="text-[#FAA006]">0{active + 1}</span>
-              </div>
-            </button>
-          </div>
+        {/* BOTTOM-LEFT INVERTED CUTOUT POCKET Pinned to Exact Bottom-Left Corner */}
+        <div className="absolute bottom-0 left-0 z-30 bg-white pt-2.5 pr-2.5 rounded-tr-[24px]">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute left-0 -top-5 w-5 h-5"
+            style={{
+              background:
+                "radial-gradient(circle at 100% 0%, transparent 20px, #ffffff 20.5px)",
+            }}
+          />
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-5 bottom-0 w-5 h-5"
+            style={{
+              background:
+                "radial-gradient(circle at 100% 0%, transparent 20px, #ffffff 20.5px)",
+            }}
+          />
+          <button
+            type="button"
+            onClick={() => setActive((prev) => (prev + 1) % total)}
+            className="group relative w-[120px] h-[122px] rounded-[20px] bg-[#111613] text-white p-2.5 flex flex-col justify-between text-left overflow-hidden active:scale-95 transition cursor-pointer"
+          >
+            <div className="w-full flex items-center justify-between">
+              <span className="font-en text-[9px] tracking-wider text-[#FAA006]">
+                NEXT
+              </span>
+              <span className="w-6 h-6 rounded-full bg-white/15 group-hover:bg-[#027443] text-white grid place-items-center text-xs transition-colors">
+                ↗
+              </span>
+            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={nextSlide.image}
+              alt={nextSlide.titleAr}
+              className="w-16 h-14 mx-auto object-contain"
+            />
+            <div className="w-full flex items-center justify-between text-[9px] font-en tracking-wider text-white/90 truncate">
+              <span className="truncate">{slide.code}</span>
+              <span className="text-[#FAA006]">0{active + 1}</span>
+            </div>
+          </button>
+        </div>
 
-          {/* Grounded Hero Visual Flush with Bottom Edge (No Floating Cut Line!) */}
-          <div className="flex-1 flex items-end justify-center self-end pt-2">
+        {/* Bottom Stage: Right Transparent Cutout Hero Visual */}
+        <div className="relative z-20 mt-3 pl-[128px] flex items-end justify-center min-h-[240px]">
+          <div
+            className={`w-full flex justify-center ${
+              slide.id === "fresh-cart" ? "items-end pb-0" : "items-center pb-4"
+            }`}
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               key={slide.id}
               src={slide.image}
               alt={slide.titleAr}
-              className={`w-full max-w-[235px] sm:max-w-[270px] h-[230px] sm:h-[255px] object-contain object-bottom drop-shadow-[0_18px_28px_rgba(0,0,0,0.42)] transition-all duration-300 ${
-                slide.id === "cheese-fino" || slide.id === "microwave-draw"
-                  ? "rounded-t-2xl"
-                  : ""
+              className={`w-full max-w-[235px] sm:max-w-[270px] object-contain transition-all duration-300 ${
+                slide.id === "fresh-cart"
+                  ? "h-[235px] sm:h-[255px] object-bottom"
+                  : "h-[195px] sm:h-[215px] object-center"
               }`}
             />
           </div>

@@ -27,30 +27,19 @@ const SLIDES: DesktopHeroSlide[] = [
     image: "/images/hero-cart.webp",
   },
   {
-    id: "cheese-fino",
+    id: "dairy-cheese",
     code: "DAR EL KHAIR 02",
-    enTitle: "CHEESE FRIDGE & FREE FINO",
-    titleAr: "عرض الجبنة جابت الفينو معاها",
+    enTitle: "FRESH DAIRY & CHEESE FRIDGE",
+    titleAr: "قسم الألبان الطازجة وثلاجة الجبن",
     subtitleAr:
-      "أي فاتورة بـ ١٠٠ جنيه من ثلاجة الجبن معاها كيس فينو طازة (٥ أرغفة) هدية، وفاتورة الـ ٢٠٠ جنيه معاها ٢ كيس فينو (١٠ أرغفة) هدية مجاناً!",
+      "أي فاتورة بـ ١٠٠ جنيه من ثلاجة الجبن معاها كيس فينو طازة هدية، وفاتورة الـ ٢٠٠ جنيه معاها ٢ كيس فينو هدية مجاناً!",
     badge: "FREE BAKERY GIFT",
-    href: "/menu?cat=cheese_bakery",
-    image: "/images/cheese-fino-stage.webp",
-  },
-  {
-    id: "microwave-draw",
-    code: "DAR EL KHAIR 03",
-    enTitle: "1000 EGP MICROWAVE RAFFLE",
-    titleAr: "عدّي الألف... واستنى السحب على الميكروويف",
-    subtitleAr:
-      "جمّع خزين بيتك الشهري بأكثر من ١٠٠٠ جنيه من دار الخير هايبر ماركت وادخل السحب الكبير على ميكروويف هدية.",
-    badge: "MEGA GIVEAWAY",
-    href: "/occasions",
-    image: "/images/products/promo-microwave.webp",
+    href: "/menu?cat=dairy",
+    image: "/images/departments/dept-dairy.webp",
   },
   {
     id: "oils-pantry",
-    code: "DAR EL KHAIR 04",
+    code: "DAR EL KHAIR 03",
     enTitle: "COOKING OILS & MONTHLY PANTRY",
     titleAr: "تخفيضات الزيوت والأرز والدقيق",
     subtitleAr:
@@ -60,15 +49,26 @@ const SLIDES: DesktopHeroSlide[] = [
     image: "/images/departments/dept-oils.webp",
   },
   {
-    id: "dairy-jams",
-    code: "DAR EL KHAIR 05",
-    enTitle: "FRESH DAIRY & SPREADS",
-    titleAr: "الألبان الطازجة والمربى والسبريدات",
+    id: "jams-spreads",
+    code: "DAR EL KHAIR 04",
+    enTitle: "JAMS, HALAWA & SPREADS",
+    titleAr: "المربى والحلاوة وشوكولاتة ماكس تيلا",
     subtitleAr:
-      "لبن بخيره ١ لتر بـ ٣٩ ج.م، جهينة ١ لتر بـ ٤٩ ج.م، شوكولاتة ماكس تيلا ١ كجم بـ ١٣٥ ج.م، ومربى وحلاوة البوادي.",
+      "شوكولاتة ماكس تيلا ١ كجم بـ ١٣٥ ج.م، ومربى وحلاوة البوادي وفيتراك بخصومات مجلة دار الخير.",
     badge: "DAILY FRESH",
-    href: "/menu?cat=dairy",
-    image: "/images/departments/dept-dairy.webp",
+    href: "/menu?cat=jams",
+    image: "/images/departments/dept-jams.webp",
+  },
+  {
+    id: "pasta-rice",
+    code: "DAR EL KHAIR 05",
+    enTitle: "PASTA, RICE & PREMIUM FLOUR",
+    titleAr: "المكرونة والأرز والدقيق الفاخر",
+    subtitleAr:
+      "مكرونات كايرو وبساطة بـ ٩ ج.م، المطبخ ولمتنا بـ ١٢.٥ ج.م، وأرز الساعة وحبوبة ودقيق حبوبة ١ كجم.",
+    badge: "PANTRY ESSENTIALS",
+    href: "/menu?cat=pasta",
+    image: "/images/departments/dept-pasta.webp",
   },
 ];
 
@@ -86,21 +86,10 @@ export default function DesktopBentoHero() {
   }, [active, total]);
 
   return (
-    <section className="hidden lg:block mx-auto max-w-7xl px-8 pt-5 pb-10">
-      {/* ONDERA Web Outer Architectural Frame (`border-[5px] border-[#027443] rounded-[36px]`) */}
-      <div className="relative rounded-[36px] border-[5px] border-[#027443] bg-white p-6 shadow-[0_28px_70px_-28px_rgba(2,116,67,0.22)]">
-        {/* Top Metadata Strip above Giant Wordmark */}
-        <div className="flex items-center justify-between px-2 mb-1 text-xs font-extrabold text-[#111613]/65">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#027443]" />
-            <span>دار الخير هايبر ماركت — مدينة بدر (مفتوح ٢٤ ساعة)</span>
-          </div>
-          <div dir="ltr" className="font-en tracking-widest text-[#027443]">
-            {slide.badge} • WHATSAPP 01270158888 / 01210004039
-          </div>
-        </div>
-
-        {/* Giant Full-Width Edge-to-Edge Wordmark (`DAR EL KHAIR` matching `ONDERA` Web Hero) */}
+    <section className="hidden lg:block mx-auto max-w-7xl px-8 pt-4 pb-10">
+      {/* ONDERA Web Outer Architectural Frame (`border-[5px] border-[#027443] rounded-[36px]`, zero box-shadow) */}
+      <div className="relative rounded-[36px] border-[5px] border-[#027443] bg-white p-6">
+        {/* Giant Full-Width Edge-to-Edge Wordmark (`DAR EL KHAIR` matching `ONDERA` Web Hero — Zero text above it!) */}
         <div dir="ltr" className="w-full text-center relative z-10 select-none">
           <h1 className="font-en text-[10.4vw] xl:text-[134px] leading-[0.83] tracking-tight text-[#027443] uppercase whitespace-nowrap">
             DAR EL KHAIR
@@ -110,25 +99,23 @@ export default function DesktopBentoHero() {
         {/* Sculpted Green Stage with Overlapping Centerpiece & Bottom-Left Cutout Pocket */}
         <div
           dir="ltr"
-          className="relative -mt-2 rounded-[28px] bg-gradient-to-br from-[#027443] via-[#026239] to-[#014829] min-h-[435px] p-7 flex items-end justify-between overflow-visible"
+          className="relative -mt-2 rounded-[28px] bg-[#027443] min-h-[430px] p-7 flex items-end justify-between overflow-hidden"
         >
-          {/* Ambient Soft Radial Glow */}
+          {/* Centerpiece Flush with Bottom Edge (for cart) or Centered cleanly (for department cutouts) */}
           <div
-            aria-hidden="true"
-            className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[440px] h-[440px] rounded-full bg-[#FCFAEB]/20 blur-3xl"
-          />
-
-          {/* Centerpiece Overlapping the Bottom of `DAR EL KHAIR` Wordmark & Flush with Stage Bottom */}
-          <div className="pointer-events-none absolute inset-x-0 -top-10 bottom-0 flex items-end justify-center z-20">
+            className={`pointer-events-none absolute inset-x-0 top-0 bottom-0 flex justify-center z-20 ${
+              slide.id === "fresh-cart" ? "items-end" : "items-center"
+            }`}
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               key={slide.id}
               src={slide.image}
               alt={slide.titleAr}
-              className={`h-[415px] w-auto max-w-[460px] object-contain object-bottom drop-shadow-[0_28px_36px_rgba(0,0,0,0.42)] transition-all duration-500 ${
-                slide.id === "cheese-fino" || slide.id === "microwave-draw"
-                  ? "rounded-t-[24px] h-[365px]"
-                  : ""
+              className={`w-auto max-w-[460px] object-contain transition-all duration-500 ${
+                slide.id === "fresh-cart"
+                  ? "h-[410px] object-bottom"
+                  : "h-[330px] object-center"
               }`}
             />
           </div>
@@ -138,7 +125,7 @@ export default function DesktopBentoHero() {
             href={slide.href}
             dir="ltr"
             aria-label="تصفح الأقسام"
-            className="group absolute top-5 right-7 z-30 w-22 h-22 rounded-full bg-[#111613] hover:bg-[#FAA006] text-white hover:text-[#111613] flex flex-col items-center justify-center text-center p-2 shadow-xl transition-all duration-300 hover:scale-105"
+            className="group absolute top-6 right-7 z-30 w-22 h-22 rounded-full bg-[#111613] hover:bg-[#FAA006] text-white hover:text-[#111613] flex flex-col items-center justify-center text-center p-2 transition-all duration-300 hover:scale-105"
           >
             <span className="font-en text-[8.5px] tracking-[0.15em] opacity-80 leading-tight">
               BADR CITY • 24/7
@@ -149,15 +136,31 @@ export default function DesktopBentoHero() {
             </span>
           </Link>
 
-          {/* BOTTOM-LEFT INVERTED CUTOUT POCKET (`ONDERA 01` Switcher Card) */}
+          {/* BOTTOM-LEFT INVERTED CUTOUT POCKET (`ONDERA 01` Switcher Card) with Smooth Radial Concave Fillets */}
           <div
             dir="ltr"
-            className="relative z-30 -ml-7 -mb-7 bg-white pt-3.5 pr-3.5 rounded-tr-[28px]"
+            className="absolute bottom-0 left-0 z-30 bg-white pt-3.5 pr-3.5 rounded-tr-[28px]"
           >
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute left-0 -top-6 w-6 h-6"
+              style={{
+                background:
+                  "radial-gradient(circle at 100% 0%, transparent 24px, #ffffff 24.5px)",
+              }}
+            />
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-6 bottom-0 w-6 h-6"
+              style={{
+                background:
+                  "radial-gradient(circle at 100% 0%, transparent 24px, #ffffff 24.5px)",
+              }}
+            />
             <button
               type="button"
               onClick={() => setActive((prev) => (prev + 1) % total)}
-              className="group w-[190px] h-[172px] rounded-[22px] bg-[#111613] text-white p-3.5 flex flex-col justify-between text-left shadow-lg hover:bg-[#18221C] transition cursor-pointer"
+              className="group w-[190px] h-[172px] rounded-[22px] bg-[#111613] text-white p-3.5 flex flex-col justify-between text-left hover:bg-[#18221C] transition cursor-pointer"
             >
               <div className="w-full flex items-center justify-between">
                 <span className="font-en text-[10px] tracking-wider text-[#FAA006]">
@@ -171,7 +174,7 @@ export default function DesktopBentoHero() {
               <img
                 src={nextSlide.image}
                 alt={nextSlide.titleAr}
-                className="w-24 h-20 mx-auto object-contain rounded-lg transition-transform duration-300 group-hover:scale-105"
+                className="w-24 h-20 mx-auto object-contain transition-transform duration-300 group-hover:scale-105"
               />
               <div className="w-full flex items-center justify-between pt-1 border-t border-white/10 text-[10px] font-en tracking-wider">
                 <span>{slide.code}</span>
@@ -185,7 +188,7 @@ export default function DesktopBentoHero() {
           {/* BOTTOM-RIGHT ACTIVE SLIDE EDITORIAL CARD + PAIRED PILL CTA */}
           <div
             dir="rtl"
-            className="relative z-30 max-w-[330px] bg-[#111613]/85 backdrop-blur-md border border-white/15 rounded-[24px] p-4 text-right text-white shadow-xl"
+            className="relative z-30 ml-auto max-w-[330px] bg-[#111613]/90 border border-white/15 rounded-[24px] p-4 text-right text-white"
           >
             <div className="flex items-center justify-between gap-2 mb-1">
               <span className="px-2.5 py-0.5 rounded-full bg-[#FAA006] text-[#111613] text-[10px] font-black">

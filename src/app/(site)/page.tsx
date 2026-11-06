@@ -168,7 +168,7 @@ export default async function HomePage() {
         {/* Mobile & Desktop Horizontal Olive/Green Cutout Strip Card (Matches `media_1793972976917_1bf0381e.png`) */}
         <div
           dir="ltr"
-          className="mt-4 sm:mt-6 rounded-[26px] bg-gradient-to-r from-[#015933] via-[#027443] to-[#019149] text-white px-5 pt-5 pb-0 sm:px-6 sm:pt-6 sm:pb-0 flex items-end justify-between gap-4 overflow-hidden shadow-md"
+          className="mt-4 sm:mt-6 rounded-[26px] bg-gradient-to-r from-[#015933] via-[#027443] to-[#019149] text-white px-5 pt-5 pb-0 sm:px-6 sm:pt-6 sm:pb-0 flex items-end justify-between gap-4 overflow-hidden"
         >
           <div dir="rtl" className="flex-1 text-right pb-5 sm:pb-6">
             <span className="inline-block font-en text-[10px] tracking-widest uppercase text-[#FAA006] mb-1">
@@ -207,7 +207,7 @@ export default async function HomePage() {
             <img
               src="/images/hero-cart.webp"
               alt="عربة تسوق دار الخير"
-              className="w-full h-full object-contain object-bottom drop-shadow-[0_12px_20px_rgba(0,0,0,0.35)]"
+              className="w-full h-full object-contain object-bottom"
             />
           </div>
         </div>
@@ -223,7 +223,7 @@ export default async function HomePage() {
              (Matches `LIGHT IN ITS SOFTEST FORM.` in `media_1793972976521_cdcb89e2.png`)
          ========================================================================= */}
       <section className="mx-auto max-w-7xl px-3.5 sm:px-6 lg:px-8 py-10 sm:py-14 overflow-x-clip">
-        <div className="rounded-[32px] sm:rounded-[38px] bg-[#111613] text-white p-5 sm:p-8 lg:p-10 shadow-[0_24px_60px_-20px_rgba(17,22,19,0.65)]">
+        <div className="rounded-[32px] sm:rounded-[38px] bg-[#111613] text-white p-5 sm:p-8 lg:p-10">
           {/* Top Header Row inside Dark Container */}
           <div
             dir="ltr"
@@ -263,7 +263,7 @@ export default async function HomePage() {
                   href="/images/magazine/darelkhair-magazine.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative shrink-0 w-[210px] sm:w-[250px] aspect-[848/1200] rounded-2xl overflow-hidden bg-[#FCFAEB] border-2 border-white/20 hover:border-[#FAA006] shadow-lg snap-center transition"
+                  className="group relative shrink-0 w-[210px] sm:w-[250px] aspect-[848/1200] rounded-2xl overflow-hidden bg-[#FCFAEB] border-2 border-white/20 hover:border-[#FAA006] snap-center transition"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -278,14 +278,30 @@ export default async function HomePage() {
               ))}
             </div>
 
-            {/* BOTTOM-RIGHT INVERTED CUTOUT NOTCH (Exact ONDERA Dark Card Geometry!) */}
+            {/* BOTTOM-RIGHT INVERTED CUTOUT NOTCH with Smooth Radial Concave Fillets */}
             <div
               dir="ltr"
               className="absolute bottom-0 right-0 z-20 bg-[#111613] pt-3 pl-3 rounded-tl-[26px] flex items-center gap-2"
             >
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute right-0 -top-5 w-5 h-5"
+                style={{
+                  background:
+                    "radial-gradient(circle at 0% 0%, transparent 20px, #111613 20.5px)",
+                }}
+              />
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute -left-5 bottom-0 w-5 h-5"
+                style={{
+                  background:
+                    "radial-gradient(circle at 0% 0%, transparent 20px, #111613 20.5px)",
+                }}
+              />
               <Link
                 href="/offers"
-                className="rounded-full bg-white hover:bg-[#FAA006] text-[#111613] px-5 py-2.5 text-xs font-black tracking-wider transition flex items-center gap-2 shadow-md"
+                className="rounded-full bg-white hover:bg-[#FAA006] text-[#111613] px-5 py-2.5 text-xs font-black tracking-wider transition flex items-center gap-2"
               >
                 <span className="font-en">EXPLORE ALL OFFERS</span>
                 <span className="opacity-45">•</span>
@@ -297,7 +313,7 @@ export default async function HomePage() {
                 rel="noopener noreferrer"
                 title="تحميل المجلة PDF"
                 aria-label="تحميل المجلة PDF"
-                className="w-10 h-10 rounded-full bg-[#027443] hover:bg-[#FAA006] text-white hover:text-[#111613] grid place-items-center text-sm font-black transition shadow-md"
+                className="w-10 h-10 rounded-full bg-[#027443] hover:bg-[#FAA006] text-white hover:text-[#111613] grid place-items-center text-sm font-black transition"
               >
                 ↗
               </a>
