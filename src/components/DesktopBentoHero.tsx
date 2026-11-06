@@ -97,64 +97,26 @@ export default function DesktopBentoHero() {
         </div>
 
         {/* Sculpted Green Stage with Overlapping Centerpiece & Bottom-Left Cutout Pocket */}
-        <div
-          dir="ltr"
-          className="relative -mt-2 rounded-[28px] bg-[#027443] min-h-[430px] p-7 flex items-end justify-between overflow-hidden"
-        >
-          {/* Centerpiece Flush with Bottom Edge (for cart) or Centered cleanly (for department cutouts) */}
-          <div
-            className={`pointer-events-none absolute inset-x-0 top-0 bottom-0 flex justify-center z-20 ${
-              slide.id === "fresh-cart" ? "items-end" : "items-center"
-            }`}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              key={slide.id}
-              src={slide.image}
-              alt={slide.titleAr}
-              className={`w-auto max-w-[460px] object-contain transition-all duration-500 ${
-                slide.id === "fresh-cart"
-                  ? "h-[410px] object-bottom"
-                  : "h-[330px] object-center"
-              }`}
-            />
-          </div>
-
-          {/* RIGHT CIRCULAR BADGE (Matches ONDERA Web Right Black Circular Seal) */}
-          <Link
-            href={slide.href}
-            dir="ltr"
-            aria-label="تصفح الأقسام"
-            className="group absolute top-6 right-7 z-30 w-22 h-22 rounded-full bg-[#111613] hover:bg-[#FAA006] text-white hover:text-[#111613] flex flex-col items-center justify-center text-center p-2 transition-all duration-300 hover:scale-105"
-          >
-            <span className="font-en text-[8.5px] tracking-[0.15em] opacity-80 leading-tight">
-              BADR CITY • 24/7
-            </span>
-            <span className="text-lg font-black my-0.5">↗</span>
-            <span className="font-en text-[8.5px] tracking-[0.14em] text-[#FAA006] group-hover:text-[#111613]">
-              SHOP NOW
-            </span>
-          </Link>
-
-          {/* BOTTOM-LEFT INVERTED CUTOUT POCKET (`ONDERA 01` Switcher Card) with Smooth Radial Concave Fillets */}
+        <div dir="ltr" className="relative -mt-2">
+          {/* BOTTOM-LEFT INVERTED CUTOUT POCKET (`DAR EL KHAIR 01` Switcher Card) — Outside overflow-hidden */}
           <div
             dir="ltr"
             className="absolute bottom-0 left-0 z-30 bg-white pt-3.5 pr-3.5 rounded-tr-[28px]"
           >
             <span
               aria-hidden="true"
-              className="pointer-events-none absolute left-0 -top-6 w-6 h-6"
+              className="pointer-events-none absolute left-0 -top-[23px] w-6 h-6"
               style={{
                 background:
-                  "radial-gradient(circle at 100% 0%, transparent 24px, #ffffff 24.5px)",
+                  "radial-gradient(circle at 100% 0%, transparent 23.5px, #ffffff 24px)",
               }}
             />
             <span
               aria-hidden="true"
-              className="pointer-events-none absolute -right-6 bottom-0 w-6 h-6"
+              className="pointer-events-none absolute -right-[23px] bottom-0 w-6 h-6"
               style={{
                 background:
-                  "radial-gradient(circle at 100% 0%, transparent 24px, #ffffff 24.5px)",
+                  "radial-gradient(circle at 100% 0%, transparent 23.5px, #ffffff 24px)",
               }}
             />
             <button
@@ -185,60 +147,87 @@ export default function DesktopBentoHero() {
             </button>
           </div>
 
-          {/* BOTTOM-RIGHT ACTIVE SLIDE EDITORIAL CARD + PAIRED PILL CTA */}
-          <div
-            dir="rtl"
-            className="relative z-30 ml-auto max-w-[330px] bg-[#111613]/90 border border-white/15 rounded-[24px] p-4 text-right text-white"
-          >
-            <div className="flex items-center justify-between gap-2 mb-1">
-              <span className="px-2.5 py-0.5 rounded-full bg-[#FAA006] text-[#111613] text-[10px] font-black">
-                عرض المجلة
-              </span>
-              <span dir="ltr" className="font-en text-[10px] text-[#FCFAEB]/75 tracking-wider truncate">
-                {slide.enTitle}
-              </span>
+          <div className="relative rounded-[28px] bg-[#027443] min-h-[430px] p-7 flex items-end justify-between overflow-hidden">
+            {/* Centerpiece Flush with Bottom Edge (for cart) or Centered cleanly (for department cutouts) */}
+            <div
+              className={`pointer-events-none absolute inset-x-0 top-0 bottom-0 flex justify-center z-20 ${
+                slide.id === "fresh-cart" ? "items-end" : "items-center"
+              }`}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                key={slide.id}
+                src={slide.image}
+                alt={slide.titleAr}
+                className={`w-auto max-w-[460px] object-contain transition-all duration-500 ${
+                  slide.id === "fresh-cart"
+                    ? "h-[410px] object-bottom"
+                    : "h-[330px] object-center"
+                }`}
+              />
             </div>
-            <h2 className="text-lg font-black text-white leading-snug">
-              {slide.titleAr}
-            </h2>
-            <p className="text-xs font-semibold text-[#FCFAEB]/80 leading-relaxed mt-1 line-clamp-2">
-              {slide.subtitleAr}
-            </p>
 
-            {/* ONDERA Paired Pill + Circle Arrow CTA */}
-            <div className="mt-3.5 flex items-center justify-between gap-2" dir="ltr">
-              <div className="flex items-center gap-1.5">
-                {SLIDES.map((s, idx) => (
-                  <button
-                    key={s.id}
-                    type="button"
-                    onClick={() => setActive(idx)}
-                    aria-label={`شريحة ${idx + 1}`}
-                    className={`h-1.5 rounded-full transition-all cursor-pointer ${
-                      idx === active
-                        ? "w-5 bg-[#FAA006]"
-                        : "w-1.5 bg-white/35 hover:bg-white/60"
-                    }`}
-                  />
-                ))}
-              </div>
+            {/* RIGHT CIRCULAR BADGE (Matches ONDERA Web Right Black Circular Seal) */}
+            <Link
+              href={slide.href}
+              dir="ltr"
+              aria-label="تصفح الأقسام"
+              className="group absolute top-6 right-7 z-30 w-22 h-22 rounded-full bg-[#111613] hover:bg-[#FAA006] text-white hover:text-[#111613] flex flex-col items-center justify-center text-center p-2 transition-all duration-300 hover:scale-105"
+            >
+              <span className="font-en text-[8.5px] tracking-[0.15em] opacity-80 leading-tight">
+                BADR CITY • 24/7
+              </span>
+              <span className="text-lg font-black my-0.5">↗</span>
+              <span className="font-en text-[8.5px] tracking-[0.14em] text-[#FAA006] group-hover:text-[#111613]">
+                SHOP NOW
+              </span>
+            </Link>
 
-              <div className="flex items-center gap-1.5">
-                <Link
-                  href={slide.href}
-                  className="rounded-full bg-white hover:bg-[#FAA006] text-[#111613] px-3.5 py-1.5 text-[11px] font-black transition"
-                >
-                  <span className="font-en tracking-wider">EXPLORE</span>
-                  <span className="mx-1">•</span>
-                  <span dir="rtl">تسوق الآن</span>
-                </Link>
-                <Link
-                  href="/offers"
-                  aria-label="مجلة العروض"
-                  className="w-8 h-8 rounded-full bg-[#027443] hover:bg-[#FAA006] text-white hover:text-[#111613] grid place-items-center text-xs font-black transition"
-                >
-                  ↗
-                </Link>
+            {/* BOTTOM-RIGHT ACTIVE SLIDE EDITORIAL CARD + PAIRED PILL CTA (Zero small overline above title) */}
+            <div
+              dir="rtl"
+              className="relative z-30 ml-auto max-w-[330px] bg-[#111613]/90 border border-white/15 rounded-[24px] p-4 text-right text-white"
+            >
+              <h2 className="text-lg font-black text-white leading-snug">
+                {slide.titleAr}
+              </h2>
+              <p className="text-xs font-semibold text-[#FCFAEB]/80 leading-relaxed mt-1 line-clamp-2">
+                {slide.subtitleAr}
+              </p>
+
+              {/* ONDERA Paired Pill + Circle Arrow CTA */}
+              <div className="mt-3.5 flex items-center justify-between gap-2" dir="ltr">
+                <div className="flex items-center gap-1.5">
+                  {SLIDES.map((s, idx) => (
+                    <button
+                      key={s.id}
+                      type="button"
+                      onClick={() => setActive(idx)}
+                      aria-label={`شريحة ${idx + 1}`}
+                      className={`h-1.5 rounded-full transition-all cursor-pointer ${
+                        idx === active
+                          ? "w-5 bg-[#FAA006]"
+                          : "w-1.5 bg-white/35 hover:bg-white/60"
+                      }`}
+                    />
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-1.5">
+                  <Link
+                    href={slide.href}
+                    className="rounded-full bg-white hover:bg-[#FAA006] text-[#111613] px-4 py-1.5 text-xs font-black transition"
+                  >
+                    تسوق الآن
+                  </Link>
+                  <Link
+                    href="/offers"
+                    aria-label="مجلة العروض"
+                    className="w-8 h-8 rounded-full bg-[#027443] hover:bg-[#FAA006] text-white hover:text-[#111613] grid place-items-center text-xs font-black transition"
+                  >
+                    ↗
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

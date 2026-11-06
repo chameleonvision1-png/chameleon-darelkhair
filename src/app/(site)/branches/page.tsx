@@ -49,19 +49,7 @@ export default async function BranchesPage() {
           aria-hidden="true"
         />
         <div className="relative z-10 text-right">
-          <div className="flex items-center gap-2 text-xs font-extrabold tracking-widest uppercase text-[#FAA006] mb-2">
-            <span className="w-2 h-2 rounded-full bg-[#7FBB13]" />
-            <span dir="ltr" className="font-en">
-              BADR CITY • OPEN 24 HOURS DAILY
-            </span>
-          </div>
-          <div
-            dir="ltr"
-            className="font-en uppercase text-2xl sm:text-4xl text-white leading-[0.94] tracking-tight text-left"
-          >
-            ALWAYS OPEN. FAST HOME DELIVERY.
-          </div>
-          <h1 className="mt-2.5 text-xl sm:text-4xl font-black text-[#FAA006] text-right">
+          <h1 className="text-2xl sm:text-4xl font-black text-white text-right">
             فرع مدينة بدر ونطاق التوصيل المنزلي
           </h1>
           <p className="text-white/80 mt-2 text-xs sm:text-base max-w-2xl font-semibold text-right leading-relaxed">
@@ -149,8 +137,7 @@ export default async function BranchesPage() {
         {/* Direct WhatsApp Ordering Highlight Card */}
         <div className="rounded-[28px] bg-[#027443] text-white p-6 flex flex-col justify-between">
           <div>
-            <span className="sticker-badge mb-2">DIRECT WHATSAPP DESK</span>
-            <h2 className="font-black text-lg sm:text-2xl text-white mt-1">
+            <h2 className="font-black text-lg sm:text-2xl text-white">
               خدمة عملاء وطلبات واتساب على مدار الساعة
             </h2>
             <p className="text-xs sm:text-sm text-white/85 mt-2 leading-relaxed font-semibold">

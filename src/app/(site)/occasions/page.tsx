@@ -84,19 +84,7 @@ export default async function OccasionsPage() {
           aria-hidden="true"
         />
         <div className="relative z-10 text-right">
-          <div className="flex items-center gap-2 text-xs font-extrabold tracking-widest uppercase text-[#FAA006] mb-2">
-            <span className="w-2 h-2 rounded-full bg-[#FAA006]" />
-            <span dir="ltr" className="font-en">
-              MONTHLY PANTRY • CHARITY BOXES • WHOLESALE
-            </span>
-          </div>
-          <div
-            dir="ltr"
-            className="font-en uppercase text-2xl sm:text-4xl text-white leading-[0.94] tracking-tight text-left"
-          >
-            FAMILY PANTRY &amp; WHOLESALE ORDERS.
-          </div>
-          <h1 className="mt-2.5 text-xl sm:text-4xl font-black text-white text-right">
+          <h1 className="text-2xl sm:text-4xl font-black text-white text-right">
             خزين الشهر، كرتونة الخير، وطلبات الجملة
           </h1>
           <p className="text-white/85 mt-2 text-xs sm:text-base max-w-2xl font-semibold text-right leading-relaxed">

@@ -64,30 +64,19 @@ export function ProductCard({
             off ? "opacity-60 cursor-not-allowed" : "cursor-pointer"
           }`}
         >
-          {/* Main Menu Details — Stacked Eyebrow + Full Arabic Title (Zero Truncation) */}
+          {/* Main Menu Details — Direct Full Arabic Title (Zero small English overline above title) */}
           <div className="flex-1 min-w-0 flex flex-col justify-between">
             <div className="min-w-0">
-              <div className="flex items-center justify-between gap-2 mb-0.5">
-                {product.nameEn ? (
-                  <span
-                    dir="ltr"
-                    className="font-en text-[10px] tracking-wider text-[#027443] uppercase truncate text-left"
-                  >
-                    {product.nameEn}
-                  </span>
-                ) : (
-                  <span />
-                )}
+              <div className="flex items-start justify-between gap-2">
+                <h3 className="font-black text-sm sm:text-base text-[#111613] group-hover:text-[#027443] transition-colors leading-snug text-right">
+                  {product.nameAr}
+                </h3>
                 {product.isBestSeller && (
                   <span className="shrink-0 text-[10px] font-black bg-[#FAA006]/25 text-[#111613] px-2 py-0.5 rounded-full">
                     الأكثر طلبًا
                   </span>
                 )}
               </div>
-
-              <h3 className="font-black text-sm sm:text-base text-[#111613] group-hover:text-[#027443] transition-colors leading-snug text-right">
-                {product.nameAr}
-              </h3>
             </div>
 
             <p className="text-xs text-[#111613]/65 mt-1 line-clamp-2 leading-relaxed text-right">
@@ -212,17 +201,8 @@ export function ProductCard({
           </span>
         </div>
 
-        {/* Bottom Details — Stacked English Eyebrow + Full Arabic Title (Never Truncated) */}
+        {/* Bottom Details — Direct Full Arabic Title (Never Truncated, zero small English overline) */}
         <div className="pt-3.5 flex flex-col justify-end flex-1">
-          {product.nameEn && (
-            <div
-              dir="ltr"
-              className="font-en text-[10px] tracking-wider text-[#027443] uppercase truncate text-left mb-0.5"
-            >
-              {product.nameEn}
-            </div>
-          )}
-
           <h3 className="text-sm sm:text-[15px] font-black text-[#111613] group-hover:text-[#027443] transition-colors leading-snug text-right">
             {product.nameAr}
           </h3>
@@ -393,27 +373,16 @@ export function ProductModal({
         <div className="flex-1 flex flex-col min-h-0 min-w-0 bg-white">
           <div className="px-5 pt-4 pb-3.5 border-b border-[#111613]/10 flex items-start justify-between gap-3">
             <div className="min-w-0 flex-1">
-              <div className="flex items-baseline justify-between gap-2">
-                <div className="flex items-center gap-2 min-w-0">
-                  <h2
-                    id="modal-product-title"
-                    className="text-lg sm:text-xl font-black text-[#111613] leading-snug truncate text-right"
-                  >
-                    {product.nameAr}
-                  </h2>
-                  <span className="shrink-0 inline-flex items-center rounded-full bg-[#FAA006] text-[#111613] px-3 py-0.5 text-xs sm:text-sm font-black">
-                    {formatPrice(size?.price ?? 0)}
-                  </span>
-                </div>
-
-                {product.nameEn && (
-                  <div
-                    dir="ltr"
-                    className="font-en text-xs tracking-wider text-[#027443] uppercase truncate text-left shrink-0 max-w-[40%]"
-                  >
-                    {product.nameEn}
-                  </div>
-                )}
+              <div className="flex items-center justify-between gap-2">
+                <h2
+                  id="modal-product-title"
+                  className="text-lg sm:text-xl font-black text-[#111613] leading-snug truncate text-right"
+                >
+                  {product.nameAr}
+                </h2>
+                <span className="shrink-0 inline-flex items-center rounded-full bg-[#FAA006] text-[#111613] px-3 py-0.5 text-xs sm:text-sm font-black">
+                  {formatPrice(size?.price ?? 0)}
+                </span>
               </div>
               <p className="text-xs sm:text-sm text-[#111613]/70 mt-1 leading-relaxed text-right">
                 {product.descriptionAr}

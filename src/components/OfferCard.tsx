@@ -32,7 +32,7 @@ export default function OfferCard({ offer }: { offer: Offer }) {
           alt={offer.title}
           className={`w-full h-full group-hover:scale-105 transition duration-500 ${
             isFullBleedStage
-              ? "object-cover object-center"
+              ? "object-cover object-top"
               : "object-contain drop-shadow-[0_14px_24px_rgba(0,0,0,0.35)]"
           }`}
         />
@@ -44,26 +44,10 @@ export default function OfferCard({ offer }: { offer: Offer }) {
           ) : (
             <span />
           )}
-          {offer.badge && (
-            <span
-              dir="ltr"
-              className="bg-[#FAA006] text-[#111613] font-black text-[11px] px-3 py-1 rounded-full shadow-md uppercase text-left"
-            >
-              {offer.badge}
-            </span>
-          )}
         </div>
       </div>
 
       <div className="p-4 sm:p-5 flex flex-col flex-1">
-        {offer.titleEn && (
-          <div
-            dir="ltr"
-            className="font-en text-[11px] text-[#027443] uppercase tracking-wider text-left truncate mb-1"
-          >
-            {offer.titleEn}
-          </div>
-        )}
         <h3 className="font-black text-base sm:text-lg text-[#111613] group-hover:text-[#027443] transition-colors leading-snug text-right">
           {offer.title}
         </h3>

@@ -76,19 +76,7 @@ export default function AboutPage() {
             />
           </div>
           <div className="flex-1 w-full text-right">
-            <div className="flex items-center gap-2 text-xs font-extrabold tracking-widest uppercase text-[#FAA006] mb-2">
-              <span className="w-2 h-2 rounded-full bg-[#FAA006]" />
-              <span dir="ltr" className="font-en">
-                ABOUT DAR EL KHAIR • BADR CITY
-              </span>
-            </div>
-            <div
-              dir="ltr"
-              className="font-en uppercase text-2xl sm:text-5xl text-white leading-[0.94] tracking-tight text-left"
-            >
-              NOT JUST A MARKET. A NEIGHBORHOOD PARTNER.
-            </div>
-            <h1 className="mt-2.5 text-xl sm:text-4xl font-black text-[#FAA006] text-right">
+            <h1 className="text-2xl sm:text-4xl font-black text-white text-right">
               دار الخير هايبر ماركت — تسوق أسهل لكل احتياجات بيتك
             </h1>
             <p className="text-white/88 mt-2 text-sm sm:text-lg max-w-2xl leading-relaxed font-semibold text-right">
@@ -119,14 +107,6 @@ export default function AboutPage() {
               />
             </div>
             <div>
-              <div className="flex items-center justify-between gap-2 mb-3">
-                <span className="text-xs font-extrabold bg-[#027443] text-white px-3 py-1 rounded-full">
-                  دار الخير • مدينة بدر
-                </span>
-                <span dir="ltr" className="font-en text-xs text-[#027443] tracking-wider">
-                  {b.code} • {b.en}
-                </span>
-              </div>
               <h2 className="text-xl sm:text-3xl font-black text-[#111613] text-right">
                 {b.title}
               </h2>

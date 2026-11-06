@@ -110,14 +110,6 @@ const MenuChapters = memo(function MenuChapters({
                       {items.length} منتج
                     </span>
                   </div>
-                  {c.nameEn && (
-                    <span
-                      dir="ltr"
-                      className="font-en text-sm tracking-wider text-[#027443] uppercase text-left"
-                    >
-                      {c.nameEn}
-                    </span>
-                  )}
                 </div>
                 <p className="text-xs sm:text-sm text-[#111613]/68 mt-1.5 text-right">{desc}</p>
               </div>
@@ -401,22 +393,10 @@ export default function MenuClient({
 
           <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-5 min-w-0">
             <div className="flex-1 min-w-0 flex flex-col items-start text-right">
-              <div className="flex items-center gap-2 text-xs font-extrabold tracking-widest uppercase text-[#FAA006] mb-2">
-                <span className="w-2 h-2 rounded-full bg-[#FAA006]" />
-                <span dir="ltr" className="font-en">
-                  DAR EL KHAIR CATALOG • 09 DEPARTMENTS
-                </span>
-              </div>
-              <div
-                dir="ltr"
-                className="font-en text-2xl sm:text-4xl text-white uppercase leading-[0.94] tracking-tight text-left"
-              >
-                EVERYDAY ESSENTIALS. HONEST PRICES.
-              </div>
-              <h1 className="mt-2 text-xl sm:text-3xl font-black tracking-tight text-[#FAA006] text-right">
+              <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-white text-right">
                 أقسام ومجلة عروض دار الخير هايبر ماركت
               </h1>
-              <p className="text-white/80 mt-1.5 text-xs sm:text-base max-w-2xl leading-relaxed font-semibold text-right">
+              <p className="text-white/80 mt-2 text-xs sm:text-base max-w-2xl leading-relaxed font-semibold text-right">
                 الألبان والجبن، المربى والحلاوة والعسل، الزيوت والسمن، المكرونة، الشاي والسكر، الأرز والدقيق، المعلبات والصلصة، وعرض الجبنة جابت الفينو معاها — اضغط على أي منتج لإضافته للسلة.
               </p>
             </div>

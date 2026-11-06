@@ -53,19 +53,7 @@ export default async function ContactPage() {
             aria-hidden="true"
           />
           <div className="relative z-10 text-right">
-            <div className="flex items-center gap-2 text-xs font-extrabold tracking-widest uppercase text-[#FAA006] mb-2">
-              <span className="w-2 h-2 rounded-full bg-[#FAA006]" />
-              <span dir="ltr" className="font-en">
-                OFFICIAL CHANNELS &amp; HOTLINES • 24/7
-              </span>
-            </div>
-            <div
-              dir="ltr"
-              className="font-en uppercase text-2xl sm:text-4xl text-white leading-[0.94] tracking-tight text-left"
-            >
-              DIRECT CUSTOMER CARE IN BADR CITY.
-            </div>
-            <h1 className="mt-2.5 text-xl sm:text-4xl font-black text-[#FAA006] text-right">
+            <h1 className="text-2xl sm:text-4xl font-black text-white text-right">
               تواصل معنا وكل الروابط الرسمية لدار الخير
             </h1>
             <p className="text-white/80 mt-2 text-xs sm:text-base max-w-2xl font-semibold text-right leading-relaxed">
@@ -88,12 +76,9 @@ export default async function ContactPage() {
         {/* Official Links & Channels Hub */}
         <div className="mt-8 rounded-[32px] bg-[#FCFAEB] border border-[#027443]/22 p-5 sm:p-8 shadow-xs">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-[#027443]/15">
-            <div>
-              <span className="sticker-badge mb-1.5">OFFICIAL DIGITAL HUB</span>
-              <h2 className="text-xl sm:text-2xl font-black text-[#027443]">
-                القنوات والروابط الرسمية لدار الخير هايبر ماركت
-              </h2>
-            </div>
+            <h2 className="text-xl sm:text-2xl font-black text-[#027443]">
+              القنوات والروابط الرسمية لدار الخير هايبر ماركت
+            </h2>
             <a
               href="/images/magazine/darelkhair-magazine.pdf"
               download

@@ -61,19 +61,7 @@ export default async function OffersPage() {
           aria-hidden="true"
         />
         <div className="relative z-10 text-right">
-          <div className="flex items-center gap-2 text-xs font-extrabold tracking-widest uppercase text-[#FAA006] mb-2">
-            <span className="w-2 h-2 rounded-full bg-[#FAA006]" />
-            <span dir="ltr" className="font-en">
-              OFFICIAL MAGAZINE OFFERS • 09 PAGES
-            </span>
-          </div>
-          <div
-            dir="ltr"
-            className="font-en uppercase text-2xl sm:text-4xl text-white leading-[0.94] tracking-tight text-left"
-          >
-            WEEKLY SAVINGS &amp; FREE FINO DEALS.
-          </div>
-          <h1 className="mt-2.5 text-xl sm:text-4xl font-black text-[#FAA006] text-right">
+          <h1 className="text-2xl sm:text-4xl font-black text-white text-right">
             مجلة عروض دار الخير هايبر ماركت
           </h1>
           <p className="text-white/80 mt-2 text-xs sm:text-base max-w-2xl font-semibold text-right leading-relaxed">
@@ -101,12 +89,9 @@ export default async function OffersPage() {
       {/* Active Offers Grid */}
       <div className="mt-8">
         <div className="flex items-center justify-between gap-3 mb-5">
-          <div>
-            <span className="sticker-badge mb-1.5">FEATURED PROMOTIONS</span>
-            <h2 className="text-xl sm:text-3xl font-black text-[#111613]">
-              باقات وعروض التوفير الجاهزة للطلب
-            </h2>
-          </div>
+          <h2 className="text-xl sm:text-3xl font-black text-[#111613]">
+            باقات وعروض التوفير الجاهزة للطلب
+          </h2>
           <Link href="/menu" className="text-xs sm:text-sm font-black text-[#027443] hover:underline">
             عرض كل المنتجات (39 منتج) ←
           </Link>
@@ -134,7 +119,6 @@ export default async function OffersPage() {
       <div className="mt-12 rounded-[32px] bg-[#FCFAEB] border border-[#027443]/22 p-5 sm:p-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
           <div>
-            <span className="sticker-badge mb-2">OFFICIAL 9-PAGE MAGAZINE</span>
             <h2 className="text-xl sm:text-2xl font-black text-[#027443]">
               صفحات مجلة عروض دار الخير الرسمية (9 صفحات كاملة)
             </h2>

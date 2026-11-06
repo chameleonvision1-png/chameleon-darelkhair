@@ -59,20 +59,17 @@ export default function OnderaFaqSection() {
 
   return (
     <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-18 overflow-x-clip">
-      {/* Header Row matching `• FAQ / YOUR QUESTIONS. OUR ANSWERS.` */}
+      {/* Header Row matching `YOUR QUESTIONS. OUR ANSWERS.` — Zero small overlines above title */}
       <div
         dir="ltr"
         className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8"
       >
-        <div>
-          <span className="ondera-label mb-2">FAQ • الأسئلة الشائعة</span>
-          <div className="text-left">
-            <h2 className="font-en text-3xl sm:text-5xl text-[#111613] leading-[0.94] tracking-tight uppercase">
-              YOUR QUESTIONS.
-              <br />
-              OUR ANSWERS.
-            </h2>
-          </div>
+        <div className="text-left">
+          <h2 className="font-en text-3xl sm:text-5xl text-[#111613] leading-[0.94] tracking-tight uppercase">
+            YOUR QUESTIONS.
+            <br />
+            OUR ANSWERS.
+          </h2>
         </div>
         <p
           dir="rtl"

@@ -43,15 +43,12 @@ export default function FavouritesShowcase({ products }: { products: Product[] }
 
   return (
     <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-14 overflow-x-clip">
-      {/* ONDERA Section Header */}
+      {/* ONDERA Section Header — Zero small overlines above title */}
       <div
         dir="ltr"
         className="flex flex-col md:flex-row md:items-end justify-between gap-4"
       >
         <div className="flex flex-col items-start">
-          <span className="ondera-label mb-2">
-            MAGAZINE CATALOG • كتالوج عروض دار الخير
-          </span>
           <div className="text-left">
             <h2 className="font-en text-3xl sm:text-5xl text-[#111613] leading-[0.94] tracking-tight uppercase">
               CURATED FOR YOUR HOME.
@@ -69,11 +66,9 @@ export default function FavouritesShowcase({ products }: { products: Product[] }
         <div className="flex items-center gap-2 self-start md:self-end" dir="ltr">
           <Link
             href="/menu"
-            className="rounded-full border border-[#111613]/20 hover:border-[#027443] bg-white px-5 py-2.5 text-xs font-black text-[#111613] hover:text-[#027443] transition"
+            className="rounded-full border border-[#111613]/20 hover:border-[#027443] bg-white px-5 py-2.5 text-xs font-black text-[#111613] hover:text-[#027443] whitespace-nowrap transition"
           >
-            <span className="font-en tracking-wider">ALL 36+ PRODUCTS</span>
-            <span className="mx-1.5 opacity-40">•</span>
-            <span dir="rtl">كل الأقسام</span>
+            كل الأقسام
           </Link>
           <Link
             href="/menu"

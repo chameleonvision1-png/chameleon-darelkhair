@@ -69,10 +69,6 @@ export default function OnderaAboutGallery() {
       >
         {/* Left Column in LTR / Editorial About Block (`NOT JUST LIGHT. A FEELING.`) */}
         <div className="lg:col-span-5 flex flex-col items-start">
-          <span className="ondera-label mb-2.5">
-            ABOUT DAR EL KHAIR • عن دار الخير
-          </span>
-
           <div className="w-full text-left">
             <h2 className="font-en text-3xl sm:text-4xl lg:text-[44px] leading-[0.95] tracking-tight text-[#111613] uppercase">
               NOT JUST A MARKET.
@@ -81,20 +77,13 @@ export default function OnderaAboutGallery() {
             </h2>
           </div>
 
-          <h3
-            dir="rtl"
-            className="mt-2.5 text-base sm:text-lg font-black text-[#027443] leading-snug text-right w-full"
-          >
-            دار الخير هايبر ماركت — تسوق أسهل لكل احتياجات بيتك في مدينة بدر.
-          </h3>
-
           {/* Compact Rounded Inset Lifestyle Photo Card (Matches ONDERA Inset Photo Card) */}
           <div className="mt-4 w-full rounded-[22px] overflow-hidden border border-[#111613]/10 shadow-sm bg-[#FCFAEB] relative">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/cheese-fino-stage.webp"
               alt="ثلاجة الجبن والمخبوزات الطازجة في دار الخير هايبر ماركت"
-              className="w-full h-40 sm:h-44 object-cover object-center"
+              className="w-full h-40 sm:h-44 object-cover object-top"
             />
             <span
               dir="rtl"
@@ -115,11 +104,9 @@ export default function OnderaAboutGallery() {
           <div className="mt-5 flex items-center gap-2" dir="ltr">
             <Link
               href="/menu"
-              className="rounded-full border border-[#111613]/25 hover:border-[#027443] bg-white px-5 py-2.5 text-xs font-black text-[#111613] hover:text-[#027443] transition flex items-center gap-2"
+              className="rounded-full border border-[#111613]/25 hover:border-[#027443] bg-white px-5 py-2.5 text-xs font-black text-[#111613] hover:text-[#027443] whitespace-nowrap transition"
             >
-              <span className="font-en tracking-wider">DISCOVER DAR EL KHAIR</span>
-              <span className="opacity-45">•</span>
-              <span dir="rtl">تصفح الأقسام</span>
+              تصفح الأقسام
             </Link>
             <Link
               href="/offers"
@@ -133,26 +120,24 @@ export default function OnderaAboutGallery() {
 
         {/* Right Column in LTR / 4-Thumbnail Interactive Showcase Stage */}
         <div className="lg:col-span-7 flex flex-col sm:flex-row items-stretch gap-3 sm:gap-4" dir="ltr">
-          {/* Main Rounded Stage with Top-Right Inverted Cutout Button (Zero box-shadow) */}
-          <div
-            className={`relative flex-1 min-h-[300px] sm:min-h-[380px] rounded-[28px] bg-gradient-to-br ${current.bg} p-5 sm:p-7 flex flex-col justify-between overflow-hidden`}
-          >
+          {/* Main Rounded Stage with Top-Right Inverted Cutout Button (Cutout outside overflow-hidden so circle is never clipped) */}
+          <div className="relative flex-1 min-h-[300px] sm:min-h-[380px] flex">
             {/* Top-Right Inverted Cutout Notch with Smooth Radial Concave Fillets */}
             <div className="absolute top-0 right-0 z-20 bg-white pl-2.5 pb-2.5 rounded-bl-[24px]">
               <span
                 aria-hidden="true"
-                className="pointer-events-none absolute -left-5 top-0 w-5 h-5"
+                className="pointer-events-none absolute -left-[19px] top-0 w-5 h-5"
                 style={{
                   background:
-                    "radial-gradient(circle at 0% 100%, transparent 20px, #ffffff 20.5px)",
+                    "radial-gradient(circle at 0% 100%, transparent 19.5px, #ffffff 20px)",
                 }}
               />
               <span
                 aria-hidden="true"
-                className="pointer-events-none absolute right-0 -bottom-5 w-5 h-5"
+                className="pointer-events-none absolute right-0 -bottom-[19px] w-5 h-5"
                 style={{
                   background:
-                    "radial-gradient(circle at 0% 100%, transparent 20px, #ffffff 20.5px)",
+                    "radial-gradient(circle at 0% 100%, transparent 19.5px, #ffffff 20px)",
                 }}
               />
               <button
@@ -167,40 +152,41 @@ export default function OnderaAboutGallery() {
               </button>
             </div>
 
-            <div className="relative z-10 flex items-center gap-2 max-w-[75%]">
-              <span className="px-2.5 py-1 rounded-full bg-[#FAA006] text-[#111613] font-en text-[11px] font-black">
-                /{current.code}
-              </span>
-              <span className="font-en text-xs tracking-wider text-[#FCFAEB]/80 truncate">
-                {current.titleEn}
-              </span>
-            </div>
-
-            <div className="relative z-10 my-auto py-4 flex items-center justify-center">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                key={current.id}
-                src={current.image}
-                alt={current.titleAr}
-                className="w-full max-w-[340px] h-44 sm:h-52 object-contain transition-all duration-300"
-              />
-            </div>
-
-            <div dir="rtl" className="relative z-10 flex items-end justify-between gap-3 pt-2 border-t border-white/12">
-              <div className="text-right">
-                <h4 className="text-base sm:text-lg font-black text-white">
-                  {current.titleAr}
-                </h4>
-                <p className="text-xs font-semibold text-[#FCFAEB]/80 mt-0.5 line-clamp-2">
-                  {current.subtitleAr}
-                </p>
+            <div
+              className={`relative flex-1 rounded-[24px] sm:rounded-[28px] bg-gradient-to-br ${current.bg} p-5 sm:p-7 flex flex-col justify-between overflow-hidden`}
+            >
+              <div className="relative z-10 flex items-center gap-2 max-w-[75%]">
+                <span className="px-2.5 py-1 rounded-full bg-[#FAA006] text-[#111613] font-en text-[11px] font-black">
+                  /{current.code}
+                </span>
               </div>
-              <Link
-                href={current.href}
-                className="shrink-0 rounded-full bg-white hover:bg-[#FAA006] text-[#111613] px-3.5 py-1.5 text-xs font-black transition"
-              >
-                عرض المنتجات ↗
-              </Link>
+
+              <div className="relative z-10 my-auto py-4 flex items-center justify-center">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  key={current.id}
+                  src={current.image}
+                  alt={current.titleAr}
+                  className="w-full max-w-[340px] h-44 sm:h-52 object-contain transition-all duration-300"
+                />
+              </div>
+
+              <div dir="rtl" className="relative z-10 flex items-end justify-between gap-3 pt-2 border-t border-white/12">
+                <div className="text-right">
+                  <h4 className="text-base sm:text-lg font-black text-white">
+                    {current.titleAr}
+                  </h4>
+                  <p className="text-xs font-semibold text-[#FCFAEB]/80 mt-0.5 line-clamp-2">
+                    {current.subtitleAr}
+                  </p>
+                </div>
+                <Link
+                  href={current.href}
+                  className="shrink-0 rounded-full bg-white hover:bg-[#FAA006] text-[#111613] px-3.5 py-1.5 text-xs font-black transition"
+                >
+                  عرض المنتجات ↗
+                </Link>
+              </div>
             </div>
           </div>
 
