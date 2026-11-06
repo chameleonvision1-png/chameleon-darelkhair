@@ -1,0 +1,214 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Dar El Khair Hyper Market — Official Emerald Green, Olive Sage, Golden Wheat & ONDERA Charcoal Palette */
+  --color-brand: #027443;      /* Official Magazine Forest Emerald Green */
+  --color-brand-600: #019149;  /* Official Banner Vibrant Emerald Green */
+  --color-brand-700: #015933;  /* Deep Forest Olive Green */
+  --color-brand-50: #F2FAF5;   /* Soft Mint Cream Tint */
+  --color-navy: #111613;       /* ONDERA Sculptural Dark Charcoal Stage */
+  --color-teal: #027443;       /* Forest Emerald Accent */
+  --color-teal-50: #F2FAF5;
+  --color-cyan: #7FBB13;       /* Fresh Leaf Green */
+  --color-cream: #FFFFFF;      /* ONDERA Pure Architectural White Canvas */
+  --color-cream-warm: #FCFAEB; /* Official Magazine Warm Wheat Cream */
+  --color-cream-200: #E4E7DF;  /* Subtle Architectural Hairline Border */
+  --color-honey: #FAA006;      /* Official Golden Wheat Amber */
+  --color-berry: #027443;      /* Forest Emerald */
+  --color-leaf: #019149;       /* Fresh Green */
+  --color-plum: #015933;       /* Deep Forest */
+  --color-ink: #111613;        /* Deep Forest Charcoal Text */
+  --color-cocoa: #1A241E;
+  --font-sans: var(--font-cairo), system-ui, sans-serif;
+  --font-display: var(--font-anton), var(--font-cairo), system-ui, sans-serif;
+  --font-en: var(--font-anton), var(--font-cairo), system-ui, sans-serif;
+}
+
+:root {
+  --container-7xl: 100%;
+  --container-6xl: 100%;
+}
+
+.max-w-7xl,
+.max-w-6xl {
+  max-width: 100% !important;
+}
+@media (min-width: 1024px) {
+  .max-w-7xl,
+  .max-w-6xl {
+    padding-inline: 2.5rem !important;
+  }
+}
+
+html {
+  scrollbar-width: none;
+  overflow-x: clip;
+  max-width: 100vw;
+}
+html::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  overflow-x: clip;
+  max-width: 100vw;
+  width: 100%;
+  background: #FFFFFF;
+  color: var(--color-ink);
+  font-family: var(--font-cairo), system-ui, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.font-anton,
+.font-en {
+  font-family: var(--font-anton), var(--font-cairo), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* ONDERA Signature Paired Pill + Circle Arrow Button */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 800;
+  transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.btn:active {
+  transform: scale(0.97);
+}
+.btn-primary {
+  background: var(--color-brand);
+  color: white;
+  box-shadow: 0 10px 24px -8px rgb(2 116 67 / 0.42);
+}
+.btn-primary:hover {
+  background: var(--color-brand-600);
+}
+.btn-teal {
+  background: var(--color-teal);
+  color: white;
+}
+.btn-teal:hover {
+  filter: brightness(1.06);
+}
+.btn-outline {
+  border: 1.5px solid rgb(17 22 19 / 0.22);
+  color: var(--color-ink);
+  background: white;
+}
+.btn-outline:hover {
+  border-color: var(--color-brand);
+  color: var(--color-brand);
+}
+.btn-whatsapp {
+  background: #019149;
+  color: white;
+}
+
+/* ONDERA Section Micro-Label (`• ABOUT DAR EL KHAIR`) */
+.ondera-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgb(17 22 19 / 0.58);
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+.ondera-label::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: var(--color-brand);
+  display: inline-block;
+}
+
+/* Sticker Badge adapted to ONDERA / Dar El Khair Golden Pill */
+.sticker-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  direction: ltr;
+  unicode-bidi: isolate;
+  white-space: nowrap;
+  flex-shrink: 0;
+  background: #FAA006;
+  color: #111613;
+  font-family: var(--font-anton), var(--font-cairo), sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.28rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  box-shadow: 0 4px 12px rgb(17 22 19 / 0.12);
+}
+
+.card {
+  background: #FCFAEB;
+  border-radius: 1.5rem;
+  border: 1px solid rgb(2 116 67 / 0.12);
+  box-shadow: 0 10px 28px -16px rgb(17 22 19 / 0.08);
+}
+
+.input {
+  width: 100%;
+  border-radius: 0.9rem;
+  border: 1.5px solid #DDE3DC;
+  background: white;
+  padding: 0.7rem 0.95rem;
+  font-size: 0.95rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.input:focus {
+  outline: none;
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 3px rgb(2 116 67 / 0.15);
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-float {
+  animation: floatSlow 4.5s ease-in-out infinite;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
